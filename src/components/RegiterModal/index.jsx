@@ -23,7 +23,7 @@ function RegisterModal(props) {
           <input className="register-modal__content__form__input" type="text" id="name" name="name" placeholder="Enter your name..." />
           <br />
 
-          <label className="register-modal__content__form__label" for="email">EMAIL</label><br />
+          <label className="register-modal__content__form__label" for="email">E-MAIL</label><br />
           <input className="register-modal__content__form__input" type="text" id="email" name="email" placeholder="Enter your email..." />
           <br />
 

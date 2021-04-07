@@ -1,0 +1,116 @@
+.login-modal {
+  display: block; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 228px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0); /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+
+  &__content {
+    margin: auto;
+    width: 555px;
+    background-color: var(--white);
+
+    &__close {
+      position: relative;
+      height: 47px;
+      &__icon {
+        position: absolute;
+        top: 14px;
+        right: 14px;
+      }
+    }
+
+    &__title {
+      margin: 0 0 35px 0;
+      color: var(--dark-grey);
+      text-align: center;
+    }
+
+    &__form {
+      margin: 0 80px;
+
+      &__label {
+        height: 18px;
+        font-weight: bold;
+        font-size: 12px;
+        line-height: 1.5;
+        color: var(--dark-grey);
+      }
+
+      &__input {
+        width: 395px;
+        height: 46px;
+        margin: 8px 0 24px 0;
+        padding: 12px 0 12px 24px;
+        // border: 1px solid var(--greyish-two);
+        border: none;
+        font-weight: 500;
+        font-size: 14px;
+        color: rgba(77, 77, 77, 0.5);
+        // opacity: 0.3;
+        line-height: 1.57;
+        background-color: var(--white-two);
+      }
+
+      &__option {
+        margin-top: 2px;
+        display: flex;
+        justify-content: space-between;
+        &__remember {
+          & > input[type="checkbox"] {
+            vertical-align: -2px;
+            margin-right: 8px;
+          }
+          & > input[type="checkbox"]:checked:after {
+            color: #ffa15f;
+          }
+          & > label {
+            color: var(--greyish-brown);
+            list-style: 1.57;
+            font-size: 14px;
+          }
+        }
+
+        & > p {
+          color: var(--dark-grey);
+          line-height: 1.57;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+
+      &__button {
+        width: 100%;
+        height: 49px;
+        margin: 46px 0 63px 0;
+        color: var(--white);
+        background-color: #ffa15f;
+        border: none;
+      }
+    }
+
+    &__option {
+      height: 66px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.57;
+      color: var(--greyish-brown);
+      text-align: center;
+      padding: 23px 0;
+      border-top: 0.5px solid var(--white-three);
+
+      & > a {
+        color: var(--pumpkin-orange);
+        font-weight: bold;
+        text-decoration: underline;
+        text-underline-position: under;
+      }
+    }
+  }
+}
