@@ -32,8 +32,8 @@ function NavBar(props) {
           </div>
         </div>
       </div>
-      {/* <div className="navbar__divider"></div> */}
       <div className="navbar__bottom"></div>
+      {/* <div className="navbar__divider"></div> */}
     </div>
   );
 }

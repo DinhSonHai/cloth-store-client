@@ -1,9 +1,14 @@
 :root {
   --white: #ffffff;
+  --white-two: #f6f6f6;
+  --white-three: #ededed;
+  --white-four: #d4d3d3;
   --greyish-two: #b7b7b7;
   --pinkish-grey: #cccccc;
   --charcoal-grey: #3d3d3f;
   --greyish-brown: #4d4d4d;
+  --dark-grey: #202124;
+  --pumpkin-orange: #ff7413;
 }
 
 * {
@@ -14,8 +19,8 @@
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
-    "Droid Sans", "Helvetica Neue", sans-serif;
+  font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell",
+    "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
