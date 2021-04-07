@@ -1,12 +1,13 @@
 import LoginModal from './components/LoginModal';
 import RegisterModal from './components/RegiterModal';
-import { NavBar, Footer } from './pages';
+import { NavBar, Footer, HomePage } from './pages';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
       <NavBar />
-      <LoginModal />
+      <HomePage />
+      {/* <LoginModal /> */}
       {/* <RegisterModal /> */}
       {/* <Footer /> */}
     </div>

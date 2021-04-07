@@ -1,10 +1,9 @@
 .navbar {
-  max-width: 1440px;
   &__top {
     width: 100%;
     padding-top: 21px;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
 
     &__search-box {
@@ -74,6 +73,8 @@
   // }
   &__bottom {
     margin-top: 13px;
+    margin-left: -130px;
+    margin-right: -130px;
     height: 45px;
     border-top: 0.5px solid #ececec;
     border-bottom: 0.5px solid #ececec;

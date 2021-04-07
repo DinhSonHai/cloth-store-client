@@ -1,0 +1,13 @@
+.home-page {
+  margin: 37px 0;
+  &__weekly-outfit {
+    height: 513px;
+    border: 1px solid var(--greyish-two);
+    margin-bottom: 17px;
+  }
+
+  &__collection {
+    display: flex;
+    justify-content: space-between;
+  }
+}
