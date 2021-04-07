@@ -1,0 +1,81 @@
+.navbar {
+  max-width: 1440px;
+  &__top {
+    width: 100%;
+    padding-top: 21px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    &__search-box {
+      width: 181px;
+      height: 35px;
+      display: flex;
+      padding: 5px 12px 5px 15px;
+      border: 1px solid var(--greyish-two);
+      border-radius: 17px;
+
+      &__input {
+        height: 100%;
+        width: 90%;
+        color: var(--greyish-two);
+        font-family: Montserrat;
+        line-height: 1.57;
+        outline: none;
+        border: none;
+      }
+
+      &__icon {
+        display: inline-block;
+        margin-right: 2px;
+        opacity: 0.6;
+        object-fit: contain;
+        cursor: pointer;
+      }
+    }
+
+    &__logo {
+      margin-right: -50px;
+    }
+
+    &__action {
+      height: 35px;
+      width: 250px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      &__register {
+        color: var(--greyish-brown);
+        font-family: Montserrat;
+        line-height: 1.57;
+        border: none;
+        background-color: var(--white);
+      }
+
+      &__login {
+        align-self: stretch;
+        width: 120px;
+        border: 1px solid #ffa15f;
+        border-radius: 100px;
+        color: #ff7e24;
+        background-color: var(--white);
+        font-family: Montserrat;
+        line-height: 1.57;
+        font-weight: bold;
+      }
+    }
+  }
+  // &__divider {
+  //   background-color: #ececec;
+  //   height: 1px;
+  //   margin-top: 13px;
+  //   margin-bottom: 9px;
+  // }
+  &__bottom {
+    margin-top: 13px;
+    height: 45px;
+    border-top: 0.5px solid #ececec;
+    border-bottom: 0.5px solid #ececec;
+  }
+}

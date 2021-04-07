@@ -1,0 +1,25 @@
+span {
+  display: inline-block;
+}
+.cart-action {
+  height: 100%;
+  position: relative;
+
+  &__oval {
+    display: inline-flex;
+    position: absolute;
+    top: -7px;
+    left: 11px;
+    width: 18px;
+    height: 18px;
+    color: var(--white);
+    font-family: Montserrat;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 1.83;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffa15f;
+    border-radius: 50%;
+  }
+}
