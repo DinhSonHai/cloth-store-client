@@ -11,7 +11,7 @@ function App() {
         <NavBar />
         <HomePage />
         {/* <LoginModal /> */}
-        {/* <RegisterModal /> */}
+        <RegisterModal />
         <Footer />
       </div>
     </Router>
