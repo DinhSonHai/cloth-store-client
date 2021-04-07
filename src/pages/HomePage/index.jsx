@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Card from '../../components/Card';
+import CollectionCard from '../../components/CollectionCard';
 import './styles.scss';
 
 HomePage.propTypes = {
@@ -12,10 +12,10 @@ function HomePage(props) {
     <div className="home-page">
       <div className="home-page__weekly-outfit"></div>
       <div className="home-page__collection">
-        <Card />
-        <Card />
-        <Card />
-        <Card />
+        <CollectionCard />
+        <CollectionCard />
+        <CollectionCard />
+        <CollectionCard />
       </div>
     </div>
   );

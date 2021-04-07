@@ -2,11 +2,11 @@ import React from 'react';
 
 import './styles.scss';
 
-Card.propTypes = {
+CollectionCard.propTypes = {
 
 };
 
-function Card(props) {
+function CollectionCard(props) {
   return (
     <div className="card">
 
@@ -14,4 +14,4 @@ function Card(props) {
   );
 }
 
-export default Card;
+export default CollectionCard;
