@@ -56,8 +56,8 @@ function NavBar(props) {
       <div className="navbar__bottom">
       </div>
       {/* <div className="navbar__divider"></div> */}
-      { isRegister && <RegisterModal hideRegister={hideRegister} />}
-      { isLogin && <LoginModal hideLogin={hideLogin} />}
+      { isRegister && <RegisterModal hideRegister={hideRegister} showLogin={showLogin} />}
+      { isLogin && <LoginModal hideLogin={hideLogin} showRegister={showRegister} />}
     </div>
   );
 }

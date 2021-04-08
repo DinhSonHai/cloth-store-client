@@ -96,6 +96,11 @@
         color: var(--white);
         background-color: #ffa15f;
         border: none;
+
+        &:disabled {
+          cursor: default;
+          background-color: var(--white-four);
+        }
       }
     }
 
