@@ -1,15 +1,28 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Formik, Form } from 'formik';
+import * as Yup from 'yup';
 
-import './styles.scss';
-
+import { register } from '../../redux/actions';
+import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
+import './styles.scss';
 
 LoginModal.propTypes = {
   hideLogin: PropTypes.func.isRequired,
+  showRegister: PropTypes.func.isRequired,
 };
 
-function LoginModal({ hideLogin }) {
+function LoginModal({ hideLogin, showRegister }) {
+  const validate = Yup.object({
+    email: Yup.string()
+      .email('Please enter a valid email!')
+      .required('Please enter a valid email!'),
+    password: Yup.string()
+      .min(6, 'Your passwords must be more than 6 characters!')
+      .required('Please enter a valid password!')
+  })
+
   return (
     <div className="login-modal" id="login-modal">
       <div className="login-modal__content">
@@ -19,26 +32,34 @@ function LoginModal({ hideLogin }) {
           </div>
         </div>
         <h1 className="login-modal__content__title">Log In</h1>
-        <form className="login-modal__content__form">
+        <Formik
+          initialValues={{
+            email: '',
+            password: ''
+          }}
+          validationSchema={validate}
+          onSubmit={values => {
+            console.log(values);
+          }}
+        >
+          {formik => (
+            <Form className="login-modal__content__form">
+              <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." />
+              <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." />
 
-          <label className="login-modal__content__form__label" for="email">E-MAIL</label><br />
-          <input className="login-modal__content__form__input" type="text" id="email" name="email" placeholder="Enter your email..." />
-          <br />
+              <div className="login-modal__content__form__option">
+                <div className="login-modal__content__form__option__remember">
+                  <input type="checkbox" id="rememeber-box" />
+                  <label for="remember-box">Remember password</label>
+                </div>
+                <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
+              </div>
 
-          <label className="login-modal__content__form__label" for="password">PASSWORD</label><br />
-          <input className="login-modal__content__form__input" type="text" id="password" name="password" placeholder="Enter your password..." />
-
-          <div className="login-modal__content__form__option">
-            <div className="login-modal__content__form__option__remember">
-              <input type="checkbox" id="rememeber-box" />
-              <label for="remember-box">Remember password</label>
-            </div>
-            <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
-          </div>
-
-          <button type="button" className="login-modal__content__form__button" onClick={(e) => e.preventDefault()}>Log In</button>
-        </form>
-        <p className="login-modal__content__option">Don't have an account? <a href="/"> Register</a></p>
+              <button type="submit" className="login-modal__content__form__button" disabled={!formik.isValid} >Login</button>
+            </Form>
+          )}
+        </Formik>
+        <p className="login-modal__content__option" onClick={() => { hideLogin(); showRegister(); }} >Don't have an account? <span> Register</span></p>
       </div>
     </div>
   );

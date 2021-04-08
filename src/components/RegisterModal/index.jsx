@@ -5,12 +5,12 @@ import * as Yup from 'yup';
 
 import { register } from '../../redux/actions';
 import TextField from '../../components/CustomFields/TextField';
-import './styles.scss';
-
 import { CloseModalIcon } from '../../assets/icons';
+import './styles.scss';
 
 RegisterModal.propTypes = {
   hideRegister: PropTypes.func.isRequired,
+  showLogin: PropTypes.func.isRequired,
 };
 
 function RegisterModal({ hideRegister, showLogin }) {
@@ -22,7 +22,7 @@ function RegisterModal({ hideRegister, showLogin }) {
       .required('Please enter a valid email!'),
     password: Yup.string()
       .min(6, 'Your passwords must be more than 6 characters!')
-      .required()
+      .required('Please enter a valid password!')
   })
 
   return (

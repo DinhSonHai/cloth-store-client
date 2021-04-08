@@ -37,29 +37,6 @@
     &__form {
       margin: 0 80px;
 
-      &__label {
-        height: 18px;
-        font-weight: bold;
-        font-size: 12px;
-        line-height: 1.5;
-        color: var(--dark-grey);
-      }
-
-      &__input {
-        width: 395px;
-        height: 46px;
-        margin: 8px 0 24px 0;
-        padding: 12px 0 12px 24px;
-        // border: 1px solid var(--greyish-two);
-        border: none;
-        font-weight: 500;
-        font-size: 14px;
-        color: rgba(77, 77, 77, 0.5);
-        // opacity: 0.3;
-        line-height: 1.57;
-        background-color: var(--white-two);
-      }
-
       &__option {
         margin-top: 2px;
         display: flex;
@@ -114,7 +91,8 @@
       padding: 23px 0;
       border-top: 0.5px solid var(--white-three);
 
-      & > a {
+      & > span {
+        cursor: pointer;
         color: var(--pumpkin-orange);
         font-weight: bold;
         text-decoration: underline;
