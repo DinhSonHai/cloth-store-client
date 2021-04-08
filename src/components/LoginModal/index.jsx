@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
 import { CloseModalIcon } from '../../assets/icons';
 
 LoginModal.propTypes = {
-
+  hideLogin: PropTypes.func.isRequired,
 };
 
-function LoginModal(props) {
+function LoginModal({ hideLogin }) {
   return (
     <div className="login-modal" id="login-modal">
       <div className="login-modal__content">
         <div className="login-modal__content__close">
-          <div className="login-modal__content__close__icon">
+          <div className="login-modal__content__close__icon" onClick={hideLogin}>
             <CloseModalIcon />
           </div>
         </div>
@@ -37,7 +38,7 @@ function LoginModal(props) {
 
           <button type="button" className="login-modal__content__form__button" onClick={(e) => e.preventDefault()}>Log In</button>
         </form>
-        <p className="login-modal__content__option">Don't have an account? <a> Register</a></p>
+        <p className="login-modal__content__option">Don't have an account? <a href="/"> Register</a></p>
       </div>
     </div>
   );

@@ -19,7 +19,7 @@ function ProductList(props) {
         <div className="product-list__main__option">
           <div className="product-list__main__option__category">
             <p>Category</p>
-            <a className="product-list__main__option__category__type">Dresses</a>
+            <a href="/" className="product-list__main__option__category__type">Dresses</a>
             <div className="product-list__main__option__category__divider"></div>
             <div className="product-list__main__option__category__detail">
               <p>Roompers / Jumpsuits</p>

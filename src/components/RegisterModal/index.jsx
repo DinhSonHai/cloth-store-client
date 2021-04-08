@@ -1,19 +1,20 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 
 import { CloseModalIcon } from '../../assets/icons';
 
 RegisterModal.propTypes = {
-
+  hideRegister: PropTypes.func.isRequired,
 };
 
-function RegisterModal(props) {
+function RegisterModal({ hideRegister }) {
   return (
     <div className="register-modal" id="register-modal">
       <div className="register-modal__content">
         <div className="register-modal__content__close">
-          <div className="register-modal__content__close__icon">
+          <div className="register-modal__content__close__icon" onClick={hideRegister}>
             <CloseModalIcon />
           </div>
         </div>
@@ -30,11 +31,11 @@ function RegisterModal(props) {
           <label className="register-modal__content__form__label" for="password">PASSWORD</label><br />
           <input className="register-modal__content__form__input" type="text" id="password" name="password" placeholder="Enter your password..." />
 
-          <p className="register-modal__content__form__policy">By creating an account you agree to the <a>Term of service</a> and <a>Privacy Policy</a></p>
+          <p className="register-modal__content__form__policy">By creating an account you agree to the <a href="/">Term of service</a> and <a href="/">Privacy Policy</a></p>
 
           <button className="register-modal__content__form__button" onClick={(e) => e.preventDefault()}>Register</button>
         </form>
-        <p className="register-modal__content__option">Do you have an account? <a> Log In</a></p>
+        <p className="register-modal__content__option">Do you have an account? <a href="/"> Log In</a></p>
       </div>
     </div>
   );

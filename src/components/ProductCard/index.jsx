@@ -10,7 +10,7 @@ function ProductCard({ image, name, price, isAvailable }) {
   return (
     <div className="product-card">
       <div className="product-card__img">
-        <img src={image} slt="Product image"></img>
+        <img src={image} alt="Product"></img>
         <button className="product-card__img__button">+ Quick shop</button>
         {!isAvailable && (<p className="product-card__img__tag">Sold out</p>)}
       </div>

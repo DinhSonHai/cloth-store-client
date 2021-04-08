@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { Logo, SearchIcon } from '../../../assets/icons';
 
 import './styles.scss';
+import RegisterModal from '../../../components/RegisterModal';
+import LoginModal from '../../../components/LoginModal';
 import CartAction from '../../../components/CartAction';
 
 NavBar.propTypes = {
@@ -10,6 +12,25 @@ NavBar.propTypes = {
 };
 
 function NavBar(props) {
+  const [isRegister, setRegister] = useState(false);
+  const [isLogin, setLogin] = useState(false);
+
+  const showRegister = () => {
+    setRegister(!isRegister);
+  }
+
+  const hideRegister = () => {
+    setRegister(!isRegister);
+  }
+
+  const showLogin = () => {
+    setLogin(!isLogin);
+  }
+
+  const hideLogin = () => {
+    setLogin(!isLogin);
+  }
+
   return (
     <div className="navbar">
       <div className="navbar__top">
@@ -25,8 +46,8 @@ function NavBar(props) {
         </div>
 
         <div className="navbar__top__action">
-          <button className="navbar__top__action__register">Register</button>
-          <button className="navbar__top__action__login">Log In</button>
+          <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
+          <button className="navbar__top__action__login" onClick={showLogin}>Log In</button>
           <div className="navbar__top__action__cart">
             <CartAction />
           </div>
@@ -35,6 +56,8 @@ function NavBar(props) {
       <div className="navbar__bottom">
       </div>
       {/* <div className="navbar__divider"></div> */}
+      { isRegister && <RegisterModal hideRegister={hideRegister} />}
+      { isLogin && <LoginModal hideLogin={hideLogin} />}
     </div>
   );
 }
