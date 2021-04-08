@@ -1,0 +1,140 @@
+.product-list {
+  &__breadcumb {
+    height: 100px;
+    padding: 40px;
+
+    & > p {
+      text-align: center;
+      font-size: 14px;
+      line-height: 1.57;
+      color: var(--dark-grey);
+    }
+  }
+
+  &__main {
+    display: flex;
+
+    &__option {
+      width: 180px;
+      margin-right: 20px;
+
+      &__category {
+        & > p {
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 1.5;
+          color: var(--dark-grey);
+          margin-bottom: 29px;
+        }
+
+        &__type {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.57;
+          color: var(--bright-orange);
+        }
+
+        &__divider {
+          width: 20px;
+          margin: 8px 0;
+          border: solid 0.5px var(--brown-grey);
+        }
+
+        &__detail {
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            font-weight: normal;
+            letter-spacing: -0.1px;
+            color: var(--greyish-brown);
+            margin-bottom: 18px;
+          }
+        }
+      }
+      &__divider {
+        margin: 54px 0;
+        width: 101px;
+        border: solid 0.5px var(--brown-grey);
+      }
+
+      &__filter {
+        & > p {
+          font-size: 16px;
+          font-weight: bold;
+          line-height: 1.5;
+          color: var(--dark-grey);
+          margin-bottom: 29px;
+        }
+
+        & > select {
+          width: 180px;
+          border: none;
+          border-bottom: 0.5px solid var(--pinkish-grey);
+          background-color: var(--white);
+          font-size: 14px;
+          line-height: 1.57;
+          color: var(--dark-grey);
+          padding: 8px 0;
+        }
+      }
+    }
+
+    &__content {
+      &__top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 13px;
+        &__sort {
+          & > select {
+            width: 162px;
+            opacity: 0.5;
+            border: solid 1px var(--white-four);
+            background-color: var(--white);
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.83;
+            color: var(--greyish-brown);
+            padding: 5px 0 5px 15px;
+          }
+        }
+
+        &__pagination {
+          width: 112px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &__page {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.57;
+            text-align: center;
+            color: var(--dark-grey);
+          }
+
+          &__previous {
+            width: 24px;
+            height: 24px;
+            background-color: var(--white);
+            border: none;
+            transform: rotate(90deg);
+          }
+
+          &__next {
+            width: 24px;
+            height: 24px;
+            background-color: var(--white);
+            border: none;
+            transform: rotate(-90deg);
+          }
+        }
+      }
+
+      &__card {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+      }
+    }
+  }
+}
