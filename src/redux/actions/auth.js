@@ -11,6 +11,6 @@ export const register = async (formData) => {
     alert(res.data.message);
   } catch (error) {
     const errors = error.response.data.errors;
-    errors.forEach(error => console.log(error));
+    errors.forEach(error => alert(error.msg));
   }
 }

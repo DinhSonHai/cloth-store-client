@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { register } from '../../redux/actions';
 import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import './styles.scss';
@@ -50,7 +49,7 @@ function LoginModal({ hideLogin, showRegister }) {
               <div className="login-modal__content__form__option">
                 <div className="login-modal__content__form__option__remember">
                   <input type="checkbox" id="rememeber-box" />
-                  <label for="remember-box">Remember password</label>
+                  <label htmlFor="remember-box">Remember password</label>
                 </div>
                 <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
               </div>

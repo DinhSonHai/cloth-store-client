@@ -94,7 +94,7 @@ function ProductList(props) {
             </div>
           </div>
           <div className="product-list__main__content__card">
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} isAvailable={true} />
+            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
             <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
             <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
             <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={false} />
