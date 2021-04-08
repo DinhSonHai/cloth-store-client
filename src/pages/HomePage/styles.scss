@@ -4,6 +4,36 @@
     height: 513px;
     border: 1px solid var(--greyish-two);
     margin-bottom: 17px;
+    background-image: url("../../assets/images/weekly-outfit.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+
+    &__title {
+      font-family: Domine;
+      position: absolute;
+      top: 71px;
+      right: 83px;
+      font-size: 48px;
+      font-weight: bold;
+      line-height: 0.94;
+      color: var(--white);
+    }
+
+    &__button {
+      width: 180px;
+      height: 49px;
+      position: absolute;
+      top: 417px;
+      right: 73px;
+      font-size: 16px;
+      font-weight: bold;
+      line-height: 1.5;
+      text-align: center;
+      color: var(--white);
+      background-color: #ffa15f;
+      border: none;
+    }
   }
 
   &__collection {

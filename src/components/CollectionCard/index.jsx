@@ -6,10 +6,12 @@ CollectionCard.propTypes = {
 
 };
 
-function CollectionCard(props) {
+function CollectionCard({ title, image }) {
   return (
-    <div className="card">
-
+    <div className="card" style={{ backgroundImage: `url(${image})` }}>
+      <div className="card__title">{title}</div>
+      <div className="card__divider"></div>
+      <button className="card__button">Shop now</button>
     </div>
   );
 }

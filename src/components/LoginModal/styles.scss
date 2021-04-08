@@ -68,8 +68,8 @@
             vertical-align: -2px;
             margin-right: 8px;
           }
-          & > input[type="checkbox"]:checked:after {
-            color: #ffa15f;
+          & > input[type="checkbox"]:focus {
+            background: #ffa15f;
           }
           & > label {
             color: var(--greyish-brown);
