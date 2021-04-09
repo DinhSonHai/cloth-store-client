@@ -50,9 +50,12 @@ function NavBar({ auth: { isAuthenticated } }) {
         <div className="navbar__top__action">
           <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
           <button className="navbar__top__action__login" onClick={showLogin}>Log In</button>
-          <Link to="/cart" className="navbar__top__action__cart">
+          <div to="/cart" className="navbar__top__action__cart">
             <CartAction />
-          </Link>
+            <div className="navbar__top__action__cart__dropdown">
+              <Link to="/cart" className="navbar__top__action__cart__dropdown__link">View cart</Link>
+            </div>
+          </div>
         </div>
       </div>
       <div className="navbar__bottom">
