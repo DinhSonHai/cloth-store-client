@@ -35,7 +35,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           </div>
         </div>
         <h1 className="login-modal__content__title">Log In</h1>
-        {auth.errors[0] && (<p className="login-modal__content__error">{auth.errors[0]}</p>)}
+        {auth.errors.type === 'login' && (<p className="login-modal__content__error">{auth.errors.msg}</p>)}
         <Formik
           initialValues={{
             email: '',

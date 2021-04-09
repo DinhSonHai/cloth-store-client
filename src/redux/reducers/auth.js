@@ -9,7 +9,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
-  errors: []
+  errors: {}
 }
 
 export default function auth(state = initialState, action) {
@@ -20,7 +20,7 @@ export default function auth(state = initialState, action) {
         ...state,
         isAuthenticated: true,
         loading: false,
-        errors: []
+        errors: {}
       }
     case LOGIN_SUCCESS:
       localStorage.setItem('token', payload.token);
@@ -29,7 +29,7 @@ export default function auth(state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
-        errors: []
+        errors: {}
       }
     case AUTH_ERRORS:
       localStorage.removeItem('token');
@@ -39,7 +39,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null,
-        errors: [payload]
+        errors: payload
       }
     default:
       return state;

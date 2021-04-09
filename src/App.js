@@ -2,7 +2,8 @@ import { BrowserRouter as Router } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import store from './app/store.js';
 
-import { NavBar, Footer, ProductList } from './pages';
+import Routes from './routes';
+import { NavBar, Footer } from './pages';
 
 function App() {
   return (
@@ -10,9 +11,7 @@ function App() {
       <Router>
         <div className="app">
           <NavBar />
-          {/* <HomePage /> */}
-          <ProductList />
-          {/* <Cart /> */}
+          <Routes />
           <Footer />
         </div>
       </Router>

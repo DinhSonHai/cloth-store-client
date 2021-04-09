@@ -1,17 +1,19 @@
 import React, { useState } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-import { Logo, SearchIcon } from '../../../assets/icons';
-
+import { Logo, SearchIcon, Arrow } from '../../../assets/icons';
 import './styles.scss';
 import RegisterModal from '../../../components/RegisterModal';
 import LoginModal from '../../../components/LoginModal';
 import CartAction from '../../../components/CartAction';
+import { Link } from 'react-router-dom';
 
 NavBar.propTypes = {
-
+  auth: PropTypes.object.isRequired
 };
 
-function NavBar(props) {
+function NavBar({ auth: { isAuthenticated } }) {
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -41,9 +43,9 @@ function NavBar(props) {
           </div>
         </div>
 
-        <div className="navbar__top__logo">
+        <Link to="/" className="navbar__top__logo">
           <Logo />
-        </div>
+        </Link>
 
         <div className="navbar__top__action">
           <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
@@ -54,12 +56,29 @@ function NavBar(props) {
         </div>
       </div>
       <div className="navbar__bottom">
+        {['Men', 'Ladies', 'Girls', 'Boys'].map(collection => (
+          <div className="navbar__bottom__collection">
+            <p className="navbar__bottom__collection__text">{collection}</p>
+            <Arrow />
+            <div className="navbar__bottom__collection__dropdown">
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Tops</Link>
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Bottoms</Link>
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Dresses</Link>
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Jackets</Link>
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Shoes</Link>
+              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Accessories</Link>
+            </div>
+          </div>
+        ))}
       </div>
-      {/* <div className="navbar__divider"></div> */}
       { isRegister && <RegisterModal hideRegister={hideRegister} showLogin={showLogin} />}
       { isLogin && <LoginModal hideLogin={hideLogin} showRegister={showRegister} />}
     </div>
   );
 }
 
-export default NavBar;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, {})(NavBar);

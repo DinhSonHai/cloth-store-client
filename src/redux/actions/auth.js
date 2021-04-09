@@ -23,7 +23,7 @@ export const login = ({ email, password }) => async (dispatch) => {
       // errors.forEach((error) => console.log(error.msg));
       dispatch({
         type: AUTH_ERRORS,
-        payload: errors[0].msg
+        payload: { type: 'login', msg: errors[0].msg }
       });
     }
   }
@@ -48,7 +48,7 @@ export const register = (formData) => async (dispatch) => {
     if (errors) {
       dispatch({
         type: AUTH_ERRORS,
-        payload: errors[0].msg
+        payload: { type: 'register', msg: errors[0].msg }
       });
     }
   }
