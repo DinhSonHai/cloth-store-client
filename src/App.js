@@ -1,18 +1,22 @@
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import store from './app/store.js';
 
-import { NavBar, Footer } from './pages';
+import { NavBar, Footer, ProductList } from './pages';
 
 function App() {
   return (
-    <Router>
-      <div className="app">
-        <NavBar />
-        {/* <HomePage /> */}
-        {/* <ProductList /> */}
-        {/* <Cart /> */}
-        <Footer />
-      </div>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <div className="app">
+          <NavBar />
+          {/* <HomePage /> */}
+          <ProductList />
+          {/* <Cart /> */}
+          <Footer />
+        </div>
+      </Router>
+    </Provider>
   );
 }
 

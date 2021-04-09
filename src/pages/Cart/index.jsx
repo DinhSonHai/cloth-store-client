@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './styles.scss';
+import ImageTest from '../../assets/images/ladies-outfit.jpg';
 
 Cart.propTypes = {
 
@@ -25,8 +26,12 @@ function Cart(props) {
             <tbody>
               <tr>
                 <td>
-
+                  <img src={ImageTest} alt="Product" />
                 </td>
+                <td><div className="cart__main__detail__table__color"></div></td>
+                <td>S</td>
+                <td>S</td>
+                <td>$69.00</td>
               </tr>
             </tbody>
           </table>

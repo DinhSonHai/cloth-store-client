@@ -1,15 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import './styles.scss';
 import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
-import ImageTest from '../../assets/images/ladies-outfit.jpg';
+import { getAllProducts } from '../../redux/actions/products';
 
 ProductList.propTypes = {
-
+  products: PropTypes.array.isRequired,
+  getAllProducts: PropTypes.func.isRequired
 };
 
-function ProductList(props) {
+function ProductList({ products, getAllProducts }) {
+  useEffect(() => {
+    getAllProducts();
+  }, [getAllProducts])
   return (
     <div className="product-list">
       <div className="product-list__breadcumb">
@@ -37,7 +43,7 @@ function ProductList(props) {
 
             {/* Size */}
             <select>
-              <option value="" selected disabled hidden>Size</option>
+              <option defaultValue defaultValue>Size</option>
               <option>X</option>
               <option>M</option>
               <option>L</option>
@@ -45,7 +51,7 @@ function ProductList(props) {
 
             {/* Color */}
             <select>
-              <option value="" selected disabled hidden>Color</option>
+              <option defaultValue>Color</option>
               <option>X</option>
               <option>M</option>
               <option>L</option>
@@ -53,7 +59,7 @@ function ProductList(props) {
 
             {/* Brand */}
             <select>
-              <option value="" selected disabled hidden>Brand</option>
+              <option defaultValue>Brand</option>
               <option>X</option>
               <option>M</option>
               <option>L</option>
@@ -61,7 +67,7 @@ function ProductList(props) {
 
             {/* Price */}
             <select>
-              <option value="" selected disabled hidden>Price</option>
+              <option defaultValue>Price</option>
               <option>X</option>
               <option>M</option>
               <option>L</option>
@@ -69,7 +75,7 @@ function ProductList(props) {
 
             {/* Availabel */}
             <select>
-              <option value="" selected disabled hidden>Availabel</option>
+              <option defaultValue>Available</option>
               <option>X</option>
               <option>M</option>
               <option>L</option>
@@ -82,7 +88,7 @@ function ProductList(props) {
           <div className="product-list__main__content__top">
             <div className="product-list__main__content__top__sort">
               <select>
-                <option selected>Sort By: Popularity</option>
+                <option>Sort By: Popularity</option>
                 <option>Sort By: Price Asc</option>
                 <option>Sort By: Price Desc</option>
               </select>
@@ -94,21 +100,7 @@ function ProductList(props) {
             </div>
           </div>
           <div className="product-list__main__content__card">
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={false} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={false} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
-            <ProductCard image={ImageTest} name="Collete Stretch Linen Minidress" price="$20.00" isAvailable={true} />
+            {products.map(product => (<ProductCard key={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
           </div>
         </div>
       </div>
@@ -116,4 +108,8 @@ function ProductList(props) {
   );
 }
 
-export default ProductList;
+const mapStateToProps = (state) => ({
+  products: state.products.products
+})
+
+export default connect(mapStateToProps, { getAllProducts })(ProductList);

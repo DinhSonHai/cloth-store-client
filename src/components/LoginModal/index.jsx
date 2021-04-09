@@ -1,18 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
 import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
+import { login } from '../../redux/actions/auth';
 import './styles.scss';
 
 LoginModal.propTypes = {
+  auth: PropTypes.object.isRequired,
   hideLogin: PropTypes.func.isRequired,
   showRegister: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired,
 };
 
-function LoginModal({ hideLogin, showRegister }) {
+function LoginModal({ auth, hideLogin, showRegister, login }) {
   const validate = Yup.object({
     email: Yup.string()
       .email('Please enter a valid email!')
@@ -31,6 +35,7 @@ function LoginModal({ hideLogin, showRegister }) {
           </div>
         </div>
         <h1 className="login-modal__content__title">Log In</h1>
+        {auth.errors[0] && (<p className="login-modal__content__error">{auth.errors[0]}</p>)}
         <Formik
           initialValues={{
             email: '',
@@ -38,7 +43,7 @@ function LoginModal({ hideLogin, showRegister }) {
           }}
           validationSchema={validate}
           onSubmit={values => {
-            console.log(values);
+            login(values);
           }}
         >
           {formik => (
@@ -64,4 +69,8 @@ function LoginModal({ hideLogin, showRegister }) {
   );
 }
 
-export default LoginModal;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { login })(LoginModal);

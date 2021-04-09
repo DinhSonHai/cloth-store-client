@@ -30,13 +30,20 @@
     }
 
     &__title {
-      margin: 0 0 35px 0;
       color: var(--dark-grey);
       text-align: center;
     }
 
+    &__error {
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.83;
+      color: var(--strawberry);
+    }
+
     &__form {
-      margin: 0 80px;
+      margin: 35px 80px 0 80px;
 
       &__policy {
         margin: 41px 55px 0;

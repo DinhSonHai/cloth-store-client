@@ -13,14 +13,38 @@
 
     &__detail {
       width: 720px;
-      border: 1px solid blue;
 
       &__table {
+        width: 100%;
+        border-collapse: collapse;
+
+        & > thead > tr,
+        & > tbody > tr {
+          border-bottom: 0.5px solid var(--brown-grey);
+        }
+
+        & > tbody > tr:last-child {
+          border-bottom: none;
+        }
         & > thead > tr > th {
+          text-align: left;
           font-size: 14px;
           font-weight: bold;
           line-height: 1.57;
           color: var(--dark-grey);
+        }
+
+        & > tbody > tr > td > img {
+          width: 80px;
+          height: 130px;
+          object-fit: cover;
+        }
+
+        &__color {
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background-color: #857e6e;
         }
       }
     }

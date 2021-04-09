@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
+import { connect } from 'react-redux';
 import * as Yup from 'yup';
 
 import { register } from '../../redux/actions/auth';
@@ -9,11 +10,13 @@ import { CloseModalIcon } from '../../assets/icons';
 import './styles.scss';
 
 RegisterModal.propTypes = {
+  auth: PropTypes.object.isRequired,
   hideRegister: PropTypes.func.isRequired,
   showLogin: PropTypes.func.isRequired,
+  register: PropTypes.func.isRequired,
 };
 
-function RegisterModal({ hideRegister, showLogin }) {
+function RegisterModal({ auth, hideRegister, showLogin, register }) {
   const validate = Yup.object({
     name: Yup.string()
       .required('Please enter a valid name!'),
@@ -34,6 +37,7 @@ function RegisterModal({ hideRegister, showLogin }) {
           </div>
         </div>
         <h1 className="register-modal__content__title">Register</h1>
+        {auth.errors[0] && <p className="register-modal__content__error">{auth.errors[0]}</p>}
         <Formik
           initialValues={{
             name: '',
@@ -63,4 +67,8 @@ function RegisterModal({ hideRegister, showLogin }) {
   );
 }
 
-export default RegisterModal;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, { register })(RegisterModal);
