@@ -48,7 +48,7 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           onSubmit={values => {
             register(values)
           }}
-          isInitialValid={false}
+          validateOnMount
         >
           {formik => (
             <Form className="register-modal__content__form">

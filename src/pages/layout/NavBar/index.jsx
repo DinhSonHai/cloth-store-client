@@ -50,14 +50,14 @@ function NavBar({ auth: { isAuthenticated } }) {
         <div className="navbar__top__action">
           <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
           <button className="navbar__top__action__login" onClick={showLogin}>Log In</button>
-          <div className="navbar__top__action__cart">
+          <Link to="/cart" className="navbar__top__action__cart">
             <CartAction />
-          </div>
+          </Link>
         </div>
       </div>
       <div className="navbar__bottom">
-        {['Men', 'Ladies', 'Girls', 'Boys'].map(collection => (
-          <div className="navbar__bottom__collection">
+        {['Men', 'Ladies', 'Girls', 'Boys'].map((collection, index) => (
+          <div key={index} className="navbar__bottom__collection">
             <p className="navbar__bottom__collection__text">{collection}</p>
             <Arrow />
             <div className="navbar__bottom__collection__dropdown">

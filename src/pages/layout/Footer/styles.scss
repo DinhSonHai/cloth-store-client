@@ -15,6 +15,10 @@
     }
 
     &__nav {
+      display: flex;
+      width: 500px;
+      justify-content: space-between;
+      margin-left: -2px;
       &__link {
         text-decoration: none;
         font-size: 14px;
@@ -24,6 +28,10 @@
     }
 
     &__contact {
+      width: 100px;
+      display: flex;
+      justify-content: space-between;
+      // margin-left: -50px;
     }
   }
 
@@ -36,6 +44,10 @@
     justify-content: space-between;
 
     &__nav {
+      display: flex;
+      width: 400px;
+      margin-right: -50px;
+      justify-content: space-between;
       &__link {
         text-decoration: none;
         font-size: 12px;
@@ -46,6 +58,9 @@
     }
 
     &__policy {
+      display: flex;
+      justify-content: space-between;
+      width: 220px;
       &__link {
         text-decoration: none;
         font-size: 12px;

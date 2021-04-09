@@ -13,9 +13,9 @@ function Footer(props) {
   return (
     <div className="footer">
       <div className="footer__top">
-        <div className="footer__top__logo">
+        <Link to="/" className="footer__top__logo">
           <Logo />
-        </div>
+        </Link>
         <div className="footer__top__nav">
           <Link className="footer__top__nav__link" to="#">Home</Link>
           <Link className="footer__top__nav__link" to="#">Products</Link>
