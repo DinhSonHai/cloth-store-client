@@ -59,23 +59,96 @@
       }
 
       &__filter {
+        width: 180px;
+
         & > p {
           font-size: 16px;
           font-weight: bold;
-          line-height: 1.5;
-          color: var(--dark-grey);
-          margin-bottom: 29px;
         }
 
-        & > select {
-          width: 180px;
-          border: none;
+        &__size {
+          display: flex;
+          margin-top: 33px;
+          justify-content: space-between;
           border-bottom: 0.5px solid var(--pinkish-grey);
-          background-color: var(--white);
-          font-size: 14px;
-          line-height: 1.57;
-          color: var(--dark-grey);
-          padding: 8px 0;
+
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+
+          & > span {
+            margin-right: -5px;
+          }
+        }
+
+        &__color {
+          display: flex;
+          margin-top: 10px;
+          justify-content: space-between;
+          border-bottom: 0.5px solid var(--pinkish-grey);
+
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+
+          & > span {
+            margin-right: -5px;
+          }
+        }
+
+        &__price {
+          display: flex;
+          margin-top: 10px;
+          justify-content: space-between;
+          border-bottom: 0.5px solid var(--pinkish-grey);
+
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+
+          & > span {
+            margin-right: -5px;
+          }
+        }
+
+        &__brand {
+          display: flex;
+          margin-top: 10px;
+          justify-content: space-between;
+          border-bottom: 0.5px solid var(--pinkish-grey);
+
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+
+          & > span {
+            margin-right: -5px;
+          }
+        }
+
+        &__available {
+          display: flex;
+          margin-top: 10px;
+          justify-content: space-between;
+          border-bottom: 0.5px solid var(--pinkish-grey);
+
+          & > p {
+            font-size: 14px;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+
+          & > span {
+            margin-right: -5px;
+          }
         }
       }
     }

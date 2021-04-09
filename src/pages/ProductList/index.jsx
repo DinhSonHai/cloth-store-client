@@ -42,44 +42,44 @@ function ProductList({ products, getAllProducts }) {
             <p>Filter</p>
 
             {/* Size */}
-            <select>
-              <option defaultValue defaultValue>Size</option>
-              <option>X</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
+            <div className="product-list__main__option__filter__size">
+              <p>Size</p>
+              <span>
+                <Arrow />
+              </span>
+            </div>
 
             {/* Color */}
-            <select>
-              <option defaultValue>Color</option>
-              <option>X</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
+            <div className="product-list__main__option__filter__color">
+              <p>Color</p>
+              <span>
+                <Arrow />
+              </span>
+            </div>
 
             {/* Brand */}
-            <select>
-              <option defaultValue>Brand</option>
-              <option>X</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
+            <div className="product-list__main__option__filter__brand">
+              <p>Brand</p>
+              <span>
+                <Arrow />
+              </span>
+            </div>
 
             {/* Price */}
-            <select>
-              <option defaultValue>Price</option>
-              <option>X</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
+            <div className="product-list__main__option__filter__price">
+              <p>Price</p>
+              <span>
+                <Arrow />
+              </span>
+            </div>
 
-            {/* Availabel */}
-            <select>
-              <option defaultValue>Available</option>
-              <option>X</option>
-              <option>M</option>
-              <option>L</option>
-            </select>
+            {/* Available */}
+            <div className="product-list__main__option__filter__available">
+              <p>Avalilable</p>
+              <span>
+                <Arrow />
+              </span>
+            </div>
 
           </div>
         </div>
