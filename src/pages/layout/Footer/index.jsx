@@ -18,7 +18,7 @@ function Footer(props) {
         </Link>
         <div className="footer__top__nav">
           <Link className="footer__top__nav__link" to="#">Home</Link>
-          <Link className="footer__top__nav__link" to="#">Products</Link>
+          <Link className="footer__top__nav__link" to="/products">Products</Link>
           <Link className="footer__top__nav__link" to="#">Services</Link>
           <Link className="footer__top__nav__link" to="#">About Us</Link>
           <Link className="footer__top__nav__link" to="#">Help</Link>
@@ -33,7 +33,7 @@ function Footer(props) {
       <div className="footer__bottom">
         <div className="footer__bottom__nav">
           <Link className="footer__bottom__nav__link" to="#">Home</Link>
-          <Link className="footer__bottom__nav__link" to="#">Products</Link>
+          <Link className="footer__bottom__nav__link" to="/products">Products</Link>
           <Link className="footer__bottom__nav__link" to="#">Services</Link>
           <Link className="footer__bottom__nav__link" to="#">About Us</Link>
           <Link className="footer__bottom__nav__link" to="#">Help</Link>

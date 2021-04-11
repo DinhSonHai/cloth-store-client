@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { REGISTER_SUCCESS, LOGIN_SUCCESS, AUTH_ERRORS } from '../types';
+import { toast } from 'react-toastify';
 
 // Action creator
 export const login = ({ email, password }) => async (dispatch) => {
@@ -39,7 +40,7 @@ export const register = (formData) => async (dispatch) => {
       },
     };
     const res = await axios.post('/api/auth/signup', formData, config);
-    alert(res.data.message);
+    toast.success(res.data.message);
     dispatch({
       type: REGISTER_SUCCESS
     })

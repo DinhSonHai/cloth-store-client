@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -43,10 +44,17 @@ function ProductList({ products, getAllProducts }) {
 
             {/* Size */}
             <div className="product-list__main__option__filter__size">
-              <p>Size</p>
-              <span>
-                <Arrow />
-              </span>
+              <div className="product-list__main__option__filter__size__title">
+                <p>Size</p>
+                <span>
+                  <Arrow />
+                </span>
+              </div>
+              <div className="product-list__main__option__filter__size__content">
+                <Link className="product-list__main__option__filter__size__content__s">S</Link>
+                <Link className="product-list__main__option__filter__size__content__m">M</Link>
+                <Link className="product-list__main__option__filter__size__content__l">L</Link>
+              </div>
             </div>
 
             {/* Color */}

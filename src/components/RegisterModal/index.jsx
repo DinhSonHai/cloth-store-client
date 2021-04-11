@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
+import { Redirect } from 'react-router-dom';
 
 import { register } from '../../redux/actions/auth';
 import TextField from '../../components/CustomFields/TextField';
@@ -28,6 +29,10 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
       .required('Please enter a valid password!')
   })
 
+  if (auth.isAuthenticated) {
+    return <Redirect to="/"></Redirect>
+  }
+
   return (
     <div className="register-modal" id="register-modal">
       <div className="register-modal__content">
@@ -46,7 +51,7 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           }}
           validationSchema={validate}
           onSubmit={values => {
-            register(values)
+            register(values);
           }}
           validateOnMount
         >
