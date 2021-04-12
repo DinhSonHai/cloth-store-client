@@ -252,6 +252,40 @@
         flex-wrap: wrap;
         justify-content: space-between;
       }
+
+      &__bottom {
+        display: flex;
+        justify-content: flex-end;
+        &__pagination {
+          width: 112px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          &__page {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.57;
+            text-align: center;
+            color: var(--dark-grey);
+          }
+
+          &__previous {
+            width: 24px;
+            height: 24px;
+            background-color: var(--white);
+            border: none;
+            transform: rotate(90deg);
+          }
+
+          &__next {
+            width: 24px;
+            height: 24px;
+            background-color: var(--white);
+            border: none;
+            transform: rotate(-90deg);
+          }
+        }
+      }
     }
   }
 }

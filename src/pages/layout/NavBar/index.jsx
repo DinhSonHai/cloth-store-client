@@ -82,12 +82,12 @@ function NavBar({ auth: { isAuthenticated }, logout }) {
             <p className="navbar__bottom__collection__text">{collection}</p>
             <Arrow />
             <div className="navbar__bottom__collection__dropdown">
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Tops</Link>
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Bottoms</Link>
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Dresses</Link>
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Jackets</Link>
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Shoes</Link>
-              <Link className="navbar__bottom__collection__dropdown__link" to="/products">Accessories</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Tops</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Bottoms</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Dresses</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Jackets</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Shoes</Link>
+              <Link to="/products" className="navbar__bottom__collection__dropdown__link">Accessories</Link>
             </div>
           </div>
         ))}

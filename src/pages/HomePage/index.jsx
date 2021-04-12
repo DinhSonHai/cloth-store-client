@@ -7,6 +7,7 @@ import Men from '../../assets/images/men-outfit.jpg';
 import Ladies from '../../assets/images/ladies-outfit.jpg';
 import Girls from '../../assets/images/girls-outfit.jpg';
 import Boys from '../../assets/images/boys-outfit.jpg';
+import { Link } from 'react-router-dom';
 
 HomePage.propTypes = {
 
@@ -17,7 +18,7 @@ function HomePage(props) {
     <div className="home-page">
       <div className="home-page__weekly-outfit">
         <p className="home-page__weekly-outfit__title">OUTFIT OF THE WEEK</p>
-        <button className="home-page__weekly-outfit__button">Shop now</button>
+        <Link to="/products" className="home-page__weekly-outfit__link">Shop now</Link>
       </div>
       <div className="home-page__collection">
         <CollectionCard title="Men" image={Men} />

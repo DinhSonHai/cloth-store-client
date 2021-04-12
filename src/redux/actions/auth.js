@@ -46,7 +46,7 @@ export const login = ({ email, password }) => async (dispatch) => {
 }
 
 // Register
-export const register = (formData) => async (dispatch) => {
+export const register = (formData, hideRegister, showLogin) => async (dispatch) => {
   try {
     const config = {
       headers: {
@@ -55,6 +55,8 @@ export const register = (formData) => async (dispatch) => {
     };
     const res = await axios.post('/api/auth/signup', formData, config);
     toast.success(res.data.msg);
+    hideRegister();
+    showLogin();
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
@@ -63,6 +65,7 @@ export const register = (formData) => async (dispatch) => {
         payload: { type: 'register', msg: errors[0].msg }
       });
     }
+    return false;
   }
 }
 

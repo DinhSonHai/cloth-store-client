@@ -23,7 +23,11 @@
     border: solid 1px var(--white-six);
   }
 
-  &__button {
+  &__link {
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     width: 140px;
     height: 40px;
     font-size: 14px;

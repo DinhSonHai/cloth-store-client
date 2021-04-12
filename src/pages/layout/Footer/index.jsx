@@ -17,12 +17,12 @@ function Footer(props) {
           <Logo />
         </Link>
         <div className="footer__top__nav">
-          <Link className="footer__top__nav__link" to="#">Home</Link>
-          <Link className="footer__top__nav__link" to="/products">Products</Link>
-          <Link className="footer__top__nav__link" to="#">Services</Link>
-          <Link className="footer__top__nav__link" to="#">About Us</Link>
-          <Link className="footer__top__nav__link" to="#">Help</Link>
-          <Link className="footer__top__nav__link" to="#">Contacts</Link>
+          <Link to="#" className="footer__top__nav__link">Home</Link>
+          <Link to="/products" className="footer__top__nav__link">Products</Link>
+          <Link to="#" className="footer__top__nav__link">Services</Link>
+          <Link to="#" className="footer__top__nav__link">About Us</Link>
+          <Link to="#" className="footer__top__nav__link">Help</Link>
+          <Link to="#" className="footer__top__nav__link">Contacts</Link>
         </div>
         <div className="footer__top__contact">
           <TwitterIcon />

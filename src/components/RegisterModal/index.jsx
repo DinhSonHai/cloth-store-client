@@ -8,7 +8,6 @@ import { register } from '../../redux/actions/auth';
 import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import './styles.scss';
-import { Redirect } from 'react-router';
 
 RegisterModal.propTypes = {
   auth: PropTypes.object.isRequired,
@@ -29,10 +28,6 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
       .required('Please enter a valid password!')
   })
 
-  if (auth.isAuthenticated) {
-    return <Redirect to="/"></Redirect>
-  }
-
   return (
     <div className="register-modal" id="register-modal">
       <div className="register-modal__content">
@@ -42,7 +37,7 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           </div>
         </div>
         <h1 className="register-modal__content__title">Register</h1>
-        {auth.errors.type === 'register' && <p className="register-modal__content__error">{auth.errors.msg}</p>}
+        {auth?.errors?.type === 'register' && <p className="register-modal__content__error">{auth.errors.msg}</p>}
         <Formik
           initialValues={{
             name: '',
@@ -51,7 +46,7 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           }}
           validationSchema={validate}
           onSubmit={values => {
-            register(values);
+            register(values, hideRegister, showLogin);
           }}
           validateOnMount
         >

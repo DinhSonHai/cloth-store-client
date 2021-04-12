@@ -8,8 +8,6 @@ import Routes from './routes';
 import { NavBar, Footer } from './pages';
 import setAuthToken from './utils/setAuthToken.js';
 import { loadUser } from './redux/actions/auth.js';
-import axios from 'axios';
-import { LOG_OUT } from './redux/types.js';
 
 function App() {
   useEffect(() => {

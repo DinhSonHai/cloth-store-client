@@ -51,9 +51,9 @@ function ProductList({ products, getAllProducts }) {
                 </span>
               </div>
               <div className="product-list__main__option__filter__size__content">
-                <Link className="product-list__main__option__filter__size__content__s">S</Link>
-                <Link className="product-list__main__option__filter__size__content__m">M</Link>
-                <Link className="product-list__main__option__filter__size__content__l">L</Link>
+                <Link to="/" className="product-list__main__option__filter__size__content__s">S</Link>
+                <Link to="/" className="product-list__main__option__filter__size__content__m">M</Link>
+                <Link to="/" className="product-list__main__option__filter__size__content__l">L</Link>
               </div>
             </div>
 
@@ -109,6 +109,13 @@ function ProductList({ products, getAllProducts }) {
           </div>
           <div className="product-list__main__content__card">
             {products.map(product => (<ProductCard key={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
+          </div>
+          <div className="product-list__main__content__bottom">
+            <div className="product-list__main__content__bottom__pagination">
+              <button className="product-list__main__content__bottom__pagination__previous"><Arrow /></button>
+              <p className="product-list__main__content__bottom__pagination__page">1/100</p>
+              <button className="product-list__main__content__bottom__pagination__next"><Arrow /></button>
+            </div>
           </div>
         </div>
       </div>
