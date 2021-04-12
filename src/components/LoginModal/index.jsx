@@ -18,7 +18,7 @@ LoginModal.propTypes = {
 };
 
 function LoginModal({ auth, hideLogin, showRegister, login }) {
-  const [isCheck, setChecked] = useState(false);
+  const [isCheck, setChecked] = useState(localStorage.getItem('isCheck') || false);
   const validate = Yup.object({
     email: Yup.string()
       .email('Please enter a valid email!')
@@ -55,6 +55,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           onSubmit={values => {
             login(values);
             if (isCheck) {
+              localStorage.setItem('isCheck', true);
               localStorage.setItem('email', values.email);
               localStorage.setItem('password', values.password);
             }
