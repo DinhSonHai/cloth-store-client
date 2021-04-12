@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
@@ -18,6 +18,7 @@ LoginModal.propTypes = {
 };
 
 function LoginModal({ auth, hideLogin, showRegister, login }) {
+  const [isCheck, setChecked] = useState(false);
   const validate = Yup.object({
     email: Yup.string()
       .email('Please enter a valid email!')
@@ -29,6 +30,10 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
 
   if (auth.isAuthenticated) {
     return <Redirect to="/"></Redirect>
+  }
+
+  const onChangeCheckBox = (e) => {
+    setChecked(!isCheck);
   }
 
   return (
@@ -43,12 +48,16 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
         {auth?.errors?.type === 'login' && (<p className="login-modal__content__error">{auth.errors.msg}</p>)}
         <Formik
           initialValues={{
-            email: '',
-            password: ''
+            email: localStorage.getItem('email') || '',
+            password: localStorage.getItem('password') || '',
           }}
           validationSchema={validate}
           onSubmit={values => {
             login(values);
+            if (isCheck) {
+              localStorage.setItem('email', values.email);
+              localStorage.setItem('password', values.password);
+            }
           }}
           validateOnMount
         >
@@ -59,7 +68,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
 
               <div className="login-modal__content__form__option">
                 <div className="login-modal__content__form__option__remember">
-                  <input type="checkbox" id="rememeber-box" />
+                  <input type="checkbox" id="rememeber-box" checked={isCheck} onChange={onChangeCheckBox}/>
                   <label htmlFor="remember-box">Remember password</label>
                 </div>
                 <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
