@@ -1,8 +1,23 @@
 import axios from 'axios';
-import { REGISTER_SUCCESS, LOGIN_SUCCESS, AUTH_ERRORS } from '../types';
+import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, LOG_OUT } from '../types';
 import { toast } from 'react-toastify';
 
-// Action creator
+// Load User
+export const loadUser = () => async (dispatch) => {
+  try {
+    const res = await axios.get('/api/auth');
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data
+    });
+  } catch (err) {
+    dispatch({
+      type: AUTH_ERRORS
+    });
+  }
+};
+
+// Login
 export const login = ({ email, password }) => async (dispatch) => {
   const config = {
     headers: {
@@ -16,7 +31,7 @@ export const login = ({ email, password }) => async (dispatch) => {
       type: LOGIN_SUCCESS,
       payload: res.data,
     });
-    alert('Login success');
+    dispatch(loadUser());
   } catch (err) {
     const errors = err.response.data.errors;
     if (errors) {
@@ -30,8 +45,7 @@ export const login = ({ email, password }) => async (dispatch) => {
   }
 }
 
-
-// Not action creator
+// Register
 export const register = (formData) => async (dispatch) => {
   try {
     const config = {
@@ -40,10 +54,7 @@ export const register = (formData) => async (dispatch) => {
       },
     };
     const res = await axios.post('/api/auth/signup', formData, config);
-    toast.success(res.data.message);
-    dispatch({
-      type: REGISTER_SUCCESS
-    })
+    toast.success(res.data.msg);
   } catch (error) {
     const errors = error.response.data.errors;
     if (errors) {
@@ -54,3 +65,8 @@ export const register = (formData) => async (dispatch) => {
     }
   }
 }
+
+// Logout
+export const logout = () => (dispatch) => {
+  dispatch({ type: LOG_OUT });
+};

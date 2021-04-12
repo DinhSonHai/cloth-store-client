@@ -1,19 +1,22 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { Logo, SearchIcon, Arrow } from '../../../assets/icons';
 import './styles.scss';
 import RegisterModal from '../../../components/RegisterModal';
 import LoginModal from '../../../components/LoginModal';
 import CartAction from '../../../components/CartAction';
-import { Link } from 'react-router-dom';
+
+import { logout } from '../../../redux/actions/auth';
 
 NavBar.propTypes = {
-  auth: PropTypes.object.isRequired
+  auth: PropTypes.object.isRequired,
+  logout: PropTypes.func.isRequired
 };
 
-function NavBar({ auth: { isAuthenticated } }) {
+function NavBar({ auth: { isAuthenticated }, logout }) {
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -48,8 +51,23 @@ function NavBar({ auth: { isAuthenticated } }) {
         </Link>
 
         <div className="navbar__top__action">
-          <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
-          <button className="navbar__top__action__login" onClick={showLogin}>Log In</button>
+          { isAuthenticated ? (
+            <div className="navbar__top__action__auth">
+              <img src={"https://firebasestorage.googleapis.com/v0/b/cloth-store-ac0a3.appspot.com/o/sample-dresses.jpg?alt=media&token=cf2017f4-a8e3-488d-a15b-ad68898fa49d"} alt="User avatar"></img>
+              <div className="navbar__top__action__auth__dropdown">
+                <div>
+                  <Link to="/" className="navbar__top__action__auth__dropdown__link">Account Setting</Link>
+                </div>
+                <section className="navbar__top__action__auth__dropdown__divider"></section>
+                <div onClick={logout} className="navbar__top__action__auth__dropdown__link">Logout</div>
+              </div>
+            </div>
+          ) : (
+            <Fragment>
+              <button className="navbar__top__action__register" onClick={showRegister}>Register</button>
+              <button className="navbar__top__action__login" onClick={showLogin}>Log In</button>
+            </Fragment>
+          )}
           <div to="/cart" className="navbar__top__action__cart">
             <CartAction />
             <div className="navbar__top__action__cart__dropdown">
@@ -84,4 +102,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, {})(NavBar);
+export default connect(mapStateToProps, { logout })(NavBar);

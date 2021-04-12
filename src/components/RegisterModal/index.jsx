@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
 import * as Yup from 'yup';
-import { Redirect } from 'react-router-dom';
 
 import { register } from '../../redux/actions/auth';
 import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import './styles.scss';
+import { Redirect } from 'react-router';
 
 RegisterModal.propTypes = {
   auth: PropTypes.object.isRequired,

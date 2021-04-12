@@ -8,6 +8,7 @@ import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import { login } from '../../redux/actions/auth';
 import './styles.scss';
+import { Redirect } from 'react-router-dom';
 
 LoginModal.propTypes = {
   auth: PropTypes.object.isRequired,
@@ -26,6 +27,10 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
       .required('Please enter a valid password!')
   })
 
+  if (auth.isAuthenticated) {
+    return <Redirect to="/"></Redirect>
+  }
+
   return (
     <div className="login-modal" id="login-modal">
       <div className="login-modal__content">
@@ -35,7 +40,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           </div>
         </div>
         <h1 className="login-modal__content__title">Log In</h1>
-        {auth.errors.type === 'login' && (<p className="login-modal__content__error">{auth.errors.msg}</p>)}
+        {auth?.errors?.type === 'login' && (<p className="login-modal__content__error">{auth.errors.msg}</p>)}
         <Formik
           initialValues={{
             email: '',
