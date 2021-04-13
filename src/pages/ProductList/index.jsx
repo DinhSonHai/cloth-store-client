@@ -10,7 +10,7 @@ import Spinner from '../../components/Spinner';
 import { getAllProducts } from '../../redux/actions/products';
 
 ProductList.propTypes = {
-  products: PropTypes.array.isRequired,
+  products: PropTypes.object.isRequired,
   getAllProducts: PropTypes.func.isRequired
 };
 

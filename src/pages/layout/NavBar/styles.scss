@@ -49,8 +49,16 @@
       align-items: center;
 
       &__auth {
+        width: 32px;
+        height: 32px;
         margin-right: 28px;
         position: relative;
+        background-color: #ffa15f;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        opacity: 0.8;
 
         &:hover {
           cursor: pointer;

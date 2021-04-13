@@ -17,7 +17,7 @@ NavBar.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-function NavBar({ auth: { isAuthenticated, loading }, logout }) {
+function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -55,7 +55,7 @@ function NavBar({ auth: { isAuthenticated, loading }, logout }) {
           { isAuthenticated ? (
             !loading && (
                 <div className="navbar__top__action__auth">
-                <img src={"https://firebasestorage.googleapis.com/v0/b/cloth-store-ac0a3.appspot.com/o/sample-dresses.jpg?alt=media&token=cf2017f4-a8e3-488d-a15b-ad68898fa49d"} alt="User avatar"></img>
+                <img src={user?.avatar} alt="User avatar"></img>
                 <div className="navbar__top__action__auth__dropdown">
                   <div>
                     <Link to="/" className="navbar__top__action__auth__dropdown__link">Account Setting</Link>

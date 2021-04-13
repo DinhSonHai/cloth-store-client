@@ -13,7 +13,7 @@ export const getAllProducts = () => async (dispatch) => {
     const errors = err.response.data.errors;
     if (errors) {
       // errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      errors.forEach((error) => console.log(error.msg));
+      // errors.forEach((error) => console.log(error.msg));
       // dispatch({
       //   type: AUTH_ERRORS,
       //   payload: errors[0].msg
