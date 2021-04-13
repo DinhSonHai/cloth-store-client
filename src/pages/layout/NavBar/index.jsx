@@ -10,13 +10,14 @@ import LoginModal from '../../../components/LoginModal';
 import CartAction from '../../../components/CartAction';
 
 import { logout } from '../../../redux/actions/auth';
+import Spinner from '../../../components/Spinner';
 
 NavBar.propTypes = {
   auth: PropTypes.object.isRequired,
   logout: PropTypes.func.isRequired
 };
 
-function NavBar({ auth: { isAuthenticated }, logout }) {
+function NavBar({ auth: { isAuthenticated, loading }, logout }) {
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -52,16 +53,18 @@ function NavBar({ auth: { isAuthenticated }, logout }) {
 
         <div className="navbar__top__action">
           { isAuthenticated ? (
-            <div className="navbar__top__action__auth">
-              <img src={"https://firebasestorage.googleapis.com/v0/b/cloth-store-ac0a3.appspot.com/o/sample-dresses.jpg?alt=media&token=cf2017f4-a8e3-488d-a15b-ad68898fa49d"} alt="User avatar"></img>
-              <div className="navbar__top__action__auth__dropdown">
-                <div>
-                  <Link to="/" className="navbar__top__action__auth__dropdown__link">Account Setting</Link>
+            !loading && (
+                <div className="navbar__top__action__auth">
+                <img src={"https://firebasestorage.googleapis.com/v0/b/cloth-store-ac0a3.appspot.com/o/sample-dresses.jpg?alt=media&token=cf2017f4-a8e3-488d-a15b-ad68898fa49d"} alt="User avatar"></img>
+                <div className="navbar__top__action__auth__dropdown">
+                  <div>
+                    <Link to="/" className="navbar__top__action__auth__dropdown__link">Account Setting</Link>
+                  </div>
+                  <section className="navbar__top__action__auth__dropdown__divider"></section>
+                  <div onClick={logout} className="navbar__top__action__auth__dropdown__link">Logout</div>
                 </div>
-                <section className="navbar__top__action__auth__dropdown__divider"></section>
-                <div onClick={logout} className="navbar__top__action__auth__dropdown__link">Logout</div>
               </div>
-            </div>
+            )
           ) : (
             <Fragment>
               <button className="navbar__top__action__register" onClick={showRegister}>Register</button>

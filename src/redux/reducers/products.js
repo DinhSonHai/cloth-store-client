@@ -6,6 +6,7 @@ const initialState = {
   products: [],
   total: 0,
   product: null,
+  loading: true
 };
 
 export default function products(state = initialState, action) {
@@ -15,7 +16,8 @@ export default function products(state = initialState, action) {
       return {
         ...state,
         products: payload,
-        total: payload.total
+        total: payload.total,
+        loading: false
       }
     default:
       return state;

@@ -9,6 +9,7 @@ import { CloseModalIcon } from '../../assets/icons';
 import { login } from '../../redux/actions/auth';
 import './styles.scss';
 import { Redirect } from 'react-router-dom';
+import Spinner from '../Spinner';
 
 LoginModal.propTypes = {
   auth: PropTypes.object.isRequired,
@@ -75,7 +76,9 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
                 <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
               </div>
 
-              <button type="submit" className="login-modal__content__form__button" disabled={!formik.isValid} >Login</button>
+              <button type="submit" className="login-modal__content__form__button" disabled={!formik.isValid} >
+                Login
+              </button>
             </Form>
           )}
         </Formik>
