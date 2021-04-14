@@ -6,7 +6,7 @@ export default function Spinner({ width }) {
     <div className="spinner">
       <img
         src={spinner}
-        style={{ width: {width}, margin: 'auto', display: 'block' }}
+        style={{ width: `${width}`, margin: 'auto', display: 'block' }}
         alt="loading"
       />
     </div>

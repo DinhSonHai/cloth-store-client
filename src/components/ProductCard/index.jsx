@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './styles.scss';
 
@@ -6,12 +7,12 @@ ProductCard.propTypes = {
 
 };
 
-function ProductCard({ image, name, price, isAvailable }) {
+function ProductCard({ productId, image, name, price, isAvailable }) {
   return (
     <div className="product-card">
       <div className="product-card__img">
         <img src={image} alt="Product"></img>
-        <button className="product-card__img__button">+ Quick shop</button>
+        <Link to={`/products/${productId}`} className="product-card__img__link">+ Quick shop</Link>
         {!isAvailable && (<p className="product-card__img__tag">Sold out</p>)}
       </div>
       <p className="product-card__name">{name}</p>

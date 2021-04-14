@@ -8,7 +8,6 @@ import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import { login } from '../../redux/actions/auth';
 import './styles.scss';
-import { Redirect } from 'react-router-dom';
 import Spinner from '../Spinner';
 
 LoginModal.propTypes = {
@@ -28,10 +27,6 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
       .min(6, 'Your passwords must be more than 6 characters!')
       .required('Please enter a valid password!')
   })
-
-  if (auth.isAuthenticated) {
-    return <Redirect to="/"></Redirect>
-  }
 
   const onChangeCheckBox = (e) => {
     setChecked(!isCheck);
@@ -54,7 +49,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           }}
           validationSchema={validate}
           onSubmit={values => {
-            login(values);
+            login(values, hideLogin);
             if (isCheck) {
               localStorage.setItem('isCheck', true);
               localStorage.setItem('email', values.email);

@@ -53,7 +53,7 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
 
         <div className="navbar__top__action">
           { isAuthenticated ? (
-            !loading && (
+            loading ? <Spinner width="50px" /> : (
                 <div className="navbar__top__action__auth">
                 <img src={user?.avatar} alt="User avatar"></img>
                 <div className="navbar__top__action__auth__dropdown">

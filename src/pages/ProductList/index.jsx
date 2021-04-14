@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -14,15 +14,18 @@ ProductList.propTypes = {
   getAllProducts: PropTypes.func.isRequired
 };
 
-function ProductList({ products: { products, loading }, getAllProducts }) {
+function ProductList({ products: { products }, getAllProducts }) {
+  const [loading, setLoading] = useState(true);
   useEffect(() => {
+    setLoading(true);
     getAllProducts();
-  }, [getAllProducts])
+    setLoading(false);
+  }, [getAllProducts]);
   return (
     <div className="product-list">
       { loading ? (<Spinner width="200px" />) : (
         <Fragment>
-          <div className="product-list__breadcumb">
+          <div className="product-list__breadcrumb">
             <p>Ladies / Dresses</p>
           </div>
           <div className="product-list__main">
@@ -111,7 +114,7 @@ function ProductList({ products: { products, loading }, getAllProducts }) {
                 </div>
               </div>
               <div className="product-list__main__content__card">
-                {products.map(product => (<ProductCard key={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
+                {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
               </div>
               <div className="product-list__main__content__bottom">
                 <div className="product-list__main__content__bottom__pagination">

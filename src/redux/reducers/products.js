@@ -1,12 +1,12 @@
 import {
-  GET_ALL_PRODUCTS
+  GET_ALL_PRODUCTS,
+  GET_PRODUCT_BY_ID
 } from '../types';
 
 const initialState = {
   products: [],
   total: 0,
-  product: null,
-  loading: true
+  product: null
 };
 
 export default function products(state = initialState, action) {
@@ -16,9 +16,13 @@ export default function products(state = initialState, action) {
       return {
         ...state,
         products: payload,
-        total: payload.total,
-        loading: false
+        total: payload.length
       }
+      case GET_PRODUCT_BY_ID:
+        return {
+          ...state,
+          product: payload
+        }
     default:
       return state;
   }
