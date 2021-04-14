@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import './styles.scss';
 import { getProductById } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
+import QuantityField from '../../components/CustomFields/QuantityField';
 
 ProductInfo.propTypes = {
   products: PropTypes.object.isRequired,
@@ -66,12 +67,22 @@ function ProductInfo({ match, products: { product }, getProductById }) {
               </div>
               <div className="product__size">
                   <p className="size__title">Size</p>
+                  <button className="size">S</button>
+                  <button className="size">M</button>
+                  <button className="size" disabled>L</button>
               </div>
               <div className="product__color">
                   <p className="color__title">Color</p>
+                  <button className="color"></button>
               </div>
               <div className="product__quantity">
-                  <p className="quantity-title">Quantity</p>
+                  <p className="quantity__title">Quantity</p>
+                  {/* <div className="quantity__box">
+                    <button><Minus /></button>
+                    <p>0</p>
+                    <button><Plus /></button>
+                  </div> */}
+                  <QuantityField />
               </div>
               <button className="product__add-cart">Add to cart</button>
               <div className="product__divider"></div>

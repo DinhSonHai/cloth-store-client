@@ -76,33 +76,89 @@
       }
 
       .product__size {
+        margin-bottom: 28px;
         & > p {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
           color: var(--dark-grey);
           margin-bottom: 10px;
+        }
+
+        .size {
+          width: 40px;
+          height: 40px;
+          border: solid 1px #808080;
+          background-color: #ffffff;
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.57;
+          color: var(--dark-grey);
+          margin-right: 16px;
+
+          &:disabled {
+            cursor: default;
+            opacity: 0.3;
+            color: var(--greyish-brown);
+            border: solid 2px var(--white-four);
+          }
         }
       }
 
       .product__color {
+        margin-bottom: 28px;
         & > p {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
           margin-bottom: 10px;
           color: var(--dark-grey);
+        }
+
+        .color {
+          width: 30px;
+          height: 30px;
+          // background-color: var(--white);
+          background-color: red;
+          border: none;
+          border-radius: 50%;
         }
       }
 
       .product__quantity {
+        display: flex;
+        align-items: center;
         & > p {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
-          margin-bottom: 10px;
+          margin-right: 21px;
           color: var(--dark-grey);
         }
+
+        // .quantity__box {
+        //   width: 108px;
+        //   height: 42px;
+        //   display: flex;
+        //   border: solid 2px var(--white-four);
+        //   justify-content: space-around;
+        //   align-items: center;
+          
+        //   & > p {
+        //     font-size: 14px;
+        //     font-weight: 500;
+        //     line-height: 1.57;
+        //     text-align: center;
+        //     color: var(--dark-grey);
+        //   }
+
+        //   & > button {
+        //     width: 24px;
+        //     height: 24px;
+        //     border: none;
+        //     background-color: var(--white);
+        //   }
+        // }
       }
 
       .product__add-cart {

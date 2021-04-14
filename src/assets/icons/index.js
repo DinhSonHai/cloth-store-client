@@ -52,5 +52,16 @@ export const Arrow = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <path fill="#202124" fillRule="evenodd" d="M16.762 9.684l-.48-.458A.844.844 0 0 0 15.696 9a.807.807 0 0 0-.578.226L12 12.196l-3.12-2.97A.807.807 0 0 0 8.304 9a.844.844 0 0 0-.584.226l-.475.458A.74.74 0 0 0 7 10.24c0 .22.081.404.244.55l4.178 3.978A.782.782 0 0 0 12 15a.817.817 0 0 0 .584-.232l4.178-3.978a.73.73 0 0 0 .238-.55.763.763 0 0 0-.238-.556z" />
   </svg>
+)
 
+export const Minus = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path fill="#3D3D3F" fillRule="evenodd" d="M16.307 13.308H8.692a.805.805 0 0 1-.807-.808c0-.446.361-.808.808-.808h7.615a.808.808 0 0 1 0 1.616z"/>
+</svg>
+)
+
+export const Plus = () => (
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path fill="#3D3D3F" fillRule="evenodd" d="M16.307 13.308h-3v3a.808.808 0 0 1-1.615 0v-3h-3a.805.805 0 0 1-.807-.808c0-.446.361-.808.808-.808h3v-3a.808.808 0 0 1 1.615 0v3h3a.808.808 0 0 1 0 1.616z"/>
+</svg>
 )
