@@ -11,15 +11,12 @@
     display: flex;
     justify-content: space-between;
 
-    &__logo {
-    }
-
-    &__nav {
+    .top__nav {
       display: flex;
       width: 500px;
       justify-content: space-between;
       margin-left: -2px;
-      &__link {
+      .nav__link {
         text-decoration: none;
         font-size: 14px;
         line-height: 1.57;
@@ -27,7 +24,7 @@
       }
     }
 
-    &__contact {
+    .top__contact {
       width: 100px;
       display: flex;
       justify-content: space-between;
@@ -43,12 +40,12 @@
     display: flex;
     justify-content: space-between;
 
-    &__nav {
+    .bottom__nav {
       display: flex;
       width: 400px;
       margin-right: -50px;
       justify-content: space-between;
-      &__link {
+      .nav__link {
         text-decoration: none;
         font-size: 12px;
         font-weight: 500;
@@ -57,11 +54,11 @@
       }
     }
 
-    &__policy {
+    .bottom__policy {
       display: flex;
       justify-content: space-between;
       width: 220px;
-      &__link {
+      .policy__link {
         text-decoration: none;
         font-size: 12px;
         font-weight: 500;

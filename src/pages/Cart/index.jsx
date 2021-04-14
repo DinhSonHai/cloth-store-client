@@ -12,8 +12,8 @@ function Cart(props) {
     <div className="cart">
       <p className="cart__title">My Bag</p>
       <div className="cart__main">
-        <div className="cart__main__detail">
-          <table className="cart__main__detail__table">
+        <div className="main__detail">
+          <table className="detail__table">
             <thead>
               <tr>
                 <th>Product</th>
@@ -28,7 +28,7 @@ function Cart(props) {
                 <td>
                   <img src={ImageTest} alt="Product" />
                 </td>
-                <td><div className="cart__main__detail__table__color"></div></td>
+                <td><div className="table__color"></div></td>
                 <td>S</td>
                 <td>S</td>
                 <td>$69.00</td>
@@ -36,24 +36,24 @@ function Cart(props) {
             </tbody>
           </table>
         </div>
-        <div className="cart__main__total">
-          <p className="cart__main__total__title">Total</p>
-          <div className="cart__main__total__info">
-            <div className="cart__main__total__info__ship">
+        <div className="main__total">
+          <p className="total__title">Total</p>
+          <div className="total__info">
+            <div className="info__ship">
               <p>Shipping & Handling: </p>
-              <p className="cart__main__total__info__ship__fee">Free</p>
+              <p className="ship__fee">Free</p>
             </div>
-            <div className="cart__main__total__info__total">
+            <div className="info__total">
               <p>Total product: </p>
-              <p className="cart__main__total__info__total__money">$6.900</p>
+              <p className="total__money">$6.900</p>
             </div>
-            <div className="cart__main__total__info__divider"></div>
-            <div className="cart__main__total__info__subtotal">
+            <div className="info__divider"></div>
+            <div className="info__subtotal">
               <p>Subtotal</p>
-              <p className="cart__main__total__info__subtotal__money">$6.900</p>
+              <p className="subtotal__money">$6.900</p>
             </div>
           </div>
-          <button className="cart__main__total__button">Check out</button>
+          <button className="total__button">Check out</button>
         </div>
       </div>
     </div>

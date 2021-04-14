@@ -9,7 +9,7 @@ function TextField({ label, ...props }) {
     <div className="text-field">
       <label className="text-field__label" htmlFor={field.name}>{label}</label><br />
       <input
-        className={`text-field__input ${meta.touched && meta.error && 'text-field__input__invalid'}`}
+        className={`text-field__input ${meta.touched && meta.error && 'text-field__invalid'}`}
         {...field}
         {...props}
         autoComplete="off"

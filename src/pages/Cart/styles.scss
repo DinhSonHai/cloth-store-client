@@ -11,10 +11,10 @@
     display: flex;
     justify-content: space-between;
 
-    &__detail {
+    .main__detail {
       width: 720px;
 
-      &__table {
+      .detail__table {
         width: 100%;
         border-collapse: collapse;
 
@@ -40,7 +40,7 @@
           object-fit: cover;
         }
 
-        &__color {
+        .table__color {
           width: 30px;
           height: 30px;
           border-radius: 50%;
@@ -49,10 +49,10 @@
       }
     }
 
-    &__total {
+    .main__total {
       width: 330px;
 
-      &__title {
+      .total__title {
         font-size: 14px;
         font-weight: bold;
         line-height: 1.57;
@@ -60,13 +60,13 @@
         margin-bottom: 10px;
       }
 
-      &__info {
+      .total__info {
         height: 148px;
         padding: 32px 28px 22px 30px;
         background-color: #f9f9f9;
         margin-bottom: 13px;
 
-        &__ship {
+        .info__ship {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
@@ -76,7 +76,7 @@
           justify-content: space-between;
         }
 
-        &__total {
+        .info__total {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
@@ -85,12 +85,12 @@
           justify-content: space-between;
         }
 
-        &__divider {
+        .info__divider {
           margin-top: 15px;
           margin-bottom: 4px;
           border: solid 0.5px var(--brown-grey);
         }
-        &__subtotal {
+        .info__subtotal {
           font-size: 16px;
           font-weight: bold;
           line-height: 1.5;
@@ -99,7 +99,7 @@
           justify-content: space-between;
         }
       }
-      &__button {
+      .total__button {
         width: 100%;
         height: 49px;
         border: none;

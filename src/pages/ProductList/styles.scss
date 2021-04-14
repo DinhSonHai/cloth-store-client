@@ -14,11 +14,11 @@
   &__main {
     display: flex;
 
-    &__option {
+    .main__option {
       width: 180px;
       margin-right: 20px;
 
-      &__category {
+      .option__category {
         & > p {
           font-size: 16px;
           font-weight: bold;
@@ -27,7 +27,7 @@
           margin-bottom: 29px;
         }
 
-        &__type {
+        .category__type {
           font-size: 14px;
           font-weight: 500;
           line-height: 1.57;
@@ -35,13 +35,13 @@
           text-decoration: none;
         }
 
-        &__divider {
+        .category__divider {
           width: 20px;
           margin: 8px 0;
           border: solid 0.5px var(--brown-grey);
         }
 
-        &__detail {
+        .category__detail {
           & > p {
             font-size: 14px;
             line-height: 1.57;
@@ -52,13 +52,13 @@
           }
         }
       }
-      &__divider {
+      .option__divider {
         margin: 54px 0;
         width: 101px;
         border: solid 0.5px var(--brown-grey);
       }
 
-      &__filter {
+      .option__filter {
         width: 180px;
 
         & > p {
@@ -66,10 +66,10 @@
           font-weight: bold;
         }
 
-        &__size {
+        .filter__size {
           padding-bottom: 15px;
           border-bottom: 0.5px solid var(--pinkish-grey);
-          &__title {
+          .size__title {
             display: flex;
             margin-top: 33px;
             justify-content: space-between;
@@ -82,10 +82,10 @@
             }
           }
 
-          &__content {
+          .size__content {
             display: flex;
 
-            &__s {
+            .content__s {
               display: flex;
               justify-content: center;
               align-items: center;
@@ -98,7 +98,7 @@
               background-color: #ffa15f;
             }
 
-            &__m {
+            .content__m {
               display: flex;
               justify-content: center;
               align-items: center;
@@ -111,7 +111,7 @@
               background-color: #ffa15f;
             }
 
-            &__l {
+            .content__l {
               display: flex;
               justify-content: center;
               align-items: center;
@@ -126,7 +126,7 @@
           }
         }
 
-        &__color {
+        .filter__color {
           display: flex;
           margin-top: 10px;
           justify-content: space-between;
@@ -143,7 +143,7 @@
           }
         }
 
-        &__price {
+        .filter__price {
           display: flex;
           margin-top: 10px;
           justify-content: space-between;
@@ -160,7 +160,7 @@
           }
         }
 
-        &__brand {
+        .filter__brand {
           display: flex;
           margin-top: 10px;
           justify-content: space-between;
@@ -177,7 +177,7 @@
           }
         }
 
-        &__available {
+        .filter__available {
           display: flex;
           margin-top: 10px;
           justify-content: space-between;
@@ -196,13 +196,13 @@
       }
     }
 
-    &__content {
-      &__top {
+    .main__content {
+      .content__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 13px;
-        &__sort {
+        .top__sort {
           & > select {
             width: 162px;
             opacity: 0.5;
@@ -216,12 +216,12 @@
           }
         }
 
-        &__pagination {
+        .top__pagination {
           width: 112px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          &__page {
+          .pagination__page {
             font-size: 14px;
             font-weight: 500;
             line-height: 1.57;
@@ -229,7 +229,7 @@
             color: var(--dark-grey);
           }
 
-          &__previous {
+          .pagination__previous {
             width: 24px;
             height: 24px;
             background-color: var(--white);
@@ -237,7 +237,7 @@
             transform: rotate(90deg);
           }
 
-          &__next {
+          .pagination__next {
             width: 24px;
             height: 24px;
             background-color: var(--white);
@@ -247,21 +247,21 @@
         }
       }
 
-      &__card {
+      .content__card {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
       }
 
-      &__bottom {
+      .content__bottom {
         display: flex;
         justify-content: flex-end;
-        &__pagination {
+        .bottom__pagination {
           width: 112px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          &__page {
+          .pagination__page {
             font-size: 14px;
             font-weight: 500;
             line-height: 1.57;
@@ -269,7 +269,7 @@
             color: var(--dark-grey);
           }
 
-          &__previous {
+          .pagination__previous {
             width: 24px;
             height: 24px;
             background-color: var(--white);
@@ -277,7 +277,7 @@
             transform: rotate(90deg);
           }
 
-          &__next {
+          .pagination__next {
             width: 24px;
             height: 24px;
             background-color: var(--white);

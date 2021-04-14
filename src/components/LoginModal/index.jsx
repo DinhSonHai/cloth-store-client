@@ -35,13 +35,13 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
   return (
     <div className="login-modal" id="login-modal">
       <div className="login-modal__content">
-        <div className="login-modal__content__close">
-          <div className="login-modal__content__close__icon" onClick={hideLogin}>
+        <div className="login-modal__close">
+          <div className="close__icon" onClick={hideLogin}>
             <CloseModalIcon />
           </div>
         </div>
-        <h1 className="login-modal__content__title">Log In</h1>
-        {auth?.errors?.type === 'login' && (<p className="login-modal__content__error">{auth.errors.msg}</p>)}
+        <h1 className="content__title">Log In</h1>
+        {auth?.errors?.type === 'login' && (<p className="content__error">{auth.errors.msg}</p>)}
         <Formik
           initialValues={{
             email: localStorage.getItem('email') || '',
@@ -59,25 +59,25 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           validateOnMount
         >
           {formik => (
-            <Form className="login-modal__content__form">
+            <Form className="content__form">
               <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." />
               <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." />
 
-              <div className="login-modal__content__form__option">
-                <div className="login-modal__content__form__option__remember">
+              <div className="form__option">
+                <div className="option__remember">
                   <input type="checkbox" id="rememeber-box" checked={isCheck} onChange={onChangeCheckBox}/>
                   <label htmlFor="remember-box">Remember password</label>
                 </div>
-                <p className="login-modal__content__form__option_forgot">Forgot your password?</p>
+                <p className="option_forgot">Forgot your password?</p>
               </div>
 
-              <button type="submit" className="login-modal__content__form__button" disabled={!formik.isValid} >
+              <button type="submit" className="form__button" disabled={!formik.isValid} >
                 Login
               </button>
             </Form>
           )}
         </Formik>
-        <p className="login-modal__content__option" onClick={() => { hideLogin(); showRegister(); }} >Don't have an account? <span> Register</span></p>
+        <p className="content__option" onClick={() => { hideLogin(); showRegister(); }} >Don't have an account? <span> Register</span></p>
       </div>
     </div>
   );

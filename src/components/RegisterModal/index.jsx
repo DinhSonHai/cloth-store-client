@@ -31,13 +31,13 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
   return (
     <div className="register-modal" id="register-modal">
       <div className="register-modal__content">
-        <div className="register-modal__content__close">
-          <div className="register-modal__content__close__icon" onClick={hideRegister}>
+        <div className="content__close">
+          <div className="close__icon" onClick={hideRegister}>
             <CloseModalIcon />
           </div>
         </div>
-        <h1 className="register-modal__content__title">Register</h1>
-        {auth?.errors?.type === 'register' && <p className="register-modal__content__error">{auth.errors.msg}</p>}
+        <h1 className="content__title">Register</h1>
+        {auth?.errors?.type === 'register' && <p className="content__error">{auth.errors.msg}</p>}
         <Formik
           initialValues={{
             name: '',
@@ -51,18 +51,18 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           validateOnMount
         >
           {formik => (
-            <Form className="register-modal__content__form">
+            <Form className="content__form">
               <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." />
               <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." />
               <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." />
 
-              <p className="register-modal__content__form__policy">By creating an account you agree to the <a href="/">Term of service</a> and <a href="/">Privacy Policy</a></p>
+              <p className="form__policy">By creating an account you agree to the <a href="/">Term of service</a> and <a href="/">Privacy Policy</a></p>
 
-              <button type="submit" className="register-modal__content__form__button" disabled={!formik.isValid} >Register</button>
+              <button type="submit" className="form__button" disabled={!formik.isValid} >Register</button>
             </Form>
           )}
         </Formik>
-        <p className="register-modal__content__option" onClick={() => { hideRegister(); showLogin(); }}>Do you have an account? <span> Log In</span></p>
+        <p className="content__option" onClick={() => { hideRegister(); showLogin(); }}>Do you have an account? <span> Log In</span></p>
       </div>
     </div>
   );

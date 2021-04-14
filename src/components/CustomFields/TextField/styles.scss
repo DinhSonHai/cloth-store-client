@@ -23,15 +23,16 @@
     line-height: 1.57;
     background-color: var(--white-two);
 
-    &__invalid {
-      border: 1px solid var(--strawberry);
-      background-color: rgba(246, 63, 69, 0.04);
-    }
-
     &::placeholder {
       color: rgba(77, 77, 77, 0.5);
     }
   }
+
+  &__invalid {
+    border: 1px solid var(--strawberry);
+    background-color: rgba(246, 63, 69, 0.04);
+  }
+
   &__error {
     position: absolute;
     font-size: 10px;

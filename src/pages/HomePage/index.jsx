@@ -17,8 +17,8 @@ function HomePage(props) {
   return (
     <div className="home-page">
       <div className="home-page__weekly-outfit">
-        <p className="home-page__weekly-outfit__title">OUTFIT OF THE WEEK</p>
-        <Link to="/products" className="home-page__weekly-outfit__link">Shop now</Link>
+        <p className="weekly-outfit__title">OUTFIT OF THE WEEK</p>
+        <Link to="/products" className="weekly-outfit__link">Shop now</Link>
       </div>
       <div className="home-page__collection">
         <CollectionCard title="Men" image={Men} />

@@ -29,12 +29,12 @@ function ProductList({ products: { products }, getAllProducts }) {
             <p>Ladies / Dresses</p>
           </div>
           <div className="product-list__main">
-            <div className="product-list__main__option">
-              <div className="product-list__main__option__category">
+            <div className="main__option">
+              <div className="option__category">
                 <p>Category</p>
-                <a href="/" className="product-list__main__option__category__type">Dresses</a>
-                <div className="product-list__main__option__category__divider"></div>
-                <div className="product-list__main__option__category__detail">
+                <a href="/" className="category__type">Dresses</a>
+                <div className="category__divider"></div>
+                <div className="category__detail">
                   <p>Roompers / Jumpsuits</p>
                   <p>Casual dresses</p>
                   <p>Going out dresses</p>
@@ -44,27 +44,27 @@ function ProductList({ products: { products }, getAllProducts }) {
                   <p>Sets</p>
                 </div>
               </div>
-              <div className="product-list__main__option__divider"></div>
-              <div className="product-list__main__option__filter">
+              <div className="option__divider"></div>
+              <div className="option__filter">
                 <p>Filter</p>
 
                 {/* Size */}
-                <div className="product-list__main__option__filter__size">
-                  <div className="product-list__main__option__filter__size__title">
+                <div className="filter__size">
+                  <div className="size__title">
                     <p>Size</p>
                     <span>
                       <Arrow />
                     </span>
                   </div>
-                  <div className="product-list__main__option__filter__size__content">
-                    <Link to="/" className="product-list__main__option__filter__size__content__s">S</Link>
-                    <Link to="/" className="product-list__main__option__filter__size__content__m">M</Link>
-                    <Link to="/" className="product-list__main__option__filter__size__content__l">L</Link>
+                  <div className="size__content">
+                    <Link to="/" className="content__s">S</Link>
+                    <Link to="/" className="content__m">M</Link>
+                    <Link to="/" className="content__l">L</Link>
                   </div>
                 </div>
 
                 {/* Color */}
-                <div className="product-list__main__option__filter__color">
+                <div className="filter__color">
                   <p>Color</p>
                   <span>
                     <Arrow />
@@ -72,7 +72,7 @@ function ProductList({ products: { products }, getAllProducts }) {
                 </div>
 
                 {/* Brand */}
-                <div className="product-list__main__option__filter__brand">
+                <div className="filter__brand">
                   <p>Brand</p>
                   <span>
                     <Arrow />
@@ -80,7 +80,7 @@ function ProductList({ products: { products }, getAllProducts }) {
                 </div>
 
                 {/* Price */}
-                <div className="product-list__main__option__filter__price">
+                <div className="filter__price">
                   <p>Price</p>
                   <span>
                     <Arrow />
@@ -88,7 +88,7 @@ function ProductList({ products: { products }, getAllProducts }) {
                 </div>
 
                 {/* Available */}
-                <div className="product-list__main__option__filter__available">
+                <div className="filter__available">
                   <p>Avalilable</p>
                   <span>
                     <Arrow />
@@ -98,29 +98,29 @@ function ProductList({ products: { products }, getAllProducts }) {
               </div>
             </div>
 
-            <div className="product-list__main__content">
-              <div className="product-list__main__content__top">
-                <div className="product-list__main__content__top__sort">
+            <div className="main__content">
+              <div className="content__top">
+                <div className="top__sort">
                   <select>
                     <option>Sort By: Popularity</option>
                     <option>Sort By: Price Asc</option>
                     <option>Sort By: Price Desc</option>
                   </select>
                 </div>
-                <div className="product-list__main__content__top__pagination">
-                  <button className="product-list__main__content__top__pagination__previous"><Arrow /></button>
-                  <p className="product-list__main__content__top__pagination__page">1/100</p>
-                  <button className="product-list__main__content__top__pagination__next"><Arrow /></button>
+                <div className="top__pagination">
+                  <button className="pagination__previous"><Arrow /></button>
+                  <p className="pagination__page">1/100</p>
+                  <button className="pagination__next"><Arrow /></button>
                 </div>
               </div>
-              <div className="product-list__main__content__card">
+              <div className="content__card">
                 {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
               </div>
-              <div className="product-list__main__content__bottom">
-                <div className="product-list__main__content__bottom__pagination">
-                  <button className="product-list__main__content__bottom__pagination__previous"><Arrow /></button>
-                  <p className="product-list__main__content__bottom__pagination__page">1/100</p>
-                  <button className="product-list__main__content__bottom__pagination__next"><Arrow /></button>
+              <div className="content__bottom">
+                <div className="bottom__pagination">
+                  <button className="pagination__previous"><Arrow /></button>
+                  <p className="pagination__page">1/100</p>
+                  <button className="pagination__next"><Arrow /></button>
                 </div>
               </div>
             </div>

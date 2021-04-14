@@ -13,35 +13,35 @@ function Footer(props) {
   return (
     <div className="footer">
       <div className="footer__top">
-        <Link to="/" className="footer__top__logo">
+        <Link to="/" className="top__logo">
           <Logo />
         </Link>
-        <div className="footer__top__nav">
-          <Link to="#" className="footer__top__nav__link">Home</Link>
-          <Link to="/products" className="footer__top__nav__link">Products</Link>
-          <Link to="#" className="footer__top__nav__link">Services</Link>
-          <Link to="#" className="footer__top__nav__link">About Us</Link>
-          <Link to="#" className="footer__top__nav__link">Help</Link>
-          <Link to="#" className="footer__top__nav__link">Contacts</Link>
+        <div className="top__nav">
+          <Link to="#" className="nav__link">Home</Link>
+          <Link to="/products" className="nav__link">Products</Link>
+          <Link to="#" className="nav__link">Services</Link>
+          <Link to="#" className="nav__link">About Us</Link>
+          <Link to="#" className="nav__link">Help</Link>
+          <Link to="#" className="nav__link">Contacts</Link>
         </div>
-        <div className="footer__top__contact">
+        <div className="top__contact">
           <TwitterIcon />
           <FacebookIcon />
           <InstagramIcon />
         </div>
       </div>
       <div className="footer__bottom">
-        <div className="footer__bottom__nav">
-          <Link className="footer__bottom__nav__link" to="#">Home</Link>
-          <Link className="footer__bottom__nav__link" to="/products">Products</Link>
-          <Link className="footer__bottom__nav__link" to="#">Services</Link>
-          <Link className="footer__bottom__nav__link" to="#">About Us</Link>
-          <Link className="footer__bottom__nav__link" to="#">Help</Link>
-          <Link className="footer__bottom__nav__link" to="#">Contacts</Link>
+        <div className="bottom__nav">
+          <Link className="nav__link" to="#">Home</Link>
+          <Link className="nav__link" to="/products">Products</Link>
+          <Link className="nav__link" to="#">Services</Link>
+          <Link className="nav__link" to="#">About Us</Link>
+          <Link className="nav__link" to="#">Help</Link>
+          <Link className="nav__link" to="#">Contacts</Link>
         </div>
-        <div className="footer__bottom__policy">
-          <Link className="footer__bottom__policy__link" to="#">Privacy Policy</Link>
-          <Link className="footer__bottom__policy__link" to="#">Terms & Conditions</Link>
+        <div className="bottom__policy">
+          <Link className="policy__link" to="#">Privacy Policy</Link>
+          <Link className="policy__link" to="#">Terms & Conditions</Link>
         </div>
       </div>
     </div>

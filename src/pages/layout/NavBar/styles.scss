@@ -6,7 +6,7 @@
     justify-content: space-between;
     align-items: center;
 
-    &__search-box {
+    .top__search-box {
       width: 181px;
       height: 35px;
       display: flex;
@@ -14,7 +14,7 @@
       border: 1px solid var(--greyish-two);
       border-radius: 17px;
 
-      &__input {
+      .search-box__input {
         height: 100%;
         width: 90%;
         color: var(--dark-grey);
@@ -28,7 +28,7 @@
         }
       }
 
-      &__icon {
+      .search-box__icon {
         display: inline-block;
         margin-right: 2px;
         opacity: 0.6;
@@ -37,18 +37,18 @@
       }
     }
 
-    &__logo {
+    .top__logo {
       margin-right: -50px;
     }
 
-    &__action {
+    .top__action {
       height: 35px;
       width: 250px;
       display: flex;
       justify-content: flex-end;
       align-items: center;
 
-      &__auth {
+      .action__auth {
         width: 32px;
         height: 32px;
         margin-right: 28px;
@@ -64,11 +64,11 @@
           cursor: pointer;
         }
 
-        &:hover &__dropdown {
+        &:hover .auth__dropdown {
           display: block;
         }
 
-        &__dropdown {
+        .auth__dropdown {
           display: none;
           position: absolute;
           right: 0;
@@ -96,11 +96,11 @@
             right: 0;
           }
 
-          &__divider {
+          .dropdown__divider {
             height: 1px;
             background-color: #ececec;
           }
-          &__link {
+          .dropdown__link {
             padding: 7px 0 7px 13px;
             text-decoration: none;
             font-size: 12px;
@@ -117,7 +117,7 @@
         }
       }
 
-      &__register {
+      .action__register {
         margin-right: 28px;
         color: var(--greyish-brown);
         font-family: Montserrat;
@@ -126,7 +126,7 @@
         background-color: var(--white);
       }
 
-      &__login {
+      .action__login {
         margin-right: 28px;
         align-self: stretch;
         width: 120px;
@@ -139,18 +139,18 @@
         font-weight: bold;
       }
 
-      &__cart {
+      .action__cart {
         position: relative;
 
         &:hover {
           cursor: pointer;
         }
 
-        &:hover &__dropdown {
+        &:hover .cart__dropdown {
           display: block;
         }
 
-        &__dropdown {
+        .cart__dropdown {
           display: none;
           position: absolute;
           width: 270px;
@@ -172,7 +172,7 @@
             right: 0;
           }
 
-          &__link {
+          .dropdown__link {
             display: flex;
             position: absolute;
             width: 100%;
@@ -193,7 +193,7 @@
     }
   }
 
-  &__bottom {
+  .navbar__bottom {
     margin-top: 13px;
     margin-left: -130px;
     margin-right: -130px;
@@ -204,7 +204,7 @@
     align-items: center;
     justify-content: center;
 
-    &__collection {
+    .bottom__collection {
       display: flex;
       align-items: center;
       margin-right: 20px;
@@ -213,18 +213,18 @@
         cursor: pointer;
       }
 
-      &:hover &__dropdown {
+      &:hover .collection__dropdown {
         display: flex;
       }
 
-      &__text {
+      .collection__text {
         font-size: 14px;
         font-weight: 500;
         line-height: 1.57;
         color: var(--dark-grey);
       }
 
-      &__dropdown {
+      .collection__dropdown {
         display: none;
         position: absolute;
         width: 620px;
@@ -249,7 +249,7 @@
           top: -20px;
         }
 
-        &__link {
+        .dropdown__link {
           text-decoration: none;
           font-size: 14px;
           line-height: 1.57;

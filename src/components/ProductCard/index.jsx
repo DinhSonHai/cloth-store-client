@@ -12,8 +12,8 @@ function ProductCard({ productId, image, name, price, isAvailable }) {
     <div className="product-card">
       <div className="product-card__img">
         <img src={image} alt="Product"></img>
-        <Link to={`/products/${productId}`} className="product-card__img__link">+ Quick shop</Link>
-        {!isAvailable && (<p className="product-card__img__tag">Sold out</p>)}
+        <Link to={`/products/${productId}`} className="img__link">+ Quick shop</Link>
+        {!isAvailable && (<p className="img__tag">Sold out</p>)}
       </div>
       <p className="product-card__name">{name}</p>
       <p className="product-card__price">{price}</p>
