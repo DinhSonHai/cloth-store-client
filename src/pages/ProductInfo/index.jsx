@@ -26,7 +26,7 @@ function ProductInfo({ match, products: { product }, getProductById }) {
     document.getElementById("main-img").src = e.target.src;
   }
 
-  const handleSizeChange = (variant, index, length) => {
+  const handleSizeChange = (e) => {
     const sizes = document.getElementsByClassName("size");
     // sizes.map((size, i) => {
     //   if (i === index) {
@@ -70,7 +70,7 @@ function ProductInfo({ match, products: { product }, getProductById }) {
                         size={20}
                         color="#d4d3d3"
                         activeColor="#ffd543"
-                        value={product.starsCount}
+                        value={product.starRatings}
                         isHalf={true}
                       />
                       <div className="rating__divider"></div>
@@ -80,13 +80,15 @@ function ProductInfo({ match, products: { product }, getProductById }) {
               </div>
               <div className="product__size">
                   <p className="size__title">Size</p>
-                  { product?.variants.map((variant, index, variants) => (
-                    <button className="size" onClick={() => handleSizeChange(variant, index, variants.length)} disabled={!variant.quantity}>{variant.sizeId.sizeName}</button>
+                  { product?.sizes && product?.sizes.map(size => (
+                    <button className="size" onClick={handleSizeChange}>{size.sizeName}</button>
                   )) }
               </div>
               <div className="product__color">
                   <p className="color__title">Color</p>
-                  <button className="color"></button>
+                  { product?.colors && product?.colors.map(color => (
+                    <button className="color" style={{ backgroundColor: `${color.colorName}` }}></button>
+                  )) }
               </div>
               <div className="product__quantity">
                   <p className="quantity__title">Quantity</p>
