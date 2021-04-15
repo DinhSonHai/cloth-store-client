@@ -1,5 +1,5 @@
 import store from '../app/store';
-import { UPDATE_CART, REMOVE_FROM_CART } from '../redux/types';
+import { UPDATE_CART } from '../redux/types';
 
 // Add item to cart
 export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
@@ -10,10 +10,12 @@ export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
   } else {
     cartCopy.push({ productId, sizeId, colorId, quantity });
   }
-  // store.dispatch({
-  //   type: UPDATE_CART,
-  //   payload: { isHaveCart: true, cartState: cartCopy },
-  // });
+
+  store.dispatch({
+    type: UPDATE_CART,
+    payload: { isHaveCart: true, cart: cartCopy },
+  });
+
   localStorage.setItem('cart', JSON.stringify(cartCopy));
   return true;
 };

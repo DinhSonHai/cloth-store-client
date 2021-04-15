@@ -12,39 +12,20 @@
     justify-content: space-between;
 
     .main__detail {
-      width: 720px;
+      width: 780px;
 
       .detail__table {
         width: 100%;
         border-collapse: collapse;
+        margin-bottom: 40px;
 
-        & > thead > tr,
-        & > tbody > tr {
-          border-bottom: 0.5px solid var(--brown-grey);
-        }
-
-        & > tbody > tr:last-child {
-          border-bottom: none;
-        }
         & > thead > tr > th {
-          text-align: left;
           font-size: 14px;
           font-weight: bold;
           line-height: 1.57;
           color: var(--dark-grey);
-        }
-
-        & > tbody > tr > td > img {
-          width: 80px;
-          height: 130px;
-          object-fit: cover;
-        }
-
-        .table__color {
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          background-color: #857e6e;
+          padding-bottom: 10px;
+          border-bottom: solid 0.5px var(--brown-grey);
         }
       }
     }

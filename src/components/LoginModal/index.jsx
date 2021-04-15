@@ -8,7 +8,6 @@ import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import { login } from '../../redux/actions/auth';
 import './styles.scss';
-import Spinner from '../Spinner';
 
 LoginModal.propTypes = {
   auth: PropTypes.object.isRequired,

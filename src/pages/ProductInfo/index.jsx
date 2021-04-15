@@ -24,14 +24,13 @@ function ProductInfo({ match, product, getProductById }) {
     colorId: '',
     quantity: 0
   });
-  const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
     setLoading(true);
     getProductById(match.params.productId);
     setData({...data, productId: match.params.productId})
     setLoading(false);
-  }, [getProductById, match.params.productId]);
+  }, [getProductById, match.params.productId, data]);
 
   const handleThumbailCLick = (e) => {
     document.getElementById("main-img").src = e.target.src;
@@ -57,18 +56,18 @@ function ProductInfo({ match, product, getProductById }) {
   
   const handleAddToCart = () => {
     if (!data.sizeId) {
-      toast.error('Please choose size');
+      toast.error('Please choose size',{ position: toast.POSITION.TOP_CENTER});
     }
     if (!data.colorId) {
-      toast.error('Please choose color');
+      toast.error('Please choose color', { position: toast.POSITION.TOP_CENTER});
     }
     if (data.quantity < 1) {
-      toast.error('Please choose quantity');
+      toast.error('Please choose quantity', { position: toast.POSITION.TOP_CENTER});
     }
     if (data.sizeId && data.colorId && data.quantity) {
       const result = addItemToCart(data);
       if (result) {
-        toast.success('Added to cart')
+        toast.success('Added to cart', { position: toast.POSITION.TOP_CENTER})
       }
     }
   }

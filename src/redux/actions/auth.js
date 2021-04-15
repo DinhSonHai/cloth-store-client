@@ -55,7 +55,7 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
       },
     };
     const res = await axios.post('/api/auth/signup', formData, config);
-    toast.success(res.data.msg);
+    toast.success(res.data.msg, { position: toast.POSITION.TOP_CENTER});
     hideRegister();
     showLogin();
   } catch (error) {

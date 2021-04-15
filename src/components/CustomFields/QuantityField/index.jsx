@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Minus, Plus } from '../../../assets/icons';
 import './styles.scss';
@@ -23,8 +23,8 @@ function QuantityField({ data, setData }) {
 
   return (
     <div className="quantity__field">
-      <button onClick={handleDecrement} disabled={data.quanity < 2}><Minus /></button>
-      <p>{data.quantity}</p>
+      <button onClick={handleDecrement} disabled={data?.quantity < 2}><Minus /></button>
+      <p>{data?.quantity}</p>
       <button onClick={handleIncrement}><Plus /></button>
     </div>
   );
