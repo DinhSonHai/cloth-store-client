@@ -15,6 +15,7 @@ ProductInfo.propTypes = {
 
 function ProductInfo({ match, products: { product }, getProductById }) {
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoading(true);
     getProductById(match.params.productId);
@@ -23,6 +24,18 @@ function ProductInfo({ match, products: { product }, getProductById }) {
 
   const handleThumbailCLick = (e) => {
     document.getElementById("main-img").src = e.target.src;
+  }
+
+  const handleSizeChange = (variant, index, length) => {
+    const sizes = document.getElementsByClassName("size");
+    // sizes.map((size, i) => {
+    //   if (i === index) {
+    //     size.classList.add("size--active");  
+    //   }
+    //   else {
+    //     size.classList.remove("size--active");
+    //   }
+    // });
   }
 
   return (
@@ -67,9 +80,9 @@ function ProductInfo({ match, products: { product }, getProductById }) {
               </div>
               <div className="product__size">
                   <p className="size__title">Size</p>
-                  <button className="size">S</button>
-                  <button className="size">M</button>
-                  <button className="size" disabled>L</button>
+                  { product?.variants.map((variant, index, variants) => (
+                    <button className="size" onClick={() => handleSizeChange(variant, index, variants.length)} disabled={!variant.quantity}>{variant.sizeId.sizeName}</button>
+                  )) }
               </div>
               <div className="product__color">
                   <p className="color__title">Color</p>
@@ -77,11 +90,6 @@ function ProductInfo({ match, products: { product }, getProductById }) {
               </div>
               <div className="product__quantity">
                   <p className="quantity__title">Quantity</p>
-                  {/* <div className="quantity__box">
-                    <button><Minus /></button>
-                    <p>0</p>
-                    <button><Plus /></button>
-                  </div> */}
                   <QuantityField />
               </div>
               <button className="product__add-cart">Add to cart</button>
