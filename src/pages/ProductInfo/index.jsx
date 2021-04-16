@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './styles.scss';
@@ -12,8 +12,6 @@ import { toast } from 'react-toastify';
 import { addItemToCart } from '../../utils/cart';
 
 ProductInfo.propTypes = {
-  product: PropTypes.object.isRequired,
-  getProductById: PropTypes.func.isRequired
 };
 
 function ProductInfo({ match, product, getProductById }) {

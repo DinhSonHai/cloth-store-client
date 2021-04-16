@@ -6,7 +6,6 @@ import { CartIcon } from '../../assets/icons';
 
 import './styles.scss';
 import { Link } from 'react-router-dom';
-import CartDropdownItem from '../CartDropdownItem';
 import { getAllProductsCart } from '../../redux/actions/products';
 
 CartAction.propTypes = {
@@ -24,7 +23,7 @@ function CartAction({ cart: { cart, isHaveCart, productsCart } }) {
       await getAllProductsCart(list);
     }
     setLoading(false);
-  }, [getAllProductsCart, cart, loading]);
+  }, [cart, loading]);
 
   return (
     <div className="action-cart">

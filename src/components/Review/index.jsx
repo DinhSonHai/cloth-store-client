@@ -1,13 +1,11 @@
 import React, { Fragment } from 'react';
 import StarRatingComponent from 'react-star-rating-component';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './styles.scss';
 
 Review.propTypes = {
-  auth: PropTypes.object.isRequired,
-  product: PropTypes.object.isRequired
 };
 
 function Review({ auth, product }) {
@@ -25,9 +23,13 @@ function Review({ auth, product }) {
 
           {
             product?.reviews.map(review => (
-              <div className="review">
+              <div key={review._id} className="review">
                 <div className="review__info">
-                  <p className="info__name">{review.userId.name}</p>
+                  { auth && auth?.user?._id === review?.userId?._id ? (
+                    <p className="info__name">You</p>
+                  ) : (
+                    <p className="info__name">{review.userId.name}</p>
+                  ) }
                   {/* <p className="info__date">{new Date(review.commentedAt).getDate()} {new Date(review.commentedAt).getMonth()}</p> */}
                 </div>
                 <div className="review__content">

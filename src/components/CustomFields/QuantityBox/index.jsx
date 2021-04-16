@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import { Minus, Plus } from '../../../assets/icons';
 import './styles.scss';
