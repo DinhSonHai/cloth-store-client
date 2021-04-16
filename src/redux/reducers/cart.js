@@ -25,6 +25,7 @@ export default function cart (state = initialState, action) {
         ...state,
         isHaveCart: false,
         cart: [],
+        productsCart: []
       };
     default:
       return state;

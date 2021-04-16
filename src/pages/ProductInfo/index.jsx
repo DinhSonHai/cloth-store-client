@@ -19,7 +19,7 @@ ProductInfo.propTypes = {
 function ProductInfo({ match, product, getProductById }) {
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
-    productId: '',
+    productId: match.params.productId,
     sizeId: '',
     colorId: '',
     quantity: 0
@@ -28,9 +28,8 @@ function ProductInfo({ match, product, getProductById }) {
   useEffect(() => {
     setLoading(true);
     getProductById(match.params.productId);
-    setData({...data, productId: match.params.productId})
     setLoading(false);
-  }, [getProductById, match.params.productId, data]);
+  }, [getProductById, match.params.productId, data, loading]);
 
   const handleThumbailCLick = (e) => {
     document.getElementById("main-img").src = e.target.src;

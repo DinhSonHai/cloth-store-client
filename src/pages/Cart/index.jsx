@@ -25,10 +25,18 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
     setLoading(false);
   }, [getAllProductsCart, cart]);
 
+  const totalMoney = cart?.reduce((total, item) => {
+    const price = productsCart.find(productCart => productCart._id === item.productId)?.price;
+    if (price) {
+      total = total + item.quantity * price;
+    }
+    return total;
+  }, 0)
+
   return (
     <div className="cart">
       { loading ? <Spinner /> : (
-        cart.length <= 0 ? (<div>No cart</div>) : (<Fragment>
+        cart?.length <= 0 ? (<div>No cart</div>) : (<Fragment>
           <p className="cart__title">My Bag</p>
           <div className="cart__main">
             <div className="main__detail">
@@ -59,12 +67,14 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
                 </div>
                 <div className="info__total">
                   <p>Total product: </p>
-                  <p className="total__money">$6.900</p>
+                  <p className="total__money">
+                    ${totalMoney || 0}.00
+                  </p>
                 </div>
                 <div className="info__divider"></div>
                 <div className="info__subtotal">
                   <p>Subtotal</p>
-                  <p className="subtotal__money">$6.900</p>
+                  <p className="subtotal__money">${totalMoney || 0}.00</p>
                 </div>
               </div>
               <button className="total__button">Check out</button>

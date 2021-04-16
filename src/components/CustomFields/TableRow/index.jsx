@@ -1,5 +1,6 @@
 import React from 'react';
-import QuantityField from '../QuantityField';
+import { removeItemFromCart } from '../../../utils/cart';
+import QuantityBox from '../QuantityBox';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -9,6 +10,10 @@ TableRow.propTypes = {
 };
 
 function TableRow({ cartItem, productCart }) {
+  const handleRemove = () => {
+    removeItemFromCart(cartItem);
+  }
+
   return (
     <tr className="table-row">
       <td style={{ width: '32%' }}>
@@ -19,7 +24,7 @@ function TableRow({ cartItem, productCart }) {
             <div className="product__action">
               <button>Change</button>
               <div className="action__divider"></div>
-              <button>Remove</button>
+              <button onClick={handleRemove}>Remove</button>
             </div>
           </div>
         </div>
@@ -36,7 +41,7 @@ function TableRow({ cartItem, productCart }) {
       </td>
       <td >
         <div className="table-row__quantity">
-          <QuantityField />
+          <QuantityBox cartQuantity={cartItem.quantity}/>
         </div>
       </td>
       <td>

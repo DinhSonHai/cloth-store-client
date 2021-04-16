@@ -1,5 +1,5 @@
 import store from '../app/store';
-import { UPDATE_CART } from '../redux/types';
+import { UPDATE_CART, REMOVE_FROM_CART } from '../redux/types';
 
 // Add item to cart
 export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
@@ -20,26 +20,39 @@ export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
   return true;
 };
 
-// export const removeItem = (_id) => {
-//   let cart = JSON.parse(localStorage.getItem('cart'));
-//   let updatedCart = cart.filter((item) => {
-//     return item._id !== _id;
-//   });
-//   if (updatedCart.length <= 0) {
-//     store.dispatch({
-//       type: REMOVE_CART,
-//     });
-//   } else {
-//     store.dispatch({
-//       type: UPDATE_CART,
-//       payload: {
-//         isHaveCart: true,
-//         cartState: updatedCart,
-//       },
-//     });
-//   }
-//   localStorage.setItem('cart', JSON.stringify(updatedCart));
-// };
+export const removeItemFromCart = ({ productId, sizeId, colorId }) => {
+  let cartCopy = JSON.parse(localStorage.getItem('cart')) || [];
+  let updatedCart = cartCopy.filter((item) => {
+    if (item.productId !== productId) {
+      return true;
+    }
+    else if (item.sizeId !== sizeId) {
+      return true;
+    }
+    else if (item.colorId !== colorId) {
+      return true;
+    }
+    return false;
+  });
+
+  console.log(updatedCart)
+
+  if (updatedCart.length <= 0) {
+    store.dispatch({
+      type: REMOVE_FROM_CART,
+    });
+  } 
+  else {
+    store.dispatch({
+      type: UPDATE_CART,
+      payload: {
+        isHaveCart: true,
+        cart: updatedCart,
+      },
+    });
+  }
+  localStorage.setItem('cart', JSON.stringify(updatedCart));
+};
 
 // export const setAmount = (_id, value) => {
 //   if (!value || isNaN(value) || !Number.isInteger(value)) {
