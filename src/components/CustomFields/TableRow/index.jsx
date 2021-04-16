@@ -1,6 +1,7 @@
-import React from 'react';
-import { removeItemFromCart } from '../../../utils/cart';
+import React, { useState } from 'react';
+import { addItemToCart, removeItemFromCart } from '../../../utils/cart';
 import QuantityBox from '../QuantityBox';
+import { toast } from 'react-toastify';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -10,6 +11,14 @@ TableRow.propTypes = {
 };
 
 function TableRow({ cartItem, productCart }) {
+  const [quantity, setQuantity] = useState(cartItem.quantity || 0);
+  
+  const handleChange = () => {
+    const result = addItemToCart({ ...cartItem, quantity });
+    if (result) {
+      toast.success('Updated cart', { position: toast.POSITION.TOP_CENTER})
+    }
+  }
   const handleRemove = () => {
     removeItemFromCart(cartItem);
   }
@@ -22,7 +31,7 @@ function TableRow({ cartItem, productCart }) {
           <div className="table-row__product">
             <p className="product__name">{productCart?.name}</p>
             <div className="product__action">
-              <button>Change</button>
+              <button onClick={handleChange}>Change</button>
               <div className="action__divider"></div>
               <button onClick={handleRemove}>Remove</button>
             </div>
@@ -41,7 +50,7 @@ function TableRow({ cartItem, productCart }) {
       </td>
       <td >
         <div className="table-row__quantity">
-          <QuantityBox cartQuantity={cartItem.quantity}/>
+          <QuantityBox quantity={quantity} setQuantity={setQuantity}/>
         </div>
       </td>
       <td>

@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { getAllProductsCart } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
 import TableRow from '../../components/CustomFields/TableRow';
+import EmptyCart from '../../assets/images/empty-cart.png';
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
@@ -36,7 +37,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
   return (
     <div className="cart">
       { loading ? <Spinner /> : (
-        cart?.length <= 0 ? (<div>No cart</div>) : (<Fragment>
+        <Fragment>
           <p className="cart__title">My Bag</p>
           <div className="cart__main">
             <div className="main__detail">
@@ -51,6 +52,11 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
                   </tr>
                 </thead>
                 <tbody>
+                  <tr>
+                    <td colSpan="5">
+                      { cart?.length <= 0 && (<div className="table__empty-cart"><img src={EmptyCart} alt="Your cart is empty" /></div>)}
+                    </td>
+                  </tr>
                   { cart?.length > 0 && cart.map(item => (
                     <TableRow key={item.productId.concat(',', item.sizeId, ',', item.colorId)} cartItem={item} productCart={productsCart.find(productCart => productCart._id === item.productId)}/>
                     ))
@@ -77,12 +83,12 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
                   <p className="subtotal__money">${totalMoney || 0}.00</p>
                 </div>
               </div>
-              <button className="total__button">Check out</button>
+              <button className="total__button" disabled={cart?.length <= 0}>Check out</button>
             </div>
           </div>
         </Fragment>)
         
-      )}
+      }
     </div>
   );
 }

@@ -1,25 +1,75 @@
 span {
   display: inline-block;
 }
-.cart-action {
-  height: 100%;
+.action-cart {
   position: relative;
 
-  &__oval {
-    display: inline-flex;
-    position: absolute;
-    top: -7px;
-    left: 11px;
-    width: 18px;
-    height: 18px;
-    color: var(--white);
-    font-family: Montserrat;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 1.83;
-    justify-content: center;
-    align-items: center;
-    background-color: #ffa15f;
-    border-radius: 50%;
-  }
+        &:hover {
+          cursor: pointer;
+        }
+
+        &:hover .cart__dropdown {
+          display: block;
+        }
+
+        .cart__dropdown {
+          display: none;
+          position: absolute;
+          width: 270px;
+          min-height: 69px;
+          top: 50px;
+          right: 0;
+          z-index: 1;
+          box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.14);
+          border: solid 0.5px var(--white-six);
+          background-color: var(--white-five);
+
+          &::before {
+            content: "";
+            position: absolute;
+            border-width: 20px 20px;
+            border-style: solid;
+            border-color: transparent;
+            top: -25px;
+            right: 0;
+          }
+
+          .dropdown__link {
+            display: flex;
+            position: absolute;
+            width: 100%;
+            height: 69px;
+            bottom: 0;
+            border: none;
+            background-color: inherit;
+            font-size: 14px;
+            font-weight: bold;
+            line-height: 1.57;
+            color: #ffa15f;
+            text-decoration: none;
+            align-items: center;
+            justify-content: center;
+          }
+        }
+  .cart-action {
+    height: 100%;
+  
+    &__oval {
+      display: inline-flex;
+      position: absolute;
+      top: -7px;
+      left: 11px;
+      width: 18px;
+      height: 18px;
+      color: var(--white);
+      font-family: Montserrat;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 1.83;
+      justify-content: center;
+      align-items: center;
+      background-color: #ffa15f;
+      border-radius: 50%;
+    }
+  }  
 }

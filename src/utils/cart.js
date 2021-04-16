@@ -6,7 +6,7 @@ export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
   let cartCopy = JSON.parse(localStorage.getItem('cart')) || [];
   let existingItem = cartCopy.find((cartItem) => cartItem.productId === productId && cartItem.sizeId === sizeId && cartItem.colorId === colorId);
   if (existingItem) {
-    existingItem.quantity = existingItem.quantity + quantity;
+    existingItem.quantity = quantity;
   } else {
     cartCopy.push({ productId, sizeId, colorId, quantity });
   }

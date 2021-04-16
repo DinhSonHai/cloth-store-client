@@ -71,12 +71,9 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
               <button className="action__login" onClick={showLogin}>Log In</button>
             </Fragment>
           )}
-          <div to="/cart" className="action__cart">
-            <CartAction />
-            <div className="cart__dropdown">
-              <Link to="/cart" className="dropdown__link">View cart</Link>
-            </div>
-          </div>
+
+        <CartAction />
+
         </div>
       </div>
       <div className="navbar__bottom">
@@ -102,7 +99,7 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth
+  auth: state.auth,
 })
 
 export default connect(mapStateToProps, { logout })(NavBar);

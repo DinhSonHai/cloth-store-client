@@ -7,8 +7,7 @@ QuantityBox.propTypes = {
   
 };
 
-function QuantityBox({ cartQuantity }) {
-  const [quantity, setQuantity] = useState( cartQuantity || 0);
+function QuantityBox({ quantity, setQuantity }) {
 
   const handleDecrement = () => {
     if (quantity >= 2) {

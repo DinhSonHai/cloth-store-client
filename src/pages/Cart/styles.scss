@@ -27,6 +27,11 @@
           padding-bottom: 10px;
           border-bottom: solid 0.5px var(--brown-grey);
         }
+
+        .table__empty-cart {
+          display: flex;
+          justify-content: center;
+        }
       }
     }
 
@@ -88,6 +93,11 @@
         font-size: 16px;
         font-weight: bold;
         background-color: #ff5f6d;
+
+        &:disabled {
+          cursor: default;
+          background-color: var(--white-four);
+        }
       }
     }
   }
