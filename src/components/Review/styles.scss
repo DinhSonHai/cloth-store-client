@@ -1,4 +1,4 @@
-.review {
+.review-section {
   &__divider {
     display: flex;
     align-items: center;
@@ -30,5 +30,48 @@
     line-height: 1.57;
     text-align: center;
     color: var(--greyish-two);
+  }
+
+  .review {
+    display: flex;
+    margin: 0 100px;
+    border-bottom: 0.5px dashed var(--pinkish-grey);
+    padding: 15px 0;
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .review__info {
+      width: 180px;
+
+      .info__name {
+        font-size: 14px;
+        font-weight: bold;
+        line-height: 1.57;
+        color: var(--dark-grey);
+      }
+    }
+
+    .review__content {
+      width: 800px;
+      background-color: #f9f9f9;
+      padding: 15px 20px;
+
+      .content__title {
+        font-size: 16px;
+        font-weight: bold;
+        line-height: 1.5;
+        color: var(--dark-grey);
+      }
+
+      .content__comment {
+        margin-top: 15px;
+        font-size: 14px;
+        line-height: 1.57;
+        letter-spacing: -0.1px;
+        color: var(--greyish-brown);
+      }
+    }
   }
 }

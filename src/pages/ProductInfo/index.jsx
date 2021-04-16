@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import ReactStars from "react-rating-stars-component";
+import StarRatingComponent from 'react-star-rating-component';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -94,21 +94,16 @@ function ProductInfo({ match, product, getProductById }) {
             <div className="product-info__product">
               <p className="product__title">{product?.name}</p>
               <p className="product__price">{`$${product?.price || 0}.00`}</p>
-              <div className="product__rating">
-                { product?.starRatings && (
-                    <Fragment>                      
-                      <ReactStars
-                        count={5}
-                        edit={false}
-                        size={20}
-                        color="#d4d3d3"
-                        activeColor="#ffd543"
-                        value={product.starRatings}
-                        isHalf={true}
-                      />
-                      <div className="rating__divider"></div>
-                    </Fragment>
-                ) }
+              <div className="product__rating">    
+                { product && (
+                  <StarRatingComponent 
+                    name="rate2" 
+                    editing={false}
+                    starCount={5}
+                    value={product.starRatings}
+                  />
+                ) }              
+                <div className="rating__divider"></div>
                 <p className="rating__count">{product?.reviewsCount} Review</p>
               </div>
               <div className="product__size">
@@ -136,7 +131,7 @@ function ProductInfo({ match, product, getProductById }) {
 
             </div>
           </div>
-          <Review productId={match.params.productId}/>
+          <Review product={product}/>
         </Fragment>
       ) }
     </div>
