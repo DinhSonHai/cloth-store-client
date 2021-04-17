@@ -6,12 +6,12 @@ import QuantityBox from '../QuantityBox';
 import './styles.scss';
 
 TableRow.propTypes = {
-  
+
 };
 
 function TableRow({ cartItem, productCart }) {
   const [quantity, setQuantity] = useState(cartItem.quantity || 0);
-  
+
   const handleChange = () => {
     updateCart({ ...cartItem, quantity });
   }
@@ -23,7 +23,7 @@ function TableRow({ cartItem, productCart }) {
     <tr className="table-row">
       <td style={{ width: '32%' }}>
         <div className="table-row__product-image">
-          <img src={productCart?.photos[0]} alt=""/>
+          <img src={productCart?.photos[0]} alt="" />
           <div className="table-row__product">
             <p className="product__name">{productCart?.name}</p>
             <div className="product__action">
@@ -36,7 +36,7 @@ function TableRow({ cartItem, productCart }) {
       </td>
       <td style={{ width: '12%' }}>
         <div className="table-row__color">
-          <div className="color__demo" style={{ backgroundColor: `${productCart?.colors.find(item => item._id === cartItem?.colorId).colorName}`}}></div>
+          <div className="color__demo" style={{ backgroundColor: `${productCart?.colors.find(item => item._id === cartItem?.colorId).colorName}` }}></div>
         </div>
       </td>
       <td style={{ width: '17%' }}>
@@ -46,7 +46,7 @@ function TableRow({ cartItem, productCart }) {
       </td>
       <td >
         <div className="table-row__quantity">
-          <QuantityBox quantity={quantity} setQuantity={setQuantity} handleChange={handleChange}/>
+          <QuantityBox quantity={quantity} setQuantity={setQuantity} handleChange={handleChange} />
         </div>
       </td>
       <td>

@@ -54,13 +54,13 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
                 <tbody>
                   <tr>
                     <td colSpan="5">
-                      { cart?.length <= 0 && (<div className="table__empty-cart"><img src={EmptyCart} alt="Your cart is empty" /></div>)}
+                      {cart?.length <= 0 && (<div className="table__empty-cart"><img src={EmptyCart} alt="Your cart is empty" /></div>)}
                     </td>
                   </tr>
-                  { cart?.length > 0 && cart.map(item => (
-                    <TableRow key={item.productId.concat(',', item.sizeId, ',', item.colorId)} cartItem={item} productCart={productsCart.find(productCart => productCart._id === item.productId)}/>
-                    ))
-                  } 
+                  {cart?.length > 0 && cart.map(item => (
+                    <TableRow key={item.productId.concat(',', item.sizeId, ',', item.colorId)} cartItem={item} productCart={productsCart.find(productCart => productCart._id === item.productId)} />
+                  ))
+                  }
                 </tbody>
               </table>
             </div>
@@ -87,7 +87,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
             </div>
           </div>
         </Fragment>)
-        
+
       }
     </div>
   );

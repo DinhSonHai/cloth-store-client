@@ -4,7 +4,7 @@ import { Minus, Plus } from '../../../assets/icons';
 import './styles.scss';
 
 QuantityBox.propTypes = {
-  
+
 };
 
 function QuantityBox({ quantity, setQuantity, handleChange }) {
@@ -21,7 +21,7 @@ function QuantityBox({ quantity, setQuantity, handleChange }) {
 
   useEffect(() => {
     handleChange();
-  }, [quantity, handleChange]);
+  }, [quantity]);
 
   return (
     <div className="quantity__field">

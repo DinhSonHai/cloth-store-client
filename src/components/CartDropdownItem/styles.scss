@@ -1,3 +1,41 @@
 .cart-dropdown-item {
-  width: 100%;
+  height: 80px;
+  display: flex;
+  .item__img {
+    width: 60px;
+    height: 60px;
+    margin: 10px 0 10px 7px;
+
+    & > img {
+      width: 100%;
+    }
+  }
+
+  .item__info {
+    margin: 22px;
+    .info__name {
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.33;
+      color: var(--greyish-brown);
+    }
+
+    .second-row {
+      display: flex;
+      justify-content: space-between;
+      .info__price {
+        font-size: 12px;
+        font-weight: normal;
+        line-height: 1.83;
+        color: var(--greyish-brown);
+      }
+
+      .info__detail {
+        opacity: 0.4;
+        font-size: 12px;
+        line-height: 1.83;
+        color: var(--dark-grey);
+      }
+    }
+  }
 }
