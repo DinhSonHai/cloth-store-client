@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { Minus, Plus } from '../../../assets/icons';
 import './styles.scss';
@@ -7,7 +7,7 @@ QuantityBox.propTypes = {
   
 };
 
-function QuantityBox({ quantity, setQuantity }) {
+function QuantityBox({ quantity, setQuantity, handleChange }) {
 
   const handleDecrement = () => {
     if (quantity >= 2) {
@@ -18,6 +18,10 @@ function QuantityBox({ quantity, setQuantity }) {
   const handleIncrement = () => {
     setQuantity(quantity + 1);
   }
+
+  useEffect(() => {
+    handleChange();
+  }, [quantity, handleChange]);
 
   return (
     <div className="quantity__field">

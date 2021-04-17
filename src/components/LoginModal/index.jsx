@@ -64,7 +64,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
 
               <div className="form__option">
                 <div className="option__remember">
-                  <input type="checkbox" id="rememeber-box" checked={isCheck} onChange={onChangeCheckBox}/>
+                  <input type="checkbox" id="rememeber-box" checked={Boolean(isCheck)} onChange={onChangeCheckBox}/>
                   <label htmlFor="remember-box">Remember password</label>
                 </div>
                 <p className="option_forgot">Forgot your password?</p>

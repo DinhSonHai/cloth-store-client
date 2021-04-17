@@ -53,6 +53,9 @@ span {
         }
   .cart-action {
     height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   
     &__oval {
       display: inline-flex;

@@ -58,7 +58,8 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        opacity: 0.8;
+        // opacity: 0.8;
+        z-index: 2;
 
         &:hover {
           cursor: pointer;
@@ -73,7 +74,6 @@
           position: absolute;
           right: 0;
           top: 49px;
-          z-index: 1;
           width: 181px;
           height: 73px;
           box-shadow: 0 14px 30px 0 rgba(0, 0, 0, 0.14);

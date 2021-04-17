@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { addItemToCart, removeItemFromCart } from '../../../utils/cart';
+import { removeItemFromCart, updateCart } from '../../../utils/cart';
 import QuantityBox from '../QuantityBox';
-import { toast } from 'react-toastify';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -14,10 +13,7 @@ function TableRow({ cartItem, productCart }) {
   const [quantity, setQuantity] = useState(cartItem.quantity || 0);
   
   const handleChange = () => {
-    const result = addItemToCart({ ...cartItem, quantity });
-    if (result) {
-      toast.success('Updated cart', { position: toast.POSITION.TOP_CENTER})
-    }
+    updateCart({ ...cartItem, quantity });
   }
   const handleRemove = () => {
     removeItemFromCart(cartItem);
@@ -50,7 +46,7 @@ function TableRow({ cartItem, productCart }) {
       </td>
       <td >
         <div className="table-row__quantity">
-          <QuantityBox quantity={quantity} setQuantity={setQuantity}/>
+          <QuantityBox quantity={quantity} setQuantity={setQuantity} handleChange={handleChange}/>
         </div>
       </td>
       <td>

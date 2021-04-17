@@ -20,7 +20,7 @@ function ProductInfo({ match, product, getProductById }) {
     productId: match.params.productId,
     sizeId: '',
     colorId: '',
-    quantity: 0
+    quantity: 1
   });
 
   useEffect(() => {
@@ -62,10 +62,7 @@ function ProductInfo({ match, product, getProductById }) {
       toast.error('Please choose quantity', { position: toast.POSITION.TOP_CENTER});
     }
     if (data.sizeId && data.colorId && data.quantity) {
-      const result = addItemToCart(data);
-      if (result) {
-        toast.success('Added to cart', { position: toast.POSITION.TOP_CENTER})
-      }
+      addItemToCart(data);
     }
   }
 

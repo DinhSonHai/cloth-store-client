@@ -8,7 +8,6 @@ CartDropdownItem.propTypes = {
 };
 
 function CartDropdownItem({ cartItem, productCart }) {
-  console.log(cartItem, productCart)
   return (
     <div cart-dropdown-item>
       <div className="item__img">
