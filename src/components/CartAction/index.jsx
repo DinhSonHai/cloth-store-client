@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 
 import { CartIcon } from '../../assets/icons';
 
@@ -20,7 +21,7 @@ function CartAction({ cart: { cart, isHaveCart, productsCart } }) {
       let list = cart.map(item => item.productId);
       getAllProductsCart(list);
     }
-  }, [cart]);
+  }, [cart, getAllProductsCart]);
 
   return (
     <div className="action-cart">
@@ -33,7 +34,7 @@ function CartAction({ cart: { cart, isHaveCart, productsCart } }) {
           <CartDropdownItem key={item.productId.concat(',', item.sizeId, ',', item.colorId)} cartItem={item} productCart={productsCart.find(productCart => productCart._id === item.productId)} />
         ))
         }
-        {/* <Link to="/cart" className="dropdown__link">View cart</Link> */}
+        <Link to="/cart" className="dropdown__cart">View cart</Link>
       </div>
     </div>
   );

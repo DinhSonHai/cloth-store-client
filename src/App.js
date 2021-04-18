@@ -9,6 +9,7 @@ import { NavBar, Footer } from './pages';
 import setAuthToken from './utils/setAuthToken.js';
 import { loadUser } from './redux/actions/auth.js';
 import { UPDATE_CART } from './redux/types';
+import { getAllProductsCart } from './redux/actions/products.js';
 
 function App() {
   useEffect(() => {
@@ -21,7 +22,14 @@ function App() {
       store.dispatch({
         type: UPDATE_CART,
         payload: { isHaveCart: true, cart: JSON.parse(localStorage.cart) },
-      })
+      });
+
+      let cartCopy = JSON.parse(localStorage.cart);
+
+      if (cartCopy.length > 0) {
+        let list = cartCopy.map(item => item.productId);
+        store.dispatch(getAllProductsCart(list));
+      }
     }
     // window.addEventListener('storage', () => {
     //   if (
