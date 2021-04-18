@@ -1,8 +1,9 @@
 import store from '../app/store';
+import { getAllProductsCart } from '../redux/actions/products';
 import { UPDATE_CART, REMOVE_FROM_CART } from '../redux/types';
 
 // Add item to cart
-export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
+export const addItemToCart = ({ productId, sizeId, colorId, quantity }) => {
   let cartCopy = JSON.parse(localStorage.getItem('cart')) || [];
   let existingItem = cartCopy.find((cartItem) => cartItem.productId === productId && cartItem.sizeId === sizeId && cartItem.colorId === colorId);
   if (existingItem) {
@@ -15,6 +16,10 @@ export const addItemToCart = ({ productId, sizeId, colorId, quantity}) => {
     type: UPDATE_CART,
     payload: { isHaveCart: true, cart: cartCopy },
   });
+
+  let list = cartCopy.map(item => item.productId);
+
+  store.dispatch(getAllProductsCart(list));
 
   localStorage.setItem('cart', JSON.stringify(cartCopy));
 };
@@ -38,7 +43,7 @@ export const removeItemFromCart = ({ productId, sizeId, colorId }) => {
     store.dispatch({
       type: REMOVE_FROM_CART,
     });
-  } 
+  }
   else {
     store.dispatch({
       type: UPDATE_CART,
@@ -47,12 +52,16 @@ export const removeItemFromCart = ({ productId, sizeId, colorId }) => {
         cart: updatedCart,
       },
     });
+
+    let list = updatedCart.map(item => item.productId);
+
+    // store.dispatch(getAllProductsCart(list));
   }
   localStorage.setItem('cart', JSON.stringify(updatedCart));
 };
 
 // Update cart
-export const updateCart = ({ productId, sizeId, colorId, quantity}) => {
+export const updateCart = ({ productId, sizeId, colorId, quantity }) => {
   let cartCopy = JSON.parse(localStorage.getItem('cart')) || [];
   let existingItem = cartCopy.find((cartItem) => cartItem.productId === productId && cartItem.sizeId === sizeId && cartItem.colorId === colorId);
   if (existingItem) {
@@ -65,6 +74,10 @@ export const updateCart = ({ productId, sizeId, colorId, quantity}) => {
     type: UPDATE_CART,
     payload: { isHaveCart: true, cart: cartCopy },
   });
+
+  let list = cartCopy.map(item => item.productId);
+
+  // store.dispatch(getAllProductsCart(list));
 
   localStorage.setItem('cart', JSON.stringify(cartCopy));
 };

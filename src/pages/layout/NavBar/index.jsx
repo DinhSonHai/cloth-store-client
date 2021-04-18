@@ -17,7 +17,7 @@ NavBar.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
+function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -52,17 +52,17 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
         </Link>
 
         <div className="top__action">
-          { isAuthenticated ? (
+          {isAuthenticated ? (
             loading ? <Spinner width="50px" /> : (
-                <div className="action__auth">
-                  <img src={user?.avatar} alt="User avatar"></img>
-                  <div className="auth__dropdown">
-                    <div>
-                      <Link to="/" className="dropdown__link">Account Setting</Link>
-                    </div>
-                    <section className="dropdown__divider"></section>
-                    <div onClick={logout} className="dropdown__link">Logout</div>
+              <div className="action__auth">
+                <img src={user?.avatar} alt="User avatar"></img>
+                <div className="auth__dropdown">
+                  <div>
+                    <Link to="/" className="dropdown__link">Account Setting</Link>
                   </div>
+                  <section className="dropdown__divider"></section>
+                  <div onClick={logout} className="dropdown__link">Logout</div>
+                </div>
               </div>
             )
           ) : (
@@ -72,7 +72,7 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
             </Fragment>
           )}
 
-        <CartAction />
+          <CartAction cart={cart} />
 
         </div>
       </div>
@@ -100,6 +100,7 @@ function NavBar({ auth: { isAuthenticated, loading, user }, logout }) {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
+  cart: state.cart
 })
 
 export default connect(mapStateToProps, { logout })(NavBar);
