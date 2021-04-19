@@ -31,7 +31,6 @@ function ReviewForm({ productId, rating, setRating, review }) {
         }}
         validationSchema={validate}
         onSubmit={values => {
-          console.log(values);
           if (productId) {
             review(productId, values);
           }

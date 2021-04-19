@@ -8,7 +8,7 @@ function Star({ rating, changeRating, starDimension, ...props }) {
     <StarRatings
       rating={rating}
       starRatedColor="#ffd543"
-      changeRating={(newRating) => changeRating(newRating)}
+      changeRating={changeRating}
       starDimension={starDimension}
       starHoverColor="#ffd543"
       starSpacing="2px"

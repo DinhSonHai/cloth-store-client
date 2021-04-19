@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import './styles.scss';
 import ReviewForm from '../CustomFields/ReviewForm';
 import { removeReview } from '../../redux/actions/products';
+import Star from '../Star';
 
 Review.propTypes = {
 };
@@ -53,12 +54,7 @@ function Review({ auth, product, removeReview }) {
                   </div>
                   <div className="review__content">
                     <p className="content__title">{review.title}</p>
-                    {/* <StarRatingComponent
-                      name="rate2"
-                      editing={false}
-                      starCount={5}
-                      value={review.starRatings}
-                    /> */}
+                    <Star rating={review.starRatings} changeRating={null} starDimension="15px" />
                     <p className="content__comment">{review.comment}</p>
                   </div>
                 </div>
@@ -72,12 +68,7 @@ function Review({ auth, product, removeReview }) {
                     </div>
                     <div className="review__content">
                       <p className="content__title">{review.title}</p>
-                      {/* <StarRatingComponent
-                        name="rate2"
-                        editing={false}
-                        starCount={5}
-                        value={review.starRatings}
-                      /> */}
+                      <Star rating={review.starRatings} changeRating={null} starDimension="15px" />
                       <p className="content__comment">{review.comment}</p>
                     </div>
                   </div>
