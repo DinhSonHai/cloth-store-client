@@ -12,10 +12,16 @@ Review.propTypes = {
 };
 
 function Review({ auth, product, removeReview }) {
+  const [isEdit, setEdit] = useState(false);
+
   const handleRemoveComment = (productId, reviewId) => {
     if (productId && reviewId) {
       removeReview(productId, reviewId);
     }
+  }
+
+  const handleShowEdit = () => {
+    setEdit(!isEdit);
   }
 
   return (
@@ -47,15 +53,18 @@ function Review({ auth, product, removeReview }) {
                   <div className="review__info">
                     <p className="info__name">You</p>
                     <div className="review__action">
-                      <button>Edit</button>
+                      <button onClick={handleShowEdit}>{isEdit ? "Cancle" : "Edit"}</button>
                       <div className="action__divider"></div>
                       <button onClick={() => handleRemoveComment(product._id, review._id)}>Delete</button>
                     </div>
                   </div>
                   <div className="review__content">
-                    <p className="content__title">{review.title}</p>
-                    <Star rating={review.starRatings} changeRating={null} starDimension="15px" />
-                    <p className="content__comment">{review.comment}</p>
+                    {isEdit ? (product && (<ReviewForm productId={product._id} reviewId={review._id} title={review.title} rating={review.starRatings} comment={review.comment} setEdit={setEdit} />)) : (
+                      <Fragment>
+                        <p className="content__title">{review.title}</p>
+                        <Star rating={review.starRatings} changeRating={null} starDimension="15px" />
+                        <p className="content__comment">{review.comment}</p></Fragment>
+                    )}
                   </div>
                 </div>
               ))}
@@ -87,12 +96,7 @@ function Review({ auth, product, removeReview }) {
                       </div>
                       <div className="review__content">
                         <p className="content__title">{review.title}</p>
-                        {/* <StarRatingComponent
-                          name="rate2"
-                          editing={false}
-                          starCount={5}
-                          value={review.starRatings}
-                        /> */}
+                        <Star rating={review.starRatings} changeRating={null} starDimension="15px" />
                         <p className="content__comment">{review.comment}</p>
                       </div>
                     </div>
@@ -102,10 +106,11 @@ function Review({ auth, product, removeReview }) {
             ) : (
               <p className="no-reviews">No reviews</p>
             )
-          )}
-        </Fragment>
+          )
+          }
+        </Fragment >
       )}
-    </div>
+    </div >
   );
 }
 

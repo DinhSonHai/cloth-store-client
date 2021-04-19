@@ -87,6 +87,24 @@ export const review = (productId, { title, comment, starRatings }) => async (dis
   }
 }
 
+export const editReview = (productId, reviewId, { title, comment, starRatings }) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ title, comment, starRatings });
+  try {
+    const res = await axios.put(`/api/reviews/${productId}/review/${reviewId}`, body, config);
+    dispatch(getProductById(productId));
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
 export const removeReview = (productId, reviewId) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/reviews/${productId}/review/${reviewId}`);

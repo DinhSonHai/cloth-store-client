@@ -8,13 +8,13 @@ import './styles.scss';
 import TextAreaField from '../TextAreaField';
 import StarField from '../StarField';
 import { connect } from 'react-redux';
-import { review } from '../../../redux/actions/products';
+import { review, editReview } from '../../../redux/actions/products';
 
 ReviewForm.propTypes = {
 
 };
 
-function ReviewForm({ productId, rating, setRating, review }) {
+function ReviewForm({ productId, title, rating, comment, reviewId, review, editReview, setEdit }) {
 
   const validate = Yup.object({
     starRatings: Yup.number()
@@ -25,14 +25,22 @@ function ReviewForm({ productId, rating, setRating, review }) {
     <div className="review-form">
       <Formik
         initialValues={{
-          title: '',
-          comment: '',
-          starRatings: 0
+          title: title || '',
+          comment: comment || '',
+          starRatings: rating || 0
         }}
         validationSchema={validate}
         onSubmit={values => {
           if (productId) {
-            review(productId, values);
+            if (reviewId) {
+              editReview(productId, reviewId, values);
+              if (setEdit) {
+                setEdit(false);
+              }
+            }
+            else {
+              review(productId, values);
+            }
           }
         }}
         validateOnMount
@@ -58,4 +66,4 @@ function ReviewForm({ productId, rating, setRating, review }) {
   );
 }
 
-export default connect(null, { review })(ReviewForm);
+export default connect(null, { review, editReview })(ReviewForm);
