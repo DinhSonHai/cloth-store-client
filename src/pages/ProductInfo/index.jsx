@@ -47,7 +47,7 @@ function ProductInfo({ match, product, getProductById }) {
   }
 
   const handleAddToCart = () => {
-    console.log(product.sizes[0]._id)
+    // console.log(product.sizes[0]._id)
     let sizeId = '';
     let colorId = '';
     if (!data.sizeId) {
@@ -58,12 +58,21 @@ function ProductInfo({ match, product, getProductById }) {
       colorId = product.colors[0]._id;
       // toast.error('Please choose color', { position: toast.POSITION.TOP_CENTER });
     }
-    if (data.sizeId && data.colorId && data.quantity) {
-      addItemToCart(data);
-      // console.log(data);
+    if (data.sizeId) {
+      if (data.colorId) {
+        addItemToCart(data);
+      }
+      else {
+        addItemToCart({ ...data, colorId });
+      }
     }
-    else if (sizeId && colorId && data.quantity) {
-      addItemToCart({ ...data, sizeId, colorId });
+    else {
+      if (data.colorId) {
+        addItemToCart({ ...data, sizeId });
+      }
+      else {
+        addItemToCart({ ...data, sizeId, colorId });
+      }
     }
   }
 
@@ -100,13 +109,13 @@ function ProductInfo({ match, product, getProductById }) {
               <div className="product__size">
                 <p className="size__title">Size</p>
                 {product && product?.sizes && product?.sizes.map((size, index) => (
-                  <button key={size._id} className={index === 0 ? "size size--active" : sizeState === size._id ? "size size--active" : "size"} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
+                  <button key={size._id} className={!sizeState && index === 0 ? "size size--active" : sizeState === size._id ? "size size--active" : "size"} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
                 ))}
               </div>
               <div className="product__color">
                 <p className="color__title">Color</p>
                 {product && product?.colors && product?.colors.map((color, index) => (
-                  <button key={color._id} className={index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
+                  <button key={color._id} className={!colorState && index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
                 ))}
               </div>
               <div className="product__quantity">
