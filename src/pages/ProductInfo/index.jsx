@@ -92,12 +92,6 @@ function ProductInfo({ match, product, getProductById }) {
               <p className="product__price">{`$${product?.price || 0}.00`}</p>
               <div className="product__rating">
                 {product && (
-                  // <StarRatingComponent
-                  //   name="rate"
-                  //   editing={false}
-                  //   starCount={5}
-                  //   value={product.starRatings}
-                  // />
                   <Star rating={product.starRatings} changeRating={null} starDimension={"15px"} />
                 )}
                 <div className="rating__divider"></div>

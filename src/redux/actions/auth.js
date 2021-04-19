@@ -34,13 +34,11 @@ export const login = ({ email, password }, hideLogin) => async (dispatch) => {
     dispatch(loadUser());
     hideLogin();
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      // errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      // errors.forEach((error) => console.log(error.msg));
+    const error = err.response.data;
+    if (error) {
       dispatch({
         type: AUTH_ERRORS,
-        payload: { type: 'login', msg: errors[0].msg }
+        payload: { type: 'login', msg: error.message }
       });
     }
   }
@@ -55,7 +53,7 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
       },
     };
     const res = await axios.post('/api/auth/signup', formData, config);
-    toast.success(res.data.msg, { position: toast.POSITION.TOP_CENTER});
+    toast.success(res.data.msg, { position: toast.POSITION.TOP_CENTER });
     hideRegister();
     showLogin();
   } catch (error) {

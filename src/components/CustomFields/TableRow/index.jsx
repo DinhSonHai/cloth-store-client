@@ -26,7 +26,7 @@ function TableRow({ cartItem, productCart }) {
         <div className="table-row__product-image">
           <img src={productCart?.photos[0]} alt="" />
           <div className="table-row__product">
-            <Link to={`/products/${productCart._id}`} className="product__name">{productCart?.name}</Link>
+            <Link to={`/products/${productCart?._id}`} className="product__name">{productCart?.name}</Link>
             <div className="product__action">
               <button onClick={handleChange}>Change</button>
               <div className="action__divider"></div>
@@ -45,7 +45,7 @@ function TableRow({ cartItem, productCart }) {
           <p className="size__name">{productCart?.sizes.find(item => item._id === cartItem?.sizeId).sizeName}</p>
         </div>
       </td>
-      <td >
+      <td style={{ width: '17%' }}>
         <div className="table-row__quantity">
           <QuantityBox quantity={quantity} setQuantity={setQuantity} handleChange={handleChange} />
         </div>
