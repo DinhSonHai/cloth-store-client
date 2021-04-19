@@ -1,10 +1,9 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
 import { connect } from 'react-redux';
 import { getAllProductsCart } from '../../redux/actions/products';
-import Spinner from '../../components/Spinner';
 import TableRow from '../../components/CustomFields/TableRow';
 import EmptyCart from '../../assets/images/empty-cart.png';
 

@@ -18,7 +18,7 @@ function App() {
     }
     store.dispatch(loadUser());
 
-    if (localStorage.cart) {
+    if (JSON.parse(localStorage.cart).length > 0) {
       store.dispatch({
         type: UPDATE_CART,
         payload: { isHaveCart: true, cart: JSON.parse(localStorage.cart) },

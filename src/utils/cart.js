@@ -53,7 +53,7 @@ export const removeItemFromCart = ({ productId, sizeId, colorId }) => {
       },
     });
 
-    let list = updatedCart.map(item => item.productId);
+    // let list = updatedCart.map(item => item.productId);
 
     // store.dispatch(getAllProductsCart(list));
   }
@@ -75,7 +75,7 @@ export const updateCart = ({ productId, sizeId, colorId, quantity }) => {
     payload: { isHaveCart: true, cart: cartCopy },
   });
 
-  let list = cartCopy.map(item => item.productId);
+  // let list = cartCopy.map(item => item.productId);
 
   // store.dispatch(getAllProductsCart(list));
 

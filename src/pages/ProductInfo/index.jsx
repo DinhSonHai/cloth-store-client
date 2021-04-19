@@ -16,6 +16,9 @@ ProductInfo.propTypes = {
 
 function ProductInfo({ match, product, getProductById }) {
   const [loading, setLoading] = useState(true);
+  const [sizeState, setSizeState] = useState('');
+  const [colorState, setColorState] = useState('');
+  const [mainPhoto, setMainPhoto] = useState('');
   const [data, setData] = useState({
     productId: match.params.productId,
     sizeId: '',
@@ -30,39 +33,37 @@ function ProductInfo({ match, product, getProductById }) {
   }, [getProductById, match.params.productId, data, loading]);
 
   const handleThumbailCLick = (e) => {
-    document.getElementById("main-img").src = e.target.src;
+    setMainPhoto(e.target.src);
   }
 
-  const handleSizeChange = (sizeId, index, length) => {
-    const sizes = document.getElementsByClassName("size");
-    for (let i = 0; i < length; i++) {
-      sizes[i].classList.remove("size--active");
-    }
-    sizes[index].classList.add("size--active");
-    setData({...data, sizeId});
+  const handleSizeChange = (sizeId) => {
+    setSizeState(sizeId);
+    setData({ ...data, sizeId });
   }
 
-  const handleColorChange = (colorId, index, length) => {
-    const colors = document.getElementsByClassName("color");
-    for (let i = 0; i < length; i++) {
-      colors[i].classList.remove("color--active");
-    }
-    colors[index].classList.add("color--active");
-    setData({...data, colorId});
+  const handleColorChange = (colorId) => {
+    setColorState(colorId);
+    setData({ ...data, colorId });
   }
-  
+
   const handleAddToCart = () => {
+    console.log(product.sizes[0]._id)
+    let sizeId = '';
+    let colorId = '';
     if (!data.sizeId) {
-      toast.error('Please choose size',{ position: toast.POSITION.TOP_CENTER});
+      sizeId = product.sizes[0]._id;
+      // toast.error('Please choose size', { position: toast.POSITION.TOP_CENTER });
     }
     if (!data.colorId) {
-      toast.error('Please choose color', { position: toast.POSITION.TOP_CENTER});
-    }
-    if (data.quantity < 1) {
-      toast.error('Please choose quantity', { position: toast.POSITION.TOP_CENTER});
+      colorId = product.colors[0]._id;
+      // toast.error('Please choose color', { position: toast.POSITION.TOP_CENTER });
     }
     if (data.sizeId && data.colorId && data.quantity) {
       addItemToCart(data);
+      // console.log(data);
+    }
+    else if (sizeId && colorId && data.quantity) {
+      addItemToCart({ ...data, sizeId, colorId });
     }
   }
 
@@ -71,51 +72,51 @@ function ProductInfo({ match, product, getProductById }) {
       { loading ? (<Spinner width="200px" />) : (
         <Fragment>
           <div className="product-info__breadcrumb">
-            <p>Ladies / Dresses / { product?.name }</p>
+            <p>Ladies / Dresses / {product?.name}</p>
           </div>
           <div className="product-info__main">
             <div className="product-info__thumbnail">
-              { product?.photos.map((photo, index) => (
+              {product?.photos.map((photo, index) => (
                 <div key={index} className="product-info__element">
-                  <img src={photo} alt="Product thumbnail" onClick={handleThumbailCLick}/>
+                  <img src={photo} alt="Product thumbnail" onClick={handleThumbailCLick} />
                 </div>
-              )) }
+              ))}
             </div>
 
             <div className="product-info__img">
-                <img id="main-img" src={product?.photos[0]} alt="Product main"/>
+              <img id="main-img" src={mainPhoto || product?.photos[0]} alt="Product main" />
             </div>
-            
+
             <div className="product-info__product">
               <p className="product__title">{product?.name}</p>
               <p className="product__price">{`$${product?.price || 0}.00`}</p>
-              <div className="product__rating">    
-                { product && (
-                  <StarRatingComponent 
-                    name="rate2" 
+              <div className="product__rating">
+                {product && (
+                  <StarRatingComponent
+                    name="rate2"
                     editing={false}
                     starCount={5}
                     value={product.starRatings}
                   />
-                ) }              
+                )}
                 <div className="rating__divider"></div>
                 <p className="rating__count">{product?.reviewsCount} Review</p>
               </div>
               <div className="product__size">
-                  <p className="size__title">Size</p>
-                  { product?.sizes && product?.sizes.map((size, index, sizesArr) => (
-                    <button key={size._id} className="size" onClick={() => handleSizeChange(size._id, index, sizesArr.length)}>{size.sizeName}</button>
-                  )) }
+                <p className="size__title">Size</p>
+                {product && product?.sizes && product?.sizes.map((size, index) => (
+                  <button key={size._id} className={index === 0 ? "size size--active" : sizeState === size._id ? "size size--active" : "size"} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
+                ))}
               </div>
               <div className="product__color">
-                  <p className="color__title">Color</p>
-                  { product?.colors && product?.colors.map((color, index, colorsArr) => (
-                    <button key={color._id} className="color" style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id, index, colorsArr.length)}></button>
-                  )) }
+                <p className="color__title">Color</p>
+                {product && product?.colors && product?.colors.map((color, index) => (
+                  <button key={color._id} className={index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
+                ))}
               </div>
               <div className="product__quantity">
-                  <p className="quantity__title">Quantity</p>
-                  <QuantityField data={data} setData={setData} />
+                <p className="quantity__title">Quantity</p>
+                <QuantityField data={data} setData={setData} />
               </div>
               <button className="product__add-cart" onClick={handleAddToCart}>Add to cart</button>
               <div className="product__divider"></div>
@@ -126,9 +127,9 @@ function ProductInfo({ match, product, getProductById }) {
 
             </div>
           </div>
-          <Review product={product}/>
+          <Review product={product} />
         </Fragment>
-      ) }
+      )}
     </div>
   );
 }
