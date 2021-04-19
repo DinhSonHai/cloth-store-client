@@ -1,4 +1,6 @@
 import React, { Fragment, useState } from 'react';
+import { confirmAlert } from 'react-confirm-alert';
+import 'react-confirm-alert/src/react-confirm-alert.css';
 // import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -16,7 +18,20 @@ function Review({ auth, product, removeReview }) {
 
   const handleRemoveComment = (productId, reviewId) => {
     if (productId && reviewId) {
-      removeReview(productId, reviewId);
+      confirmAlert({
+        title: 'Confirm to remove review',
+        message: 'Are you sure to do this.',
+        buttons: [
+          {
+            label: 'Yes',
+            onClick: () => removeReview(productId, reviewId)
+          },
+          {
+            label: 'No',
+            onClick: () => { }
+          }
+        ]
+      });
     }
   }
 
