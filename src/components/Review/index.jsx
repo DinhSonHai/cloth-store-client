@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -43,12 +43,12 @@ function Review({ auth, product }) {
                   </div>
                   <div className="review__content">
                     <p className="content__title">{review.title}</p>
-                    <StarRatingComponent
+                    {/* <StarRatingComponent
                       name="rate2"
                       editing={false}
                       starCount={5}
                       value={review.starRatings}
-                    />
+                    /> */}
                     <p className="content__comment">{review.comment}</p>
                   </div>
                 </div>
@@ -62,12 +62,12 @@ function Review({ auth, product }) {
                     </div>
                     <div className="review__content">
                       <p className="content__title">{review.title}</p>
-                      <StarRatingComponent
+                      {/* <StarRatingComponent
                         name="rate2"
                         editing={false}
                         starCount={5}
                         value={review.starRatings}
-                      />
+                      /> */}
                       <p className="content__comment">{review.comment}</p>
                     </div>
                   </div>
@@ -86,12 +86,12 @@ function Review({ auth, product }) {
                       </div>
                       <div className="review__content">
                         <p className="content__title">{review.title}</p>
-                        <StarRatingComponent
+                        {/* <StarRatingComponent
                           name="rate2"
                           editing={false}
                           starCount={5}
                           value={review.starRatings}
-                        />
+                        /> */}
                         <p className="content__comment">{review.comment}</p>
                       </div>
                     </div>

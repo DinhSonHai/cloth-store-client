@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
@@ -12,7 +12,8 @@ ReviewForm.propTypes = {
 
 };
 
-function ReviewForm({ starRatings }) {
+function ReviewForm(props) {
+  const [star, setStar] = useState(0);
 
   const validate = Yup.object({
     starRatings: Yup.number()
@@ -24,7 +25,7 @@ function ReviewForm({ starRatings }) {
       <Formik
         initialValues={{
           title: '',
-          starRatings: starRatings || 0,
+          starRatings: star,
           comment: ''
         }}
         validationSchema={validate}
@@ -40,14 +41,17 @@ function ReviewForm({ starRatings }) {
             <TextAreaField type="text" id="comment" name="comment" placeholder="Add your comment here..." width={"770px"} height={"157px"} backgroundColor={"var(--white)"} />
 
             <label className="text-field__label" htmlFor="rate">*Rating for us:</label><br />
-            <div className="form__bottom">
-              <StarRatingComponent
-                id="rate"
-                name="rate"
+            <div id="starRatings"
+              name="starRatings" className="form__bottom">
+              {/* <StarRatingComponent
+                id="starRatings"
+                name="starRatings"
                 editing={true}
                 starCount={5}
-                value={0}
-              />
+                value={star}
+                starColor={"#ffd543"}
+                emptyStarColor={"#d4d3d3"}
+              /> */}
 
               <button type="submit" className="form__button" disabled={!formik.isValid} >
                 Submit

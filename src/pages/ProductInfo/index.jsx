@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import StarRatingComponent from 'react-star-rating-component';
+// import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
@@ -9,6 +9,7 @@ import Spinner from '../../components/Spinner';
 import QuantityField from '../../components/CustomFields/QuantityField';
 import Review from '../../components/Review';
 import { addItemToCart } from '../../utils/cart';
+import Star from '../../components/Star';
 
 ProductInfo.propTypes = {
 };
@@ -66,6 +67,10 @@ function ProductInfo({ match, product, getProductById }) {
     }
   }
 
+  const changeRating = () => {
+
+  }
+
   return (
     <div className="product-info">
       { loading ? (<Spinner width="200px" />) : (
@@ -91,12 +96,13 @@ function ProductInfo({ match, product, getProductById }) {
               <p className="product__price">{`$${product?.price || 0}.00`}</p>
               <div className="product__rating">
                 {product && (
-                  <StarRatingComponent
-                    name="rate"
-                    editing={false}
-                    starCount={5}
-                    value={product.starRatings}
-                  />
+                  // <StarRatingComponent
+                  //   name="rate"
+                  //   editing={false}
+                  //   starCount={5}
+                  //   value={product.starRatings}
+                  // />
+                  <Star rating={product.starRatings} changeRating={null} starDimension={"15px"} />
                 )}
                 <div className="rating__divider"></div>
                 <p className="rating__count">{product?.reviewsCount} Review</p>
