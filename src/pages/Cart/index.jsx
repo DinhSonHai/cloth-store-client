@@ -1,18 +1,22 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import './styles.scss';
 import { connect } from 'react-redux';
-import { getAllProductsCart } from '../../redux/actions/products';
+import { getAllProductsCart, checkOut } from '../../redux/actions/products';
 import TableRow from '../../components/CustomFields/TableRow';
 import EmptyCart from '../../assets/images/empty-cart.png';
+import { Redirect, useHistory } from 'react-router-dom';
+import Spinner from '../../components/Spinner';
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
   getAllProductsCart: PropTypes.func.isRequired
 };
 
-function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) {
+function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart, checkOut }) {
+  const [loading, setLoading] = useState(false);
+  const history = useHistory();
 
   const totalMoney = cart?.reduce((total, item) => {
     const price = productsCart.find(productCart => productCart._id === item.productId)?.price;
@@ -21,6 +25,30 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
     }
     return total;
   }, 0)
+
+  const handleCheckOut = async () => {
+    if (cart?.length > 0) {
+      let detail = cart.map(item => {
+        const product = productsCart.find(productCart => productCart._id === item.productId);
+        if (product) {
+          return {
+            name: product.name,
+            productId: item.productId,
+            sizeId: item.sizeId,
+            colorId: item.colorId,
+            quantity: item.quantity
+          };
+        }
+      })
+      setLoading(true);
+      const isSuccess = await checkOut(detail);
+      setLoading(false);
+      if (isSuccess) {
+        // Redirect to profile order page
+        return history.push("/");
+      }
+    }
+  }
 
   return (
     <div className="cart">
@@ -70,7 +98,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart }) 
                 <p className="subtotal__money">${totalMoney || 0}.00</p>
               </div>
             </div>
-            <button className="total__button" disabled={cart?.length <= 0}>Check out</button>
+            <button className="total__button" disabled={cart?.length <= 0} onClick={handleCheckOut}>{loading && <Spinner width="49px" />}Check out</button>
           </div>
         </div>
       </Fragment>
@@ -82,4 +110,4 @@ const mapStateToProps = (state) => ({
   cart: state.cart
 })
 
-export default connect(mapStateToProps, { getAllProductsCart })(Cart);
+export default connect(mapStateToProps, { getAllProductsCart, checkOut })(Cart);

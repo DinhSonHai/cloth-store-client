@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, GET_CART } from '../types';
+import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART } from '../types';
 
 // Action creator
 export const getAllProducts = () => async (dispatch) => {
@@ -109,6 +109,27 @@ export const removeReview = (productId, reviewId) => async (dispatch) => {
   try {
     const res = await axios.delete(`/api/reviews/${productId}/review/${reviewId}`);
     dispatch(getProductById(productId));
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const checkOut = (detail) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ detail });
+  try {
+    const res = await axios.post(`/api/orders`, body, config);
+    toast.success(res.data.message);
+    localStorage.cart = JSON.stringify([]);
+    dispatch({ type: REMOVE_FROM_CART });
+    return true;
   } catch (err) {
     const error = err.response.data;
     if (error) {
