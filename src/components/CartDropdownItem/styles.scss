@@ -1,6 +1,8 @@
 .cart-dropdown-item {
   height: 80px;
   display: flex;
+  border-bottom: 0.5px solid var(--white-six);
+
   .item__img {
     width: 60px;
     height: 60px;
@@ -12,7 +14,7 @@
   }
 
   .item__info {
-    margin: 22px;
+    margin: 13px 22px 13px 20px;
     .info__name {
       font-size: 12px;
       font-weight: 600;

@@ -4,6 +4,7 @@ import StarRatingComponent from 'react-star-rating-component';
 import { connect } from 'react-redux';
 
 import './styles.scss';
+import ReviewForm from '../CustomFields/ReviewForm';
 
 Review.propTypes = {
 };
@@ -13,40 +14,76 @@ function Review({ auth, product }) {
     <div className="review-section">
       <div className="review-section__divider">
         <div className="divider__start"></div>
-          <p className="divider__title">Reviews</p>
+        <p className="divider__title">Reviews</p>
         <div className="divider__end"></div>
       </div>
       { product?.reviewsCount <= 0 ? (
         <p className="no-reviews">No reviews</p>
       ) : (
         <Fragment>
-
-          {
-            product?.reviews.map(review => (
-              <div key={review._id} className="review">
-                <div className="review__info">
-                  { auth && auth?.user?._id === review?.userId?._id ? (
-                    <p className="info__name">You</p>
-                  ) : (
+          { auth ? (
+            <Fragment>
+              { product?.reviews.find(review => review.userId._id === auth?.user?._id) ? (
+                <Fragment>
+                  <div className="review">
+                    <div className="review__info">
+                      <p className="info__name">You</p>
+                      <p className="info__date"></p>
+                    </div>
+                    <div className="review__content">
+                      <ReviewForm />
+                    </div>
+                  </div>
+                </Fragment>
+              ) : product?.reviews.filter(review => review.userId._id !== auth?.user?._id).map(review => (
+                <div key={review._id} className="review">
+                  <div className="review__info">
                     <p className="info__name">{review.userId.name}</p>
-                  ) }
-                  {/* <p className="info__date">{new Date(review.commentedAt).getDate()} {new Date(review.commentedAt).getMonth()}</p> */}
+                    <p className="info__date">{new Date(review.commentedAt).toDateString()}</p>
+                  </div>
+                  <div className="review__content">
+                    <p className="content__title">{review.title}</p>
+                    <StarRatingComponent
+                      name="rate2"
+                      editing={false}
+                      starCount={5}
+                      value={review.starRatings}
+                    />
+                    <p className="content__comment">{review.comment}</p>
+                  </div>
                 </div>
-                <div className="review__content">
-                  <p className="content__title">{review.title}</p>
-                  <StarRatingComponent 
-                    name="rate2" 
-                    editing={false}
-                    starCount={5}
-                    value={review.starRatings}
-                  />
-                  <p className="content__comment">{review.comment}</p>
-                </div>
-              </div>
-            ))
-          }          
+              ))}
+            </Fragment>
+          ) : (
+            product?.reviewsCount > 0 ? (
+              <Fragment>
+                {
+                  product?.reviews.map(review => (
+                    <div key={review._id} className="review">
+                      <div className="review__info">
+                        <p className="info__name">{review.userId.name}</p>
+                        {/* <p className="info__date">{new Date(review.commentedAt).getDate()} {new Date(review.commentedAt).getMonth()}</p> */}
+                      </div>
+                      <div className="review__content">
+                        <p className="content__title">{review.title}</p>
+                        <StarRatingComponent
+                          name="rate2"
+                          editing={false}
+                          starCount={5}
+                          value={review.starRatings}
+                        />
+                        <p className="content__comment">{review.comment}</p>
+                      </div>
+                    </div>
+                  ))
+                }
+              </Fragment>
+            ) : (
+              <p className="no-reviews">No reviews</p>
+            )
+          )}
         </Fragment>
-      ) }
+      )}
     </div>
   );
 }

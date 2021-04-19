@@ -8,7 +8,7 @@
       height: 0.1px;
       background-color: var(--brown-grey);
     }
-    
+
     .divider__title {
       margin: 0 20px;
       font-size: 16px;
@@ -16,7 +16,7 @@
       line-height: 1.5;
       color: var(--dark-grey);
     }
-    
+
     .divider__end {
       width: 992px;
       height: 0.1px;
@@ -51,10 +51,16 @@
         line-height: 1.57;
         color: var(--dark-grey);
       }
+
+      .info__date {
+        font-size: 14px;
+        line-height: 1.57;
+        color: #808080;
+      }
     }
 
     .review__content {
-      width: 800px;
+      width: 830px;
       background-color: #f9f9f9;
       padding: 15px 20px;
 

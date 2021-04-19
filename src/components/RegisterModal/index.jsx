@@ -52,9 +52,9 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
         >
           {formik => (
             <Form className="content__form">
-              <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." />
-              <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." />
-              <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." />
+              <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." width={"395px"} height={"46px"} />
+              <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"395px"} height={"46px"} />
+              <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." width={"395px"} height={"46px"} />
 
               <p className="form__policy">By creating an account you agree to the <a href="/">Term of service</a> and <a href="/">Privacy Policy</a></p>
 

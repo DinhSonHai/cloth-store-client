@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { removeItemFromCart, updateCart } from '../../../utils/cart';
 import QuantityBox from '../QuantityBox';
 // import PropTypes from 'prop-types';
@@ -25,7 +26,7 @@ function TableRow({ cartItem, productCart }) {
         <div className="table-row__product-image">
           <img src={productCart?.photos[0]} alt="" />
           <div className="table-row__product">
-            <p className="product__name">{productCart?.name}</p>
+            <Link to={`/products/${productCart._id}`} className="product__name">{productCart?.name}</Link>
             <div className="product__action">
               <button onClick={handleChange}>Change</button>
               <div className="action__divider"></div>

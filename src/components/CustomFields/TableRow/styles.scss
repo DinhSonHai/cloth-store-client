@@ -1,6 +1,6 @@
 .table-row {
   border-bottom: solid 0.5px var(--brown-grey);
-  
+
   &__product-image {
     display: flex;
     margin: 10px 0;
@@ -30,6 +30,7 @@
       font-weight: 500;
       line-height: 1.43;
       color: var(--dark-grey);
+      text-decoration: none;
     }
 
     .product__action {

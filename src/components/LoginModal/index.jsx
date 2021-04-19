@@ -43,29 +43,24 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
         {auth?.errors?.type === 'login' && (<p className="content__error">{auth.errors.msg}</p>)}
         <Formik
           initialValues={{
-            email: localStorage.getItem('email') || '',
-            password: localStorage.getItem('password') || '',
+            email: '',
+            password: '',
           }}
           validationSchema={validate}
           onSubmit={values => {
             login(values, hideLogin);
-            if (isCheck) {
-              localStorage.setItem('isCheck', true);
-              localStorage.setItem('email', values.email);
-              localStorage.setItem('password', values.password);
-            }
           }}
           validateOnMount
         >
           {formik => (
             <Form className="content__form">
-              <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." />
-              <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." />
+              <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"395px"} height={"46px"} backgroundColor={"var(--white-two)"} />
+              <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." width={"395px"} height={"46px"} backgroundColor={"var(--white-two)"} />
 
               <div className="form__option">
                 <div className="option__remember">
-                  <input type="checkbox" id="rememeber-box" checked={Boolean(isCheck)} onChange={onChangeCheckBox}/>
-                  <label htmlFor="remember-box">Remember password</label>
+                  <input type="checkbox" id="rememeber-box" checked={Boolean(isCheck)} onChange={onChangeCheckBox} />
+                  <label htmlFor="remember-box">Keep me login</label>
                 </div>
                 <p className="option_forgot">Forgot your password?</p>
               </div>

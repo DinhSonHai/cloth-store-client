@@ -8,7 +8,6 @@ import { getProductById } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
 import QuantityField from '../../components/CustomFields/QuantityField';
 import Review from '../../components/Review';
-import { toast } from 'react-toastify';
 import { addItemToCart } from '../../utils/cart';
 
 ProductInfo.propTypes = {
@@ -93,7 +92,7 @@ function ProductInfo({ match, product, getProductById }) {
               <div className="product__rating">
                 {product && (
                   <StarRatingComponent
-                    name="rate2"
+                    name="rate"
                     editing={false}
                     starCount={5}
                     value={product.starRatings}
