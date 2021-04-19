@@ -1,15 +1,22 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useState } from 'react';
 // import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import './styles.scss';
 import ReviewForm from '../CustomFields/ReviewForm';
+import { removeReview } from '../../redux/actions/products';
 
 Review.propTypes = {
 };
 
-function Review({ auth, product }) {
+function Review({ auth, product, removeReview }) {
+  const handleRemoveComment = (productId, reviewId) => {
+    if (productId && reviewId) {
+      removeReview(productId, reviewId);
+    }
+  }
+
   return (
     <div className="review-section">
       <div className="review-section__divider">
@@ -21,17 +28,16 @@ function Review({ auth, product }) {
         <p className="no-reviews">No reviews</p>
       ) : (
         <Fragment>
-          { auth ? (
+          { auth.isAuthenticated ? (
             <Fragment>
-              { !product?.reviews.find(review => review.userId._id === auth?.user?._id) ? (
+              { product && !product.reviews.find(review => review.userId._id === auth?.user?._id) ? (
                 <Fragment>
                   <div className="review">
                     <div className="review__info">
                       <p className="info__name">You</p>
-                      <p className="info__date"></p>
                     </div>
                     <div className="review__content">
-                      <ReviewForm />
+                      {product && (<ReviewForm productId={product._id} />)}
                     </div>
                   </div>
                 </Fragment>
@@ -39,7 +45,11 @@ function Review({ auth, product }) {
                 <div key={review._id} className="review">
                   <div className="review__info">
                     <p className="info__name">You</p>
-                    <p className="info__date">{new Date(review.commentedAt).toDateString()}</p>
+                    <div className="review__action">
+                      <button>Edit</button>
+                      <div className="action__divider"></div>
+                      <button onClick={() => handleRemoveComment(product._id, review._id)}>Delete</button>
+                    </div>
                   </div>
                   <div className="review__content">
                     <p className="content__title">{review.title}</p>
@@ -82,7 +92,7 @@ function Review({ auth, product }) {
                     <div key={review._id} className="review">
                       <div className="review__info">
                         <p className="info__name">{review.userId.name}</p>
-                        {/* <p className="info__date">{new Date(review.commentedAt).getDate()} {new Date(review.commentedAt).getMonth()}</p> */}
+                        <p className="info__date">{new Date(review.commentedAt).toDateString()}</p>
                       </div>
                       <div className="review__content">
                         <p className="content__title">{review.title}</p>
@@ -112,4 +122,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, {})(Review);
+export default connect(mapStateToProps, { removeReview })(Review);

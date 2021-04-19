@@ -3,14 +3,15 @@ import StarRatings from 'react-star-ratings';
 
 import './styles.scss';
 
-function Star({ rating, changeRating, starDimension }) {
+function Star({ rating, changeRating, starDimension, ...props }) {
   return (
     <StarRatings
       rating={rating}
       starRatedColor="#ffd543"
-      changeRating={changeRating}
+      changeRating={(newRating) => changeRating(newRating)}
       starDimension={starDimension}
-      starSpacing={"2px"}
+      starHoverColor="#ffd543"
+      starSpacing="2px"
       numberOfStars={5}
     />
   );

@@ -57,6 +57,26 @@
         line-height: 1.57;
         color: #808080;
       }
+
+      .review__action {
+        display: flex;
+        align-items: center;
+
+        .action__divider {
+          margin: 0 4px;
+          height: 15px;
+          border: solid 0.5px var(--brown-grey);
+        }
+
+        & > button {
+          background-color: var(--white);
+          border: none;
+          font-size: 12px;
+          font-weight: normal;
+          line-height: 1.83;
+          color: var(--dark-grey);
+        }
+      }
     }
 
     .review__content {

@@ -67,10 +67,6 @@ function ProductInfo({ match, product, getProductById }) {
     }
   }
 
-  const changeRating = () => {
-
-  }
-
   return (
     <div className="product-info">
       { loading ? (<Spinner width="200px" />) : (
