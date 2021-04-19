@@ -23,7 +23,7 @@ function Review({ auth, product }) {
         <Fragment>
           { auth ? (
             <Fragment>
-              { product?.reviews.find(review => review.userId._id === auth?.user?._id) ? (
+              { !product?.reviews.find(review => review.userId._id === auth?.user?._id) ? (
                 <Fragment>
                   <div className="review">
                     <div className="review__info">
@@ -35,10 +35,10 @@ function Review({ auth, product }) {
                     </div>
                   </div>
                 </Fragment>
-              ) : product?.reviews.filter(review => review.userId._id !== auth?.user?._id).map(review => (
+              ) : product?.reviews.filter(review => review.userId._id === auth?.user?._id).map(review => (
                 <div key={review._id} className="review">
                   <div className="review__info">
-                    <p className="info__name">{review.userId.name}</p>
+                    <p className="info__name">You</p>
                     <p className="info__date">{new Date(review.commentedAt).toDateString()}</p>
                   </div>
                   <div className="review__content">
@@ -53,6 +53,26 @@ function Review({ auth, product }) {
                   </div>
                 </div>
               ))}
+              {
+                product?.reviews.filter(review => review.userId._id !== auth?.user?._id).map(review => (
+                  <div key={review._id} className="review">
+                    <div className="review__info">
+                      <p className="info__name">{review.userId.name}</p>
+                      <p className="info__date">{new Date(review.commentedAt).toDateString()}</p>
+                    </div>
+                    <div className="review__content">
+                      <p className="content__title">{review.title}</p>
+                      <StarRatingComponent
+                        name="rate2"
+                        editing={false}
+                        starCount={5}
+                        value={review.starRatings}
+                      />
+                      <p className="content__comment">{review.comment}</p>
+                    </div>
+                  </div>
+                ))
+              }
             </Fragment>
           ) : (
             product?.reviewsCount > 0 ? (

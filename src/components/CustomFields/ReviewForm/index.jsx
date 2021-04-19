@@ -40,17 +40,19 @@ function ReviewForm({ starRatings }) {
             <TextAreaField type="text" id="comment" name="comment" placeholder="Add your comment here..." width={"770px"} height={"157px"} backgroundColor={"var(--white)"} />
 
             <label className="text-field__label" htmlFor="rate">*Rating for us:</label><br />
-            <StarRatingComponent
-              id="rate"
-              name="rate"
-              editing={true}
-              starCount={5}
-              value={0}
-            />
+            <div className="form__bottom">
+              <StarRatingComponent
+                id="rate"
+                name="rate"
+                editing={true}
+                starCount={5}
+                value={0}
+              />
 
-            <button type="submit" className="form__button" disabled={!formik.isValid} >
-              Submit
+              <button type="submit" className="form__button" disabled={!formik.isValid} >
+                Submit
             </button>
+            </div>
           </Form>
         )}
       </Formik>
