@@ -1,45 +1,41 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 
 import './styles.scss';
 import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
-import { getAllProducts } from '../../redux/actions/products';
+import { getProductsByType, getTypeById, getCategoriesByType } from '../../redux/actions/products';
 
 ProductList.propTypes = {
-  products: PropTypes.object.isRequired,
-  getAllProducts: PropTypes.func.isRequired
 };
 
-function ProductList({ products: { products }, getAllProducts }) {
+function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType }) {
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     setLoading(true);
-    getAllProducts();
+    getProductsByType(match.params.typeId);
+    getTypeById(match.params.typeId);
+    getCategoriesByType(match.params.typeId);
     setLoading(false);
-  }, [getAllProducts]);
+  }, [getProductsByType, match.params.typeId]);
   return (
     <div className="product-list">
       <div className="product-list__breadcrumb">
-        <p>Ladies / Dresses</p>
+        <p>{type && type.collectionId.collectionName} / {type && type.typeName}</p>
       </div>
       <div className="product-list__main">
         <div className="main__option">
           <div className="option__category">
             <p>Category</p>
-            <a href="/" className="category__type">Dresses</a>
+            <p className="category__type">{type && type.typeName}</p>
             <div className="category__divider"></div>
             <div className="category__detail">
-              <p>Roompers / Jumpsuits</p>
-              <p>Casual dresses</p>
-              <p>Going out dresses</p>
-              <p>Party / Ocassion dresses</p>
-              <p>Mini dresses</p>
-              <p>Maxi / Midi dresses</p>
-              <p>Sets</p>
+              {categories && categories.map(category => (
+                <p>{category.categoryName}</p>
+              ))}
             </div>
           </div>
           <div className="option__divider"></div>
@@ -113,7 +109,7 @@ function ProductList({ products: { products }, getAllProducts }) {
               </div>
             </div>
             <div className="content__card">
-              {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} isAvailable={true} />))}
+              {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} stock={product.quantity} />))}
             </div>
             <div className="content__bottom">
               <div className="bottom__pagination">
@@ -130,7 +126,10 @@ function ProductList({ products: { products }, getAllProducts }) {
 }
 
 const mapStateToProps = (state) => ({
-  products: state.products
+  collections: state.collections.collections,
+  products: state.products.products,
+  type: state.products.type,
+  categories: state.products.categories
 })
 
-export default connect(mapStateToProps, { getAllProducts })(ProductList);
+export default connect(mapStateToProps, { getProductsByType, getTypeById, getCategoriesByType })(ProductList);

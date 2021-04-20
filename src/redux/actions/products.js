@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GET_ALL_PRODUCTS, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART } from '../types';
+import { GET_ALL_PRODUCTS, GET_PRODUCTS_BY_TYPE, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART, GET_TYPE_BY_ID, GET_CATEGORIES_BY_TYPE } from '../types';
 
 // Action creator
 export const getAllProducts = () => async (dispatch) => {
@@ -8,6 +8,36 @@ export const getAllProducts = () => async (dispatch) => {
     const res = await axios.get('/api/products');
     dispatch({
       type: GET_ALL_PRODUCTS,
+      payload: res.data,
+    });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const getProductsByType = (typeId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/products/types/${typeId}`);
+    dispatch({
+      type: GET_PRODUCTS_BY_TYPE,
+      payload: res.data,
+    });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const getCategoriesByType = (typeId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/categories/types/${typeId}`);
+    dispatch({
+      type: GET_CATEGORIES_BY_TYPE,
       payload: res.data,
     });
   } catch (err) {
@@ -32,14 +62,9 @@ export const getAllProductsCart = (productIdList) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err.response.data.errors;
-    if (errors) {
-      // errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      // errors.forEach((error) => console.log(error.msg));
-      // dispatch({
-      //   type: AUTH_ERRORS,
-      //   payload: errors[0].msg
-      // });
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
     }
   }
 }
@@ -52,14 +77,24 @@ export const getProductById = (productId) => async (dispatch) => {
       payload: res.data,
     });
   } catch (err) {
-    const errors = err?.response?.data?.errors;
-    if (errors) {
-      // errors.forEach((error) => dispatch(setAlert(error.msg, 'danger')));
-      // errors.forEach((error) => console.log(error.msg));
-      // dispatch({
-      //   type: AUTH_ERRORS,
-      //   payload: errors[0].msg
-      // });
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const getTypeById = (typeId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/types/${typeId}`);
+    dispatch({
+      type: GET_TYPE_BY_ID,
+      payload: res.data,
+    });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
     }
   }
 }
