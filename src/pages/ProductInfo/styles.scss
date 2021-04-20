@@ -191,4 +191,35 @@
       }
     }
   }
+  .suggest-section__divider {
+    display: flex;
+    align-items: center;
+    margin-bottom: 21px;
+
+    .divider__start {
+      width: 80px;
+      height: 0.1px;
+      background-color: var(--brown-grey);
+    }
+
+    .divider__title {
+      margin: 0 20px;
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.5;
+      color: var(--dark-grey);
+    }
+
+    .divider__end {
+      width: 930px;
+      height: 0.1px;
+      background-color: var(--brown-grey);
+    }
+  }
+
+  .suggest-products {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 66px;
+  }
 }

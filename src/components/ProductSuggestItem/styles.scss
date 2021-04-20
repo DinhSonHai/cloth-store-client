@@ -1,0 +1,16 @@
+.suggest-item {
+  height: 229px;
+  text-decoration: none;
+
+  & > img {
+    width: 130px;
+  }
+
+  .item__name {
+    width: 130px;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.33;
+    color: var(--greyish-brown);
+  }
+}

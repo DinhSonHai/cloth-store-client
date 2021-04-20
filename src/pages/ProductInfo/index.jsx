@@ -4,18 +4,19 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import './styles.scss';
-import { getProductById, getProductsByBrand } from '../../redux/actions/products';
+import { getProductById, getProductsByBrand, getAllProducts } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
 import QuantityField from '../../components/CustomFields/QuantityField';
 import Review from '../../components/Review';
 import { addItemToCart } from '../../utils/cart';
 import Star from '../../components/Star';
 import ProductSameBrandItem from '../../components/ProductSameBrandItem';
+import ProductSuggestItem from '../../components/ProductSuggestItem';
 
 ProductInfo.propTypes = {
 };
 
-function ProductInfo({ match, product, brandProducts, getProductById, getProductsByBrand }) {
+function ProductInfo({ match, products, product, brandProducts, getProductById, getProductsByBrand, getAllProducts }) {
   const [loading, setLoading] = useState(true);
   const [sizeState, setSizeState] = useState('');
   const [colorState, setColorState] = useState('');
@@ -31,8 +32,9 @@ function ProductInfo({ match, product, brandProducts, getProductById, getProduct
     setLoading(true);
     getProductById(match.params.productId);
     getProductsByBrand(match.params.productId);
+    getAllProducts();
     setLoading(false);
-  }, [getProductById, getProductsByBrand, match.params.productId, data, loading]);
+  }, [getProductById, getProductsByBrand, getAllProducts, match.params.productId, data, loading]);
 
   const handleThumbailCLick = (e) => {
     setMainPhoto(e.target.src);
@@ -138,6 +140,16 @@ function ProductInfo({ match, product, brandProducts, getProductById, getProduct
             </div>
           </div>
           <Review product={product} />
+          <div className="suggest-section__divider">
+            <div className="divider__start"></div>
+            <p className="divider__title">You may also like</p>
+            <div className="divider__end"></div>
+          </div>
+          <div className="suggest-products">
+            {products && products.filter(item => item._id !== product._id).slice(0, 8).map((item, index) => (
+              <ProductSuggestItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} name={item.name} />
+            ))}
+          </div>
         </Fragment>
       )}
     </div>
@@ -145,8 +157,9 @@ function ProductInfo({ match, product, brandProducts, getProductById, getProduct
 }
 
 const mapStateToProps = (state) => ({
+  products: state.products.products,
   product: state.products.product,
   brandProducts: state.products.brandProducts
 })
 
-export default connect(mapStateToProps, { getProductById, getProductsByBrand })(ProductInfo);
+export default connect(mapStateToProps, { getProductById, getProductsByBrand, getAllProducts })(ProductInfo);
