@@ -71,6 +71,13 @@
         color: var(--white);
         background-color: #ffa15f;
         border: none;
+        position: relative;
+
+        .spinner {
+          position: absolute;
+          top: 5px;
+          left: 64px;
+        }
 
         &:disabled {
           cursor: default;

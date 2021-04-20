@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
+import PrivateRoute from './PrivateRoute';
 
 import * as pages from '../pages';
 
@@ -13,7 +14,7 @@ export default function routes() {
         <Route exact path="/cart" component={pages.Cart} />
         <Route exact path="/products/:productId" component={pages.ProductInfo} />
         <Route exact path="/profile" component={pages.Profile} />
-        <Route exact path="/orders/me" component={pages.OrderList} />
+        <PrivateRoute exact path="/orders/me" component={pages.OrderList} />
       </Switch>
     </div>
   )

@@ -99,7 +99,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart, ch
                 <p className="subtotal__money">${totalMoney || 0}.00</p>
               </div>
             </div>
-            <button className="total__button" disabled={cart?.length <= 0} onClick={handleCheckOut}>{loading && <Spinner width="49px" />}Check out</button>
+            <button className="total__button" disabled={cart?.length <= 0} onClick={handleCheckOut}>{loading && <span className="spinner"><Spinner width="49px" /></span>}Check out</button>
           </div>
         </div>
       </Fragment>

@@ -8,6 +8,7 @@ import TextField from '../../components/CustomFields/TextField';
 import { CloseModalIcon } from '../../assets/icons';
 import { login } from '../../redux/actions/auth';
 import './styles.scss';
+import Spinner from '../Spinner';
 
 LoginModal.propTypes = {
   auth: PropTypes.object.isRequired,
@@ -17,6 +18,7 @@ LoginModal.propTypes = {
 };
 
 function LoginModal({ auth, hideLogin, showRegister, login }) {
+  const [loading, setLoading] = useState(false);
   const [isCheck, setChecked] = useState(localStorage.getItem('isCheck') || false);
   const validate = Yup.object({
     email: Yup.string()
@@ -48,7 +50,9 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
           }}
           validationSchema={validate}
           onSubmit={values => {
+            setLoading(true);
             login(values, hideLogin);
+            setLoading(false);
           }}
           validateOnMount
         >
@@ -66,6 +70,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
               </div>
 
               <button type="submit" className="form__button" disabled={!formik.isValid} >
+                {loading && <span className="spinner"><Spinner width="49px" /></span>}
                 Login
               </button>
             </Form>
