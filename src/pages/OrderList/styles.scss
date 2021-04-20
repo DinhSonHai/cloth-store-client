@@ -1,6 +1,7 @@
 .order-list {
   margin-top: 37px;
   display: flex;
+
   .tab {
     width: 250px;
     &__title {
@@ -25,6 +26,21 @@
     }
   }
 
+  .no-order {
+    width: 950px;
+    height: 300px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 10px 24px 0 var(--black-8);
+    background-color: var(--white-two);
+    margin-bottom: 37px;
+
+    .link {
+      text-decoration: none;
+    }
+  }
+
   .tab__content {
     table {
       padding: 0 48px;
@@ -32,6 +48,7 @@
       width: 950px;
       border-spacing: 10px;
       background-color: var(--white-two);
+      margin-bottom: 37px;
     }
     th {
       height: 64px;

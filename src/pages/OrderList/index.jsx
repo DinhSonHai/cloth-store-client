@@ -8,6 +8,7 @@ import Select from 'react-select';
 import config from '../../config/default.json';
 import './styles.scss';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 OrderList.propTypes = {
 
@@ -76,47 +77,51 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
         <p className="tab__title">My Orders ({orders.length})</p>
         <p onClick={() => handleClick(0)} className={tab === 0 ? "tab__name tab__name--active" : "tab__name"}>Pending orders ({orders.filter(order => order.status === config.PENDING_ORDER).length})</p>
       </div>
-      <div className="tab__content">
-        <table>
-          <thead>
-            <tr>
-              <th style={{ width: "12%" }}>ORDERED ID</th>
-              <th style={{ width: "15%" }}>ORDERED DATE</th>
-              <th style={{ width: "35%" }}>DETAIL</th>
-              <th style={{ width: "8%" }}>TOTAL ($)</th>
-              <th style={{ width: "12%" }}>STATUS</th>
-              <th style={{ width: "20%" }}></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr className="divider">
-              <td colSpan="6"></td>
-            </tr>
-            {tab === 0 &&
-              orders.filter(order => order.status === config.PENDING_ORDER).map(order => (
+      { orders && orders.length <= 0 ? (<div className="no-order"><p>You don't have any order <Link className="link" to="/products">Back to shop</Link></p></div>) : (
+        <div className="tab__content">
+          { orders.filter(order => order.status === config.PENDING_ORDER).length <= 0 ? (<div className="no-order"><p>No pending order <Link className="link" to="/products">Back to shop</Link></p></div>) : (
+            <table>
+              <thead>
                 <tr>
-                  <td>{order.orderId}</td>
-                  <td>{new Date(order.orderedDate).toDateString()}</td>
-                  <td>{order.detail[0].name} ({order.detail[0].sizeId.sizeName}) x {order.detail[0].quantity}</td>
-                  <td>{order.total}.00</td>
-                  <td><span className="status">Pending</span></td>
-                  <td>
-                    <Select
-                      className="select"
-                      value={{ value: -1, label: "Actions" }}
-                      components={{ IndicatorSeparator }}
-                      styles={customStyles}
-                      onChange={(option) => handleChange(option, order._id)}
-                      options={options}
-                      isSearchable={false}
-                    />
-                  </td>
+                  <th style={{ width: "12%" }}>ORDERED ID</th>
+                  <th style={{ width: "15%" }}>ORDERED DATE</th>
+                  <th style={{ width: "35%" }}>DETAIL</th>
+                  <th style={{ width: "8%" }}>TOTAL ($)</th>
+                  <th style={{ width: "12%" }}>STATUS</th>
+                  <th style={{ width: "20%" }}></th>
                 </tr>
-              ))
-            }
-          </tbody>
-        </table>
-      </div>
+              </thead>
+              <tbody>
+                <tr className="divider">
+                  <td colSpan="6"></td>
+                </tr>
+                {tab === 0 &&
+                  orders.filter(order => order.status === config.PENDING_ORDER).map(order => (
+                    <tr>
+                      <td>{order.orderId}</td>
+                      <td>{new Date(order.orderedDate).toDateString()}</td>
+                      <td>{order.detail[0].name} ({order.detail[0].sizeId.sizeName}) x {order.detail[0].quantity}</td>
+                      <td>{order.total}.00</td>
+                      <td><span className="status">Pending</span></td>
+                      <td>
+                        <Select
+                          className="select"
+                          value={{ value: -1, label: "Actions" }}
+                          components={{ IndicatorSeparator }}
+                          styles={customStyles}
+                          onChange={(option) => handleChange(option, order._id)}
+                          options={options}
+                          isSearchable={false}
+                        />
+                      </td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          )}
+        </div>
+      )}
     </div>
   );
 }
