@@ -4,17 +4,18 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 
 import './styles.scss';
-import { getProductById } from '../../redux/actions/products';
+import { getProductById, getProductsByBrand } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
 import QuantityField from '../../components/CustomFields/QuantityField';
 import Review from '../../components/Review';
 import { addItemToCart } from '../../utils/cart';
 import Star from '../../components/Star';
+import ProductSameBrandItem from '../../components/ProductSameBrandItem';
 
 ProductInfo.propTypes = {
 };
 
-function ProductInfo({ match, product, getProductById }) {
+function ProductInfo({ match, product, brandProducts, getProductById, getProductsByBrand }) {
   const [loading, setLoading] = useState(true);
   const [sizeState, setSizeState] = useState('');
   const [colorState, setColorState] = useState('');
@@ -29,8 +30,9 @@ function ProductInfo({ match, product, getProductById }) {
   useEffect(() => {
     setLoading(true);
     getProductById(match.params.productId);
+    getProductsByBrand(match.params.productId);
     setLoading(false);
-  }, [getProductById, match.params.productId, data, loading]);
+  }, [getProductById, getProductsByBrand, match.params.productId, data, loading]);
 
   const handleThumbailCLick = (e) => {
     setMainPhoto(e.target.src);
@@ -128,7 +130,11 @@ function ProductInfo({ match, product, getProductById }) {
             </div>
 
             <div className="same-brand">
-
+              <p>More from</p>
+              <p className="brand-name">{product && product.brandId.brand}</p>
+              {brandProducts && brandProducts.map((item, index) => (
+                <ProductSameBrandItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} />
+              ))}
             </div>
           </div>
           <Review product={product} />
@@ -139,7 +145,8 @@ function ProductInfo({ match, product, getProductById }) {
 }
 
 const mapStateToProps = (state) => ({
-  product: state.products.product
+  product: state.products.product,
+  brandProducts: state.products.brandProducts
 })
 
-export default connect(mapStateToProps, { getProductById })(ProductInfo);
+export default connect(mapStateToProps, { getProductById, getProductsByBrand })(ProductInfo);

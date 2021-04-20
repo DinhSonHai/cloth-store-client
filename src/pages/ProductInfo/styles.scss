@@ -173,5 +173,22 @@
         color: var(--dark-grey);
       }
     }
+
+    .same-brand {
+      width: 80px;
+      font-size: 14px;
+      font-weight: 500;
+      line-height: 1.57;
+      color: var(--dark-grey);
+      margin-left: 121px;
+
+      .brand-name {
+        font-size: 14px;
+        font-weight: normal;
+        line-height: 1.57;
+        color: var(--greyish-brown);
+        margin-bottom: 19px;
+      }
+    }
   }
 }

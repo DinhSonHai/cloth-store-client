@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GET_ALL_PRODUCTS, GET_PRODUCTS_BY_TYPE, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART, GET_TYPE_BY_ID, GET_CATEGORIES_BY_TYPE } from '../types';
+import { GET_ALL_PRODUCTS, GET_PRODUCTS_BY_TYPE, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART, GET_TYPE_BY_ID, GET_CATEGORIES_BY_TYPE, GET_PRODUCTS_BY_BRAND } from '../types';
 
 // Action creator
 export const getAllProducts = () => async (dispatch) => {
@@ -23,6 +23,21 @@ export const getProductsByType = (typeId) => async (dispatch) => {
     const res = await axios.get(`/api/products/types/${typeId}`);
     dispatch({
       type: GET_PRODUCTS_BY_TYPE,
+      payload: res.data,
+    });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const getProductsByBrand = (productId) => async (dispatch) => {
+  try {
+    const res = await axios.get(`/api/products/brands/${productId}`);
+    dispatch({
+      type: GET_PRODUCTS_BY_BRAND,
       payload: res.data,
     });
   } catch (err) {
@@ -107,7 +122,7 @@ export const review = (productId, { title, comment, starRatings }) => async (dis
   };
   const body = JSON.stringify({ title, comment, starRatings });
   try {
-    const res = await axios.post(`/api/reviews/${productId}/review`, body, config);
+    await axios.post(`/api/reviews/${productId}/review`, body, config);
     dispatch(getProductById(productId));
   } catch (err) {
     const error = err.response.data;
@@ -125,7 +140,7 @@ export const editReview = (productId, reviewId, { title, comment, starRatings })
   };
   const body = JSON.stringify({ title, comment, starRatings });
   try {
-    const res = await axios.put(`/api/reviews/${productId}/review/${reviewId}`, body, config);
+    await axios.put(`/api/reviews/${productId}/review/${reviewId}`, body, config);
     dispatch(getProductById(productId));
   } catch (err) {
     const error = err.response.data;
@@ -137,7 +152,7 @@ export const editReview = (productId, reviewId, { title, comment, starRatings })
 
 export const removeReview = (productId, reviewId) => async (dispatch) => {
   try {
-    const res = await axios.delete(`/api/reviews/${productId}/review/${reviewId}`);
+    await axios.delete(`/api/reviews/${productId}/review/${reviewId}`);
     dispatch(getProductById(productId));
   } catch (err) {
     const error = err.response.data;

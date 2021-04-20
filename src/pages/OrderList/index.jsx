@@ -7,7 +7,6 @@ import Select from 'react-select';
 
 import config from '../../config/default.json';
 import './styles.scss';
-import { toast } from 'react-toastify';
 import { Link } from 'react-router-dom';
 
 OrderList.propTypes = {
@@ -17,7 +16,6 @@ OrderList.propTypes = {
 function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
   const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState(0);
-  const [selectedOption, setSelectedOption] = useState(null);
 
   useEffect(() => {
     if (auth.isAuthenticated) {

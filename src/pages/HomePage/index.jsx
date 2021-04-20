@@ -18,13 +18,13 @@ function HomePage(props) {
     <div className="home-page">
       <div className="home-page__weekly-outfit">
         <p className="weekly-outfit__title">OUTFIT OF THE WEEK</p>
-        <Link to="/products" className="weekly-outfit__link">Shop now</Link>
+        <Link to="/products/types/606e9edc9d2925f6dc88d785" className="weekly-outfit__link">Shop now</Link>
       </div>
       <div className="home-page__collection">
-        <CollectionCard title="Men" image={Men} />
-        <CollectionCard title="Ladies" image={Ladies} />
-        <CollectionCard title="Girls" image={Girls} />
-        <CollectionCard title="Boys" image={Boys} />
+        <CollectionCard to="/products/types/607e7b383e88310a508dbf2b" title="Men" image={Men} />
+        <CollectionCard to="/products/types/606e9edc9d2925f6dc88d785" title="Ladies" image={Ladies} />
+        <CollectionCard to="/products/types/607e7db53e88310a508dbf36" title="Girls" image={Girls} />
+        <CollectionCard to="/products/types/607e7cb43e88310a508dbf30" title="Boys" image={Boys} />
       </div>
     </div>
   );

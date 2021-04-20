@@ -7,12 +7,12 @@ CollectionCard.propTypes = {
 
 };
 
-function CollectionCard({ title, image }) {
+function CollectionCard({ title, image, to }) {
   return (
     <div className="card" style={{ backgroundImage: `url(${image})` }}>
       <div className="card__title">{title}</div>
       <div className="card__divider"></div>
-      <Link to="/products" className="card__link">Shop now</Link>
+      <Link to={to} className="card__link">Shop now</Link>
     </div>
   );
 }

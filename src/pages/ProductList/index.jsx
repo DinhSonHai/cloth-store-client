@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 // import PropTypes from 'prop-types';
@@ -13,28 +13,35 @@ ProductList.propTypes = {
 };
 
 function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType }) {
+  const [isSelected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     setLoading(true);
     getProductsByType(match.params.typeId);
     getTypeById(match.params.typeId);
     getCategoriesByType(match.params.typeId);
     setLoading(false);
-  }, [getProductsByType, match.params.typeId]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, match.params.typeId]);
+
+  const handleCategoryClick = (option) => {
+    setSelected(option);
+  }
+
   return (
     <div className="product-list">
       <div className="product-list__breadcrumb">
-        <p>{type && type.collectionId.collectionName} / {type && type.typeName}</p>
+        <p>{type && type.collectionId.collectionName} / <span onClick={() => handleCategoryClick(0)} className="link">{type && type.typeName}</span></p>
       </div>
       <div className="product-list__main">
         <div className="main__option">
           <div className="option__category">
-            <p>Category</p>
-            <p className="category__type">{type && type.typeName}</p>
+            <p className="category__title">Category</p>
+            <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>{type && type.typeName}</p>
             <div className="category__divider"></div>
             <div className="category__detail">
-              {categories && categories.map(category => (
-                <p>{category.categoryName}</p>
+              {categories && categories.map((category, index) => (
+                <p onClick={() => handleCategoryClick(index + 1)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>

@@ -94,8 +94,8 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
             <p className="collection__text">{collection.collectionName}</p>
             <Arrow />
             <div className="collection__dropdown">
-              {collection.types.map(type => (
-                <Link to={`/products/types/${type._id}`} className="dropdown__link">{type.typeName}</Link>
+              {collection.types.map((type, index) => (
+                <Link key={index} to={`/products/types/${type._id}`} className="dropdown__link">{type.typeName}</Link>
               ))}
             </div>
           </div>

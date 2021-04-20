@@ -21,7 +21,7 @@ export const getAllUsersOrders = () => async (dispatch) => {
 
 export const cancelOrder = (orderId) => async (dispatch) => {
   try {
-    const res = await axios.put(`/api/orders/${orderId}`);
+    await axios.put(`/api/orders/${orderId}`);
     dispatch(loadUser());
   } catch (err) {
     const error = err.response.data;

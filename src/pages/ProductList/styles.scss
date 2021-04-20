@@ -9,6 +9,10 @@
       line-height: 1.57;
       color: var(--dark-grey);
     }
+
+    .link {
+      cursor: pointer;
+    }
   }
 
   &__main {
@@ -19,7 +23,7 @@
       margin-right: 20px;
 
       .option__category {
-        & > p {
+        .category__title {
           font-size: 16px;
           font-weight: bold;
           line-height: 1.5;
@@ -29,11 +33,14 @@
 
         .category__type {
           font-size: 14px;
-          font-weight: 500;
           line-height: 1.57;
+          color: var(--greyish-brown);
+          cursor: pointer;
+        }
+
+        .category--active {
+          font-weight: 500;
           color: var(--bright-orange);
-          text-decoration: none;
-          margin-bottom: 0;
         }
 
         .category__divider {
@@ -50,6 +57,11 @@
             letter-spacing: -0.1px;
             color: var(--greyish-brown);
             margin-bottom: 18px;
+            cursor: pointer;
+          }
+          .category--active {
+            font-weight: 500;
+            color: var(--bright-orange);
           }
         }
       }

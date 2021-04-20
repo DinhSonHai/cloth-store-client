@@ -3,7 +3,8 @@ import {
   GET_PRODUCTS_BY_TYPE,
   GET_PRODUCT_BY_ID,
   GET_TYPE_BY_ID,
-  GET_CATEGORIES_BY_TYPE
+  GET_CATEGORIES_BY_TYPE,
+  GET_PRODUCTS_BY_BRAND
 } from '../types';
 
 const initialState = {
@@ -11,7 +12,8 @@ const initialState = {
   total: 0,
   product: null,
   type: null,
-  categories: []
+  categories: [],
+  brandProducts: []
 };
 
 export default function products(state = initialState, action) {
@@ -23,6 +25,11 @@ export default function products(state = initialState, action) {
         ...state,
         products: payload,
         total: payload.length
+      }
+    case GET_PRODUCTS_BY_BRAND:
+      return {
+        ...state,
+        brandProducts: payload
       }
     case GET_TYPE_BY_ID:
       return {
