@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -10,6 +10,7 @@ import LoginModal from '../../../components/LoginModal';
 import CartAction from '../../../components/CartAction';
 
 import { logout } from '../../../redux/actions/auth';
+import { getAllCollections } from '../../../redux/actions/collections';
 import Spinner from '../../../components/Spinner';
 
 NavBar.propTypes = {
@@ -17,7 +18,8 @@ NavBar.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
-function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
+function NavBar({ auth, cart, collections, logout, getAllCollections }) {
+  const [loading, setLoading] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
 
@@ -37,6 +39,12 @@ function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
     setLogin(!isLogin);
   }
 
+  useEffect(() => {
+    setLoading(true);
+    getAllCollections();
+    setLoading(false);
+  }, [loading]);
+
   return (
     <div className="navbar">
       <div className="navbar__top">
@@ -52,10 +60,10 @@ function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
         </Link>
 
         <div className="top__action">
-          {isAuthenticated ? (
+          {auth.isAuthenticated ? (
             loading ? <Spinner width="50px" /> : (
               <div className="action__auth">
-                <img src={user?.avatar} alt="User avatar"></img>
+                <img src={auth?.user?.avatar} alt="User avatar"></img>
                 <div className="auth__dropdown">
                   <div>
                     <Link to="/profile" className="dropdown__link">Account Setting</Link>
@@ -81,17 +89,14 @@ function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
         </div>
       </div>
       <div className="navbar__bottom">
-        {['Men', 'Ladies', 'Girls', 'Boys'].map((collection, index) => (
+        {collections && collections.map((collection, index) => (
           <div key={index} className="bottom__collection">
-            <p className="collection__text">{collection}</p>
+            <p className="collection__text">{collection.collectionName}</p>
             <Arrow />
             <div className="collection__dropdown">
-              <Link to="/products" className="dropdown__link">Tops</Link>
-              <Link to="/products" className="dropdown__link">Bottoms</Link>
-              <Link to="/products" className="dropdown__link">Dresses</Link>
-              <Link to="/products" className="dropdown__link">Jackets</Link>
-              <Link to="/products" className="dropdown__link">Shoes</Link>
-              <Link to="/products" className="dropdown__link">Accessories</Link>
+              {collection.types.map(type => (
+                <Link to="/products" className="dropdown__link">{type.typeName}</Link>
+              ))}
             </div>
           </div>
         ))}
@@ -104,7 +109,8 @@ function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  cart: state.cart
+  cart: state.cart,
+  collections: state.collections.collections
 })
 
-export default connect(mapStateToProps, { logout })(NavBar);
+export default connect(mapStateToProps, { logout, getAllCollections })(NavBar);

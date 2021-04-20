@@ -174,7 +174,6 @@
       .collection__dropdown {
         display: none;
         position: absolute;
-        width: 620px;
         height: 55px;
         top: 121px;
         left: 50%;
@@ -202,6 +201,7 @@
           line-height: 1.57;
           text-align: center;
           color: var(--dark-grey);
+          padding: 0 20px;
         }
       }
     }
