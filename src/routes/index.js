@@ -12,6 +12,8 @@ export default function routes() {
         <Route exact path="/products" component={pages.ProductList} />
         <Route exact path="/cart" component={pages.Cart} />
         <Route exact path="/products/:productId" component={pages.ProductInfo} />
+        <Route exact path="/profile" component={pages.Profile} />
+        <Route exact path="/orders/me" component={pages.OrderList} />
       </Switch>
     </div>
   )

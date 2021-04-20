@@ -46,6 +46,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart, ch
       if (isSuccess) {
         // Redirect to profile order page
         return history.push("/");
+        // return <Redirect to="/"></Redirect>
       }
     }
   }

@@ -58,7 +58,11 @@ function NavBar({ auth: { isAuthenticated, loading, user }, cart, logout }) {
                 <img src={user?.avatar} alt="User avatar"></img>
                 <div className="auth__dropdown">
                   <div>
-                    <Link to="/" className="dropdown__link">Account Setting</Link>
+                    <Link to="/profile" className="dropdown__link">Account Setting</Link>
+                  </div>
+                  <section className="dropdown__divider"></section>
+                  <div>
+                    <Link to="/orders/me" className="dropdown__link">My orders</Link>
                   </div>
                   <section className="dropdown__divider"></section>
                   <div onClick={logout} className="dropdown__link">Logout</div>
