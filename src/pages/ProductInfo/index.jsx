@@ -146,7 +146,7 @@ function ProductInfo({ match, products, product, brandProducts, getProductById, 
             <div className="divider__end"></div>
           </div>
           <div className="suggest-products">
-            {products && products.filter(item => item._id !== product._id).slice(0, 8).map((item, index) => (
+            {products && products.filter(item => item._id !== product?._id).slice(0, 8).map((item, index) => (
               <ProductSuggestItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} name={item.name} />
             ))}
           </div>

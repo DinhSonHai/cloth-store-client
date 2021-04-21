@@ -18,9 +18,15 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getProductsByType = (typeId) => async (dispatch) => {
+export const getProductsByType = (typeId, categoryId) => async (dispatch) => {
   try {
-    const res = await axios.get(`/api/products/types/${typeId}`);
+    let res;
+    if (categoryId) {
+      res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}`);
+    }
+    else {
+      res = await axios.get(`/api/products/types/${typeId}`);
+    }
     dispatch({
       type: GET_PRODUCTS_BY_TYPE,
       payload: res.data,

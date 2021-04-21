@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -12,20 +12,36 @@ import { getProductsByType, getTypeById, getCategoriesByType } from '../../redux
 ProductList.propTypes = {
 };
 
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType }) {
+  let query = useQuery();
+  const history = useHistory();
+
   const [isSelected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
 
+  let categoryId = query.get("categoryId");
+
   useEffect(() => {
     setLoading(true);
-    getProductsByType(match.params.typeId);
+    getProductsByType(match.params.typeId, categoryId);
     getTypeById(match.params.typeId);
     getCategoriesByType(match.params.typeId);
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, match.params.typeId]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, match.params.typeId, categoryId]);
 
-  const handleCategoryClick = (option) => {
+  const handleCategoryClick = (option, categoryId) => {
     setSelected(option);
+    if (option === 0) {
+      return history.push(`/products/types/${match.params.typeId}`);
+    }
+
+    return history.push(`/products/types/${match.params.typeId}?categoryId=${categoryId}`);
   }
 
   return (
@@ -41,7 +57,7 @@ function ProductList({ match, products, type, categories, getProductsByType, get
             <div className="category__divider"></div>
             <div className="category__detail">
               {categories && categories.map((category, index) => (
-                <p onClick={() => handleCategoryClick(index + 1)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
+                <p onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>
