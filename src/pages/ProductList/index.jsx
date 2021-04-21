@@ -8,6 +8,7 @@ import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
 import { getProductsByType, getTypeById, getCategoriesByType } from '../../redux/actions/products';
+import FilterComponent from '../../components/FilterComponent';
 
 ProductList.propTypes = {
 };
@@ -62,57 +63,10 @@ function ProductList({ match, products, type, categories, getProductsByType, get
             </div>
           </div>
           <div className="option__divider"></div>
-          <div className="option__filter">
-            <p>Filter</p>
 
-            {/* Size */}
-            <div className="filter__size">
-              <div className="size__title">
-                <p>Size</p>
-                <span>
-                  <Arrow />
-                </span>
-              </div>
-              <div className="size__content">
-                <Link to="/" className="content__s">S</Link>
-                <Link to="/" className="content__m">M</Link>
-                <Link to="/" className="content__l">L</Link>
-              </div>
-            </div>
+          {/* Filter */}
+          <FilterComponent />
 
-            {/* Color */}
-            <div className="filter__color">
-              <p>Color</p>
-              <span>
-                <Arrow />
-              </span>
-            </div>
-
-            {/* Brand */}
-            <div className="filter__brand">
-              <p>Brand</p>
-              <span>
-                <Arrow />
-              </span>
-            </div>
-
-            {/* Price */}
-            <div className="filter__price">
-              <p>Price</p>
-              <span>
-                <Arrow />
-              </span>
-            </div>
-
-            {/* Available */}
-            <div className="filter__available">
-              <p>Avalilable</p>
-              <span>
-                <Arrow />
-              </span>
-            </div>
-
-          </div>
         </div>
 
         {loading ? <div className="spinner-container"><Spinner width="200px" /></div> : (
