@@ -1,18 +1,20 @@
-.filter {
+.filter-component {
   width: 180px;
 
   .filter__title {
     font-size: 16px;
     font-weight: bold;
+    margin-bottom: 33px;
   }
 
-  .filter__size {
+  .filter {
     cursor: pointer;
-    margin-top: 33px;
+    margin-top: 10px;
 
-    .size__border {
+    .border {
       padding-bottom: 8px;
-      .size__title {
+
+      .title {
         display: flex;
         justify-content: space-between;
         width: 100%;
@@ -35,6 +37,7 @@
       padding-bottom: 20px;
       border-bottom: 0.5px solid var(--pinkish-grey);
       display: flex;
+      cursor: default;
 
       .content__s {
         display: flex;
@@ -79,73 +82,105 @@
 
   .filter__color {
     cursor: pointer;
-    border-bottom: 0.5px solid var(--pinkish-grey);
     margin-top: 10px;
 
-    .color__title {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 14px;
-      line-height: 1.57;
-      color: var(--dark-grey);
-      & > span {
-        margin-right: -5px;
+    .color__border {
+      padding-bottom: 8px;
+      .color__title {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        color: var(--dark-grey);
+        & > span {
+          margin-right: -5px;
+        }
+        .rotate {
+          transform: rotate(180deg);
+        }
       }
     }
   }
 
   .filter__price {
     cursor: pointer;
-    border-bottom: 0.5px solid var(--pinkish-grey);
     margin-top: 10px;
 
-    .price__title {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 14px;
-      line-height: 1.57;
-      color: var(--dark-grey);
-      & > span {
-        margin-right: -5px;
+    .price__border {
+      padding-bottom: 8px;
+
+      .price__title {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        color: var(--dark-grey);
+
+        & > span {
+          margin-right: -5px;
+        }
+
+        .rotate {
+          transform: rotate(180deg);
+        }
       }
     }
   }
 
   .filter__brand {
     cursor: pointer;
-    border-bottom: 0.5px solid var(--pinkish-grey);
     margin-top: 10px;
 
-    .brand__title {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 14px;
-      line-height: 1.57;
-      color: var(--dark-grey);
-      & > span {
-        margin-right: -5px;
+    .brand__border {
+      padding-bottom: 8px;
+
+      .brand__title {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        color: var(--dark-grey);
+        & > span {
+          margin-right: -5px;
+        }
+        .rotate {
+          transform: rotate(180deg);
+        }
       }
     }
   }
 
   .filter__available {
     cursor: pointer;
-    border-bottom: 0.5px solid var(--pinkish-grey);
     margin-top: 10px;
-    margin-bottom: 33px;
 
-    .available__title {
-      display: flex;
-      justify-content: space-between;
-      width: 100%;
-      font-size: 14px;
-      line-height: 1.57;
-      color: var(--dark-grey);
-      & > span {
-        margin-right: -5px;
+    .available__border {
+      padding-bottom: 8px;
+
+      .available__title {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 24px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 1.57;
+        color: var(--dark-grey);
+        & > span {
+          margin-right: -5px;
+        }
+        .rotate {
+          transform: rotate(180deg);
+        }
       }
     }
   }

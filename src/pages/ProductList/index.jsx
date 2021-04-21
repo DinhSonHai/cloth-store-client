@@ -8,7 +8,8 @@ import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
 import { getProductsByType, getTypeById, getCategoriesByType } from '../../redux/actions/products';
-import FilterComponent from '../../components/FilterComponent';
+import SortBox from '../../components/CustomFields/SortBox';
+// import FilterComponent from '../../components/FilterComponent';
 
 ProductList.propTypes = {
 };
@@ -26,23 +27,35 @@ function ProductList({ match, products, type, categories, getProductsByType, get
   const [isSelected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
 
-  let categoryId = query.get("categoryId");
+  const typeId = match.params.typeId;
+  const categoryId = query.get("categoryId");
+  const [sortState, setSortState] = useState('Price: Asc');
+  const sort = query.get("sort");
 
   useEffect(() => {
     setLoading(true);
-    getProductsByType(match.params.typeId, categoryId);
-    getTypeById(match.params.typeId);
-    getCategoriesByType(match.params.typeId);
+    getProductsByType(typeId, categoryId, sort);
+    getTypeById(typeId);
+    getCategoriesByType(typeId);
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, match.params.typeId, categoryId]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, typeId, categoryId, sort]);
 
   const handleCategoryClick = (option, categoryId) => {
     setSelected(option);
-    if (option === 0) {
-      return history.push(`/products/types/${match.params.typeId}`);
+    setSortState('Price: Asc');
+    if (categoryId) {
+      return history.push(`/products/types/${typeId}?categoryId=${categoryId}`);
     }
 
-    return history.push(`/products/types/${match.params.typeId}?categoryId=${categoryId}`);
+    return history.push(`/products/types/${typeId}`);
+  }
+
+  const handleSort = (type) => {
+    if (categoryId) {
+      return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${type}`);
+    }
+
+    return history.push(`/products/types/${typeId}?sort=${type}`);
   }
 
   return (
@@ -65,20 +78,21 @@ function ProductList({ match, products, type, categories, getProductsByType, get
           <div className="option__divider"></div>
 
           {/* Filter */}
-          <FilterComponent />
+          {/* <FilterComponent /> */}
 
         </div>
 
         {loading ? <div className="spinner-container"><Spinner width="200px" /></div> : (
           <div className="main__content">
             <div className="content__top">
-              <div className="top__sort">
+              {/* <div className="top__sort">
                 <select>
                   <option>Sort By: Popularity</option>
                   <option>Sort By: Price Asc</option>
                   <option>Sort By: Price Desc</option>
                 </select>
-              </div>
+              </div> */}
+              <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
               <div className="top__pagination">
                 <button className="pagination__previous"><Arrow /></button>
                 <p className="pagination__page">1/100</p>

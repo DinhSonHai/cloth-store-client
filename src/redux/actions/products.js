@@ -18,14 +18,24 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getProductsByType = (typeId, categoryId) => async (dispatch) => {
+export const getProductsByType = (typeId, categoryId, sort) => async (dispatch) => {
   try {
     let res;
     if (categoryId) {
-      res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}`);
+      if (sort) {
+        res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}`);
+      }
+      else {
+        res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}`);
+      }
     }
     else {
-      res = await axios.get(`/api/products/types/${typeId}`);
+      if (sort) {
+        res = await axios.get(`/api/products/types/${typeId}?sort=${sort}`);
+      }
+      else {
+        res = await axios.get(`/api/products/types/${typeId}`);
+      }
     }
     dispatch({
       type: GET_PRODUCTS_BY_TYPE,

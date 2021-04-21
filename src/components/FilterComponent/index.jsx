@@ -10,20 +10,40 @@ FilterComponent.propTypes = {
 };
 
 function FilterComponent(props) {
-  const [isOpenSize, setOpenSize] = useState(true);
+  const [isOpenSize, setOpenSize] = useState(false);
+  const [isOpenColor, setOpenColor] = useState(false);
+  const [isOpenBrand, setOpenBrand] = useState(false);
+  const [isOpenPrice, setOpenPrice] = useState(false);
+  const [isOpenAvailable, setOpenAvailable] = useState(false);
 
   const handleOpenSize = () => {
     setOpenSize(!isOpenSize)
   }
 
+  const handleOpenColor = () => {
+    setOpenColor(!isOpenColor)
+  }
+
+  const handleOpenBrand = () => {
+    setOpenBrand(!isOpenBrand)
+  }
+
+  const handleOpenPrice = () => {
+    setOpenPrice(!isOpenPrice)
+  }
+
+  const handleOpenAvailable = () => {
+    setOpenAvailable(!isOpenAvailable)
+  }
+
   return (
-    <div className="filter">
+    <div className="filter-component">
       <p className="filter__title">Filter</p>
 
       {/* Size */}
-      <div className="filter__size" onClick={handleOpenSize}>
-        <div className="size__border" style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
-          <div className="size__title">
+      <div className="filter">
+        <div className="border" onClick={handleOpenSize} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+          <div className="title">
             <p>Size</p>
             <span className={isOpenSize ? "rotate" : ""}>
               <Arrow />
@@ -41,43 +61,50 @@ function FilterComponent(props) {
       </div>
 
       {/* Color */}
-      <div className="filter__color">
-        <div className="color__title">
-          <p>Color</p>
-          <span>
-            <Arrow />
-          </span>
+      <div className="filter">
+        <div className="border" onClick={handleOpenColor} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+          <div className="title">
+            <p>Color</p>
+            <span>
+              <Arrow />
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Brand */}
-      <div className="filter__brand">
-        <div className="brand__title">
-          <p>Brand</p>
-          <span>
-            <Arrow />
-          </span>
+      <div className="filter">
+        <div className="border" onClick={handleOpenBrand} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+          <div className="title">
+            <p>Brand</p>
+            <span>
+              <Arrow />
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Price */}
-      <div className="filter__price">
-        <div className="price__title">
-
-          <p>Price</p>
-          <span>
-            <Arrow />
-          </span>
+      <div className="filter">
+        <div className="border" onClick={handleOpenPrice} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+          <div className="title">
+            <p>Price</p>
+            <span>
+              <Arrow />
+            </span>
+          </div>
         </div>
       </div>
 
       {/* Available */}
-      <div className="filter__available">
-        <div className="available__title">
-          <p>Avalilable</p>
-          <span>
-            <Arrow />
-          </span>
+      <div className="filter">
+        <div className="border" onClick={handleOpenAvailable} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+          <div className="title">
+            <p>Available</p>
+            <span>
+              <Arrow />
+            </span>
+          </div>
         </div>
       </div>
     </div>
