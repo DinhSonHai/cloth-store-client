@@ -7,4 +7,5 @@ export { default as ProductInfo } from './ProductInfo';
 export { default as Cart } from './Cart';
 export { default as Profile } from './Profile';
 export { default as OrderList } from './OrderList';
+export { default as ResetPasswordPage } from './ResetPasswordPage';
 

@@ -5,7 +5,7 @@ import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
 import './styles.scss';
-import { changeInfo, changePassWord } from '../../redux/actions/auth';
+import { changeInfo, changePassword } from '../../redux/actions/auth';
 import TextField from '../../components/CustomFields/TextField';
 import Spinner from '../../components/Spinner';
 
@@ -13,7 +13,8 @@ Profile.propTypes = {
 
 };
 
-function Profile({ auth, changeInfo, changePassWord }) {
+function Profile({ auth, changeInfo, changePassword }) {
+  const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState(0);
   const [isEdit, setEdit] = useState(false);
 
@@ -26,14 +27,14 @@ function Profile({ auth, changeInfo, changePassWord }) {
   })
 
   const validatePassword = Yup.object({
-    currentPassWord: Yup.string()
+    currentPassword: Yup.string()
       .min(6, 'Your passwords must be more than 6 characters!')
       .required('Please enter a valid password!'),
-    newPassWord: Yup.string()
+    newPassword: Yup.string()
       .min(6, 'Your passwords must be more than 6 characters!')
       .required('Please enter a valid password!'),
-    reEnterPassWord: Yup.string()
-      .oneOf([Yup.ref("newPassWord")], "Password do not match")
+    reEnterPassword: Yup.string()
+      .oneOf([Yup.ref("newPassword")], "Password do not match")
       .required('Please enter a valid password!')
   })
 
@@ -60,7 +61,7 @@ function Profile({ auth, changeInfo, changePassWord }) {
         <p onClick={() => handleTab(1)} className={tab === 1 ? "tab__name tab__name--active" : "tab__name"}>Change password</p>
       </div>
       {auth.loading ? (
-        <div className="spinner">
+        <div className="spinner-page">
           <Spinner width="200px" />
         </div>
       ) : (
@@ -80,7 +81,12 @@ function Profile({ auth, changeInfo, changePassWord }) {
                   }}
                   validationSchema={validateProfile}
                   onSubmit={values => {
-                    changeInfo(values, setEdit);
+                    async function update() {
+                      setLoading(true);
+                      await changeInfo(values, setEdit);
+                      setLoading(false);
+                    }
+                    update();
                   }}
                   validateOnMount
                 >
@@ -89,12 +95,12 @@ function Profile({ auth, changeInfo, changePassWord }) {
                       {auth?.error?.type === 'changeInfo' && (<p className="content__error">{auth.error.message}</p>)}
                       <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
                       <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
-                      {console.log(formik)}
+
                       <div className="button">
                         <button onClick={handleCancel} className="cancel-button" >Cancel</button>
 
                         <button type="submit" className="submit-button" disabled={!formik.isValid} >
-                          {/* {loading && <span className="spinner"><Spinner width="49px" /></span>} */}
+                          {loading && <span className="spinner"><Spinner width="49px" /></span>}
                         Save
                       </button>
                       </div>
@@ -125,14 +131,16 @@ function Profile({ auth, changeInfo, changePassWord }) {
               <div className="password__edit">
                 <Formik
                   initialValues={{
-                    currentPassWord: '',
-                    newPassWord: '',
-                    reEnterPassWord: ''
+                    currentPassword: '',
+                    newPassword: '',
+                    reEnterPassword: ''
                   }}
                   validationSchema={validatePassword}
                   onSubmit={(values, { resetForm }) => {
                     async function change() {
-                      const isSuccess = await changePassWord(values);
+                      setLoading(true);
+                      const isSuccess = await changePassword(values);
+                      setLoading(false);
                       if (isSuccess) {
                         resetForm();
                       }
@@ -143,14 +151,14 @@ function Profile({ auth, changeInfo, changePassWord }) {
                 >
                   {formik => (
                     <Form className="content__form">
-                      {auth?.error?.type === 'changePassWord' && (<p className="content__error">{auth.error.message}</p>)}
-                      <TextField type="password" label="CURRENT PASSWORD" id="currentPassWord" name="currentPassWord" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
-                      <TextField type="password" label="NEW PASSWORD" id="newPassWord" name="newPassWord" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
-                      <TextField type="password" label="RE-ENTER NEW PASSWORD" id="reEnterPassWord" name="reEnterPassWord" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
+                      {auth?.error?.type === 'changePassword' && (<p className="content__error">{auth.error.message}</p>)}
+                      <TextField type="password" label="CURRENT PASSWORD" id="currentPassword" name="currentPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
+                      <TextField type="password" label="NEW PASSWORD" id="newPassword" name="newPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
+                      <TextField type="password" label="RE-ENTER NEW PASSWORD" id="reEnterPassword" name="reEnterPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
 
                       <div className="button">
                         <button type="submit" className="submit-button" disabled={!formik.isValid} >
-                          {/* {loading && <span className="spinner"><Spinner width="49px" /></span>} */}
+                          {loading && <span className="spinner"><Spinner width="49px" /></span>}
                         Save
                       </button>
                       </div>
@@ -170,4 +178,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth
 })
 
-export default connect(mapStateToProps, { changeInfo, changePassWord })(Profile);
+export default connect(mapStateToProps, { changeInfo, changePassword })(Profile);

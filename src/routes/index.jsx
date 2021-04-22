@@ -15,6 +15,7 @@ export default function routes() {
         <Route exact path="/products/types/:typeId" component={pages.ProductList} />
         <Route exact path="/cart" component={pages.Cart} />
         <Route exact path="/products/:productId" component={pages.ProductInfo} />
+        <Route exact path="/auth/resetpassword/:token" component={pages.ResetPasswordPage} />
         <PrivateRoute exact path="/profile" component={pages.Profile} />
         <PrivateRoute exact path="/orders/me" component={pages.OrderList} />
       </Switch>

@@ -5,7 +5,9 @@ import {
   USER_LOADED,
   UPDATE_PROFILE_ERRORS,
   FORGOT_PASSWORD_ERROR,
-  SEND_FORGOT_MAIL_SUCCESS
+  SEND_FORGOT_MAIL_SUCCESS,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR
 } from '../types';
 
 const initialState = {
@@ -44,12 +46,14 @@ export default function auth(state = initialState, action) {
         error: {}
       }
     case SEND_FORGOT_MAIL_SUCCESS:
+    case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
         error: {}
       }
     case UPDATE_PROFILE_ERRORS:
     case FORGOT_PASSWORD_ERROR:
+    case RESET_PASSWORD_ERROR:
       return {
         ...state,
         error: payload
