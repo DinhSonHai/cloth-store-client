@@ -1,4 +1,4 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 // import PropTypes from 'prop-types';
@@ -17,7 +17,15 @@ function Profile({ auth, changeInfo, changePassWord }) {
   const [tab, setTab] = useState(0);
   const [isEdit, setEdit] = useState(false);
 
-  const validate = Yup.object({
+  const validateProfile = Yup.object({
+    name: Yup.string()
+      .required('Please enter a valid name!'),
+    email: Yup.string()
+      .email('Please enter a valid email!')
+      .required('Please enter a valid email!')
+  })
+
+  const validatePassword = Yup.object({
     currentPassWord: Yup.string()
       .min(6, 'Your passwords must be more than 6 characters!')
       .required('Please enter a valid password!'),
@@ -70,7 +78,7 @@ function Profile({ auth, changeInfo, changePassWord }) {
                     name: auth.user.name || '',
                     email: auth.user.email || ''
                   }}
-                  validationSchema={validate}
+                  validationSchema={validateProfile}
                   onSubmit={values => {
                     changeInfo(values, setEdit);
                   }}
@@ -81,7 +89,7 @@ function Profile({ auth, changeInfo, changePassWord }) {
                       {auth?.error?.type === 'changeInfo' && (<p className="content__error">{auth.error.message}</p>)}
                       <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
                       <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
-
+                      {console.log(formik)}
                       <div className="button">
                         <button onClick={handleCancel} className="cancel-button" >Cancel</button>
 
@@ -121,10 +129,15 @@ function Profile({ auth, changeInfo, changePassWord }) {
                     newPassWord: '',
                     reEnterPassWord: ''
                   }}
-                  validationSchema={validate}
+                  validationSchema={validatePassword}
                   onSubmit={(values, { resetForm }) => {
-                    changePassWord(values);
-                    resetForm();
+                    async function change() {
+                      const isSuccess = await changePassWord(values);
+                      if (isSuccess) {
+                        resetForm();
+                      }
+                    }
+                    change();
                   }}
                   validateOnMount
                 >

@@ -12,6 +12,7 @@ import CartAction from '../../../components/CartAction';
 import { logout } from '../../../redux/actions/auth';
 import { getAllCollections } from '../../../redux/actions/collections';
 import Spinner from '../../../components/Spinner';
+import ForgotPasswordModal from '../../../components/ForgotPasswordModal';
 
 NavBar.propTypes = {
   auth: PropTypes.object.isRequired,
@@ -24,6 +25,7 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
   const [loading, setLoading] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
+  const [isForgotPassword, setForgotPassword] = useState(false);
   const [keyWord, setKeyWord] = useState('');
 
   const showRegister = () => {
@@ -40,6 +42,14 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
 
   const hideLogin = () => {
     setLogin(!isLogin);
+  }
+
+  const showForgotPassword = () => {
+    setForgotPassword(!isForgotPassword);
+  }
+
+  const hideForgotPassword = () => {
+    setForgotPassword(!isForgotPassword);
   }
 
   useEffect(() => {
@@ -123,7 +133,8 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
         ))}
       </div>
       { isRegister && <RegisterModal hideRegister={hideRegister} showLogin={showLogin} />}
-      { isLogin && <LoginModal hideLogin={hideLogin} showRegister={showRegister} />}
+      { isLogin && <LoginModal hideLogin={hideLogin} showRegister={showRegister} showForgotPassword={showForgotPassword} />}
+      { isForgotPassword && <ForgotPasswordModal hideForgotPassword={hideForgotPassword} showLogin={showLogin} />}
     </div>
   );
 }

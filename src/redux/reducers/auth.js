@@ -3,7 +3,9 @@ import {
   AUTH_ERRORS,
   LOG_OUT,
   USER_LOADED,
-  UPDATE_PROFILE_ERRORS
+  UPDATE_PROFILE_ERRORS,
+  FORGOT_PASSWORD_ERROR,
+  SEND_FORGOT_MAIL_SUCCESS
 } from '../types';
 
 const initialState = {
@@ -41,7 +43,13 @@ export default function auth(state = initialState, action) {
         user: payload,
         error: {}
       }
+    case SEND_FORGOT_MAIL_SUCCESS:
+      return {
+        ...state,
+        error: {}
+      }
     case UPDATE_PROFILE_ERRORS:
+    case FORGOT_PASSWORD_ERROR:
       return {
         ...state,
         error: payload

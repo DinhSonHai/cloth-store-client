@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, UPDATE_PROFILE_ERRORS, LOG_OUT } from '../types';
+import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, UPDATE_PROFILE_ERRORS, LOG_OUT, FORGOT_PASSWORD_ERROR, SEND_FORGOT_MAIL_SUCCESS } from '../types';
 import { toast } from 'react-toastify';
 
 // Load User
@@ -104,12 +104,39 @@ export const changePassWord = ({ currentPassWord, newPassWord }) => async (dispa
     const res = await axios.put('/api/auth/password', body, config);
     dispatch(loadUser());
     toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+    return true;
   } catch (err) {
     const error = err.response.data;
     if (error) {
       dispatch({
         type: UPDATE_PROFILE_ERRORS,
         payload: { type: 'changePassWord', message: error.message }
+      });
+    }
+  }
+}
+
+// Forgot password
+export const forgotPassword = ({ email }) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ email });
+  try {
+    const res = await axios.put('/api/auth/forgotpassword', body, config);
+    dispatch({
+      type: SEND_FORGOT_MAIL_SUCCESS
+    });
+    toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+    return true;
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      dispatch({
+        type: FORGOT_PASSWORD_ERROR,
+        payload: { type: 'forgotPassWord', message: error.message }
       });
     }
   }

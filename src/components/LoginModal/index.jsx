@@ -17,7 +17,7 @@ LoginModal.propTypes = {
   login: PropTypes.func.isRequired,
 };
 
-function LoginModal({ auth, hideLogin, showRegister, login }) {
+function LoginModal({ auth, hideLogin, showRegister, showForgotPassword, login }) {
   const [loading, setLoading] = useState(false);
   const [isCheck, setChecked] = useState(localStorage.getItem('isCheck') || false);
   const validate = Yup.object({
@@ -66,7 +66,7 @@ function LoginModal({ auth, hideLogin, showRegister, login }) {
                   <input type="checkbox" id="rememeber-box" checked={Boolean(isCheck)} onChange={onChangeCheckBox} />
                   <label htmlFor="remember-box">Keep me login</label>
                 </div>
-                <p className="option_forgot">Forgot your password?</p>
+                <p onClick={() => { hideLogin(); showForgotPassword(); }} className="option__forgot">Forgot your password?</p>
               </div>
 
               <button type="submit" className="form__button" disabled={!formik.isValid} >
