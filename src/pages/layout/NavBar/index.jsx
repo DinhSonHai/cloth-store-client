@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory, useLocation } from 'react-router-dom';
 
 import { Logo, SearchIcon, Arrow } from '../../../assets/icons';
 import './styles.scss';
@@ -19,14 +19,22 @@ NavBar.propTypes = {
   logout: PropTypes.func.isRequired
 };
 
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
 function NavBar({ auth, cart, collections, logout, getAllCollections }) {
   const history = useHistory();
+  const query = useQuery();
+  const q = query.get("q");
 
   const [loading, setLoading] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
   const [isForgotPassword, setForgotPassword] = useState(false);
-  const [keyWord, setKeyWord] = useState('');
+  const [keyWord, setKeyWord] = useState(q || '');
 
   const showRegister = () => {
     setRegister(!isRegister);

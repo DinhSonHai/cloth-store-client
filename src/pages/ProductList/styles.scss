@@ -72,6 +72,15 @@
       }
     }
 
+    .no-result {
+      width: 805px;
+      text-align: center;
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.57;
+      color: var(--greyish-two);
+    }
+
     .spinner-container {
       width: 800px;
     }

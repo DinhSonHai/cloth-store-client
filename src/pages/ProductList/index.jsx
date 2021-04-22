@@ -21,7 +21,7 @@ function useQuery() {
 }
 
 function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts }) {
-  let query = useQuery();
+  const query = useQuery();
   const history = useHistory();
 
   const [isSelected, setSelected] = useState(0);
@@ -117,33 +117,38 @@ function ProductList({ match, products, type, categories, getProductsByType, get
         </div>
 
         {loading ? <div className="spinner-container"><Spinner width="200px" /></div> : (
-          <div className="main__content">
-            <div className="content__top">
-              {/* <div className="top__sort">
+          products?.length > 0 ? (
+            <div className="main__content">
+              <div className="content__top">
+                {/* <div className="top__sort">
                 <select>
                   <option>Sort By: Popularity</option>
                   <option>Sort By: Price Asc</option>
                   <option>Sort By: Price Desc</option>
                 </select>
               </div> */}
-              <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
-              <div className="top__pagination">
-                <button className="pagination__previous"><Arrow /></button>
-                <p className="pagination__page">1/100</p>
-                <button className="pagination__next"><Arrow /></button>
+                <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
+                <div className="top__pagination">
+                  <button className="pagination__previous"><Arrow /></button>
+                  <p className="pagination__page">1/100</p>
+                  <button className="pagination__next"><Arrow /></button>
+                </div>
+              </div>
+              <div className="content__card">
+                {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} stock={product.quantity} />))}
+              </div>
+              <div className="content__bottom">
+                <div className="bottom__pagination">
+                  <button className="pagination__previous"><Arrow /></button>
+                  <p className="pagination__page">1/100</p>
+                  <button className="pagination__next"><Arrow /></button>
+                </div>
               </div>
             </div>
-            <div className="content__card">
-              {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} stock={product.quantity} />))}
-            </div>
-            <div className="content__bottom">
-              <div className="bottom__pagination">
-                <button className="pagination__previous"><Arrow /></button>
-                <p className="pagination__page">1/100</p>
-                <button className="pagination__next"><Arrow /></button>
-              </div>
-            </div>
-          </div>
+          ) : (
+            <p className="no-result">No result found</p>
+          )
+
         )}
       </div>
     </div>

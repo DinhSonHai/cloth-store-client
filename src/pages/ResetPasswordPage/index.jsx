@@ -9,12 +9,15 @@ import './styles.scss';
 import Spinner from '../../components/Spinner';
 import { resetPassword } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 
 ResetPasswordPage.propTypes = {
 
 };
 
 function ResetPasswordPage({ match, auth, resetPassword }) {
+  const history = useHistory();
+
   const [loading, setLoading] = useState(false);
   const token = match.params.token;
 
@@ -44,7 +47,7 @@ function ResetPasswordPage({ match, auth, resetPassword }) {
               const isSuccess = await resetPassword({ password: values.newPassword, resetPasswordLink: token });
               setLoading(false);
               if (isSuccess) {
-                resetForm();
+                history.push("/");
               }
             }
             reset();
