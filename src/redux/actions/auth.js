@@ -68,7 +68,7 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
   }
 }
 
-// Login
+// Change info
 export const changeInfo = ({ name, email }, setEdit) => async (dispatch) => {
   const config = {
     headers: {
@@ -87,6 +87,29 @@ export const changeInfo = ({ name, email }, setEdit) => async (dispatch) => {
       dispatch({
         type: UPDATE_PROFILE_ERRORS,
         payload: { type: 'changeInfo', message: error.message }
+      });
+    }
+  }
+}
+
+// Change password
+export const changePassWord = ({ currentPassWord, newPassWord }) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ currentPassWord, newPassWord });
+  try {
+    const res = await axios.put('/api/auth/password', body, config);
+    dispatch(loadUser());
+    toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      dispatch({
+        type: UPDATE_PROFILE_ERRORS,
+        payload: { type: 'changePassWord', message: error.message }
       });
     }
   }
