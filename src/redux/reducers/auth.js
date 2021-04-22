@@ -2,7 +2,8 @@ import {
   LOGIN_SUCCESS,
   AUTH_ERRORS,
   LOG_OUT,
-  USER_LOADED
+  USER_LOADED,
+  UPDATE_PROFILE_ERRORS
 } from '../types';
 
 const initialState = {
@@ -10,7 +11,7 @@ const initialState = {
   isAuthenticated: null,
   loading: true,
   user: null,
-  errors: {}
+  error: {}
 }
 
 export default function auth(state = initialState, action) {
@@ -30,7 +31,7 @@ export default function auth(state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
-        errors: {}
+        error: {}
       }
     case USER_LOADED:
       return {
@@ -38,7 +39,12 @@ export default function auth(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
-        errors: {}
+        error: {}
+      }
+    case UPDATE_PROFILE_ERRORS:
+      return {
+        ...state,
+        error: payload
       }
     case AUTH_ERRORS:
     case LOG_OUT:
@@ -48,7 +54,7 @@ export default function auth(state = initialState, action) {
         isAuthenticated: false,
         loading: false,
         user: null,
-        errors: payload
+        error: payload
       }
     default:
       return state;

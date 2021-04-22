@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, LOG_OUT } from '../types';
+import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, UPDATE_PROFILE_ERRORS, LOG_OUT } from '../types';
 import { toast } from 'react-toastify';
 
 // Load User
@@ -38,7 +38,7 @@ export const login = ({ email, password }, hideLogin) => async (dispatch) => {
     if (error) {
       dispatch({
         type: AUTH_ERRORS,
-        payload: { type: 'login', msg: error.message }
+        payload: { type: 'login', message: error.message }
       });
     }
   }
@@ -53,18 +53,42 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
       },
     };
     const res = await axios.post('/api/auth/signup', formData, config);
-    toast.success(res.data.msg, { position: toast.POSITION.TOP_CENTER });
+    toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
     hideRegister();
     showLogin();
-  } catch (error) {
-    const errors = error.response.data.errors;
-    if (errors) {
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
       dispatch({
         type: AUTH_ERRORS,
-        payload: { type: 'register', msg: errors[0].msg }
+        payload: { type: 'register', message: error.message }
       });
     }
     return false;
+  }
+}
+
+// Login
+export const changeInfo = ({ name, email }, setEdit) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ name, email });
+  try {
+    const res = await axios.put('/api/auth/info', body, config);
+    dispatch(loadUser());
+    setEdit(false);
+    toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      dispatch({
+        type: UPDATE_PROFILE_ERRORS,
+        payload: { type: 'changeInfo', message: error.message }
+      });
+    }
   }
 }
 

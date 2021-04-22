@@ -59,6 +59,62 @@
         }
       }
 
+      &__edit {
+        background-color: #f9f9f9;
+        width: 481px;
+        height: 292px;
+        margin-bottom: 129px;
+        padding: 26px 0 0 50px;
+
+        .content__form {
+          position: relative;
+          .content__error {
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            left: -30px;
+            right: 0;
+            top: 96px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            line-height: 1.83;
+            color: var(--strawberry);
+          }
+
+          .button {
+            display: flex;
+            justify-content: flex-end;
+            margin-right: 51px;
+            margin-top: 30px;
+            .cancel-button {
+              border: none;
+              background-color: #f9f9f9;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 1.57;
+              color: var(--dark-grey);
+              margin-right: 35px;
+            }
+            .submit-button {
+              border: none;
+              width: 120px;
+              height: 35px;
+              font-size: 14px;
+              font-weight: 600;
+              line-height: 1.57;
+              color: var(--white);
+              background-color: #ffa15f;
+
+              &:disabled {
+                opacity: 0.7;
+                background-color: var(--white-four);
+              }
+            }
+          }
+        }
+      }
+
       &__info {
         background-color: #f9f9f9;
         height: 191px;
