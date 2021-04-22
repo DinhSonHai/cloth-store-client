@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { GET_ALL_PRODUCTS, GET_PRODUCTS_BY_TYPE, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART, GET_TYPE_BY_ID, GET_CATEGORIES_BY_TYPE, GET_PRODUCTS_BY_BRAND } from '../types';
+import { GET_ALL_PRODUCTS, GET_PRODUCTS_BY_TYPE, GET_PRODUCT_BY_ID, GET_CART, REMOVE_FROM_CART, GET_TYPE_BY_ID, GET_CATEGORIES_BY_TYPE, GET_PRODUCTS_BY_BRAND, GET_SEARCH_PRODUCTS, GET_SEARCH_CATEGORIES } from '../types';
 
 // Action creator
 export const getAllProducts = () => async (dispatch) => {
@@ -18,25 +18,56 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getProductsByType = (typeId, categoryId, sort) => async (dispatch) => {
+export const getSearchProducts = (q, categoryId, sort) => async (dispatch) => {
   try {
-    let res;
+    let queryParams = '';
     if (categoryId) {
       if (sort) {
-        res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}`);
+        queryParams = `&categoryId=${categoryId}&sort=${sort}`;
       }
       else {
-        res = await axios.get(`/api/products/types/${typeId}?categoryId=${categoryId}`);
+        queryParams = `&categoryId=${categoryId}`;
       }
     }
     else {
       if (sort) {
-        res = await axios.get(`/api/products/types/${typeId}?sort=${sort}`);
-      }
-      else {
-        res = await axios.get(`/api/products/types/${typeId}`);
+        queryParams = `&sort=${sort}`;
       }
     }
+    let res = await axios.get(`/api/products/search?q=${q}${queryParams}`);
+    dispatch({
+      type: GET_SEARCH_PRODUCTS,
+      payload: res.data.products,
+    });
+    dispatch({
+      type: GET_SEARCH_CATEGORIES,
+      payload: res.data.categories
+    })
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message);
+    }
+  }
+}
+
+export const getProductsByType = (typeId, categoryId, sort) => async (dispatch) => {
+  try {
+    let queryParams = '';
+    if (categoryId) {
+      if (sort) {
+        queryParams = `?categoryId=${categoryId}&sort=${sort}`;
+      }
+      else {
+        queryParams = `?categoryId=${categoryId}`;
+      }
+    }
+    else {
+      if (sort) {
+        queryParams = `?sort=${sort}`;
+      }
+    }
+    let res = await axios.get(`/api/products/types/${typeId}${queryParams}`);
     dispatch({
       type: GET_PRODUCTS_BY_TYPE,
       payload: res.data,

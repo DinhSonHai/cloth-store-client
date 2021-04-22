@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 import { Logo, SearchIcon, Arrow } from '../../../assets/icons';
 import './styles.scss';
@@ -19,9 +19,12 @@ NavBar.propTypes = {
 };
 
 function NavBar({ auth, cart, collections, logout, getAllCollections }) {
+  const history = useHistory();
+
   const [loading, setLoading] = useState(false);
   const [isRegister, setRegister] = useState(false);
   const [isLogin, setLogin] = useState(false);
+  const [keyWord, setKeyWord] = useState('');
 
   const showRegister = () => {
     setRegister(!isRegister);
@@ -45,12 +48,30 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
     setLoading(false);
   }, [loading]);
 
+  const handleChange = (e) => {
+    setKeyWord(e.target.value);
+  }
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      if (keyWord) {
+        history.push(`/products?q=${keyWord}`);
+      }
+    }
+  }
+
+  const handleSearchClick = (e) => {
+    if (keyWord) {
+      history.push(`/products?q=${keyWord}`);
+    }
+  }
+
   return (
     <div className="navbar">
       <div className="navbar__top">
         <div className="top__search-box">
-          <input className="search-box__input" placeholder="Search" />
-          <div className="search-box__icon">
+          <input type="text" className="search-box__input" placeholder="Search" value={keyWord} onChange={handleChange} onKeyPress={handleKeyPress} />
+          <div className="search-box__icon" onClick={handleSearchClick}>
             <SearchIcon />
           </div>
         </div>

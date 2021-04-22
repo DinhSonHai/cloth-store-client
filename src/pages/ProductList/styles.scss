@@ -82,19 +82,6 @@
         align-items: center;
         justify-content: space-between;
         margin-bottom: 13px;
-        // .top__sort {
-        //   & > select {
-        //     width: 162px;
-        //     opacity: 0.5;
-        //     border: solid 1px var(--white-four);
-        //     background-color: var(--white);
-        //     font-size: 12px;
-        //     font-weight: 500;
-        //     line-height: 1.83;
-        //     color: var(--greyish-brown);
-        //     padding: 5px 0 5px 15px;
-        //   }
-        // }
 
         .top__pagination {
           width: 112px;
@@ -137,11 +124,14 @@
       .content__bottom {
         display: flex;
         justify-content: flex-end;
+
         .bottom__pagination {
           width: 112px;
           display: flex;
           justify-content: space-between;
           align-items: center;
+          margin-bottom: 36px;
+
           .pagination__page {
             font-size: 14px;
             font-weight: 500;

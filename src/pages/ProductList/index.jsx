@@ -7,7 +7,7 @@ import './styles.scss';
 import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
-import { getProductsByType, getTypeById, getCategoriesByType } from '../../redux/actions/products';
+import { getProductsByType, getTypeById, getCategoriesByType, getSearchProducts } from '../../redux/actions/products';
 import SortBox from '../../components/CustomFields/SortBox';
 // import FilterComponent from '../../components/FilterComponent';
 
@@ -20,29 +20,45 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType }) {
+function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts }) {
   let query = useQuery();
   const history = useHistory();
 
   const [isSelected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [sortState, setSortState] = useState('Price: Asc');
 
   const typeId = match.params.typeId;
   const categoryId = query.get("categoryId");
-  const [sortState, setSortState] = useState('Price: Asc');
   const sort = query.get("sort");
+  const q = query.get("q");
 
   useEffect(() => {
     setLoading(true);
-    getProductsByType(typeId, categoryId, sort);
-    getTypeById(typeId);
-    getCategoriesByType(typeId);
+    if (typeId) {
+      getProductsByType(typeId, categoryId, sort);
+      getTypeById(typeId);
+      getCategoriesByType(typeId);
+    }
+    else {
+      getSearchProducts(q, categoryId, sort);
+    }
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, typeId, categoryId, sort]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, typeId, q, categoryId, sort]);
 
   const handleCategoryClick = (option, categoryId) => {
     setSelected(option);
     setSortState('Price: Asc');
+
+    if (!typeId) {
+      if (categoryId) {
+        return history.push(`/products?q=${q}&categoryId=${categoryId}`);
+      }
+      else {
+        return history.push(`/products?q=${q}`);
+      }
+    }
+
     if (categoryId) {
       return history.push(`/products/types/${typeId}?categoryId=${categoryId}`);
     }
@@ -51,6 +67,15 @@ function ProductList({ match, products, type, categories, getProductsByType, get
   }
 
   const handleSort = (type) => {
+    if (!typeId) {
+      if (categoryId) {
+        return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${type}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${type}`);
+      }
+    }
+
     if (categoryId) {
       return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${type}`);
     }
@@ -61,17 +86,26 @@ function ProductList({ match, products, type, categories, getProductsByType, get
   return (
     <div className="product-list">
       <div className="product-list__breadcrumb">
-        <p>{type && type.collectionId.collectionName} / <span onClick={() => handleCategoryClick(0)} className="link">{type && type.typeName}</span></p>
+        {typeId ? (
+          <p>{type && type.collectionId.collectionName} / <span onClick={() => handleCategoryClick(0)} className="link">{type && type.typeName}</span></p>
+        ) : (
+          <p>Search results</p>
+        )}
+
       </div>
       <div className="product-list__main">
         <div className="main__option">
           <div className="option__category">
             <p className="category__title">Category</p>
-            <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>{type && type.typeName}</p>
+            {typeId ? (
+              <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>{type && type.typeName}</p>
+            ) : (
+              <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>All results</p>
+            )}
             <div className="category__divider"></div>
             <div className="category__detail">
               {categories && categories.map((category, index) => (
-                <p onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
+                <p key={index} onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>
@@ -123,4 +157,4 @@ const mapStateToProps = (state) => ({
   categories: state.products.categories
 })
 
-export default connect(mapStateToProps, { getProductsByType, getTypeById, getCategoriesByType })(ProductList);
+export default connect(mapStateToProps, { getProductsByType, getTypeById, getCategoriesByType, getSearchProducts })(ProductList);

@@ -1,9 +1,11 @@
 import {
   GET_ALL_PRODUCTS,
   GET_PRODUCTS_BY_TYPE,
+  GET_SEARCH_PRODUCTS,
   GET_PRODUCT_BY_ID,
   GET_TYPE_BY_ID,
   GET_CATEGORIES_BY_TYPE,
+  GET_SEARCH_CATEGORIES,
   GET_PRODUCTS_BY_BRAND
 } from '../types';
 
@@ -21,6 +23,7 @@ export default function products(state = initialState, action) {
   switch (type) {
     case GET_ALL_PRODUCTS:
     case GET_PRODUCTS_BY_TYPE:
+    case GET_SEARCH_PRODUCTS:
       return {
         ...state,
         products: payload,
@@ -37,6 +40,7 @@ export default function products(state = initialState, action) {
         type: payload
       }
     case GET_CATEGORIES_BY_TYPE:
+    case GET_SEARCH_CATEGORIES:
       return {
         ...state,
         categories: payload
