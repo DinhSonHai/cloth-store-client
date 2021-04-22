@@ -1,0 +1,103 @@
+.profile {
+  margin-top: 37px;
+  display: flex;
+
+  .tab {
+    width: 250px;
+    &__title {
+      font-size: 24px;
+      font-weight: 500;
+      line-height: 1.33;
+      color: var(--dark-grey);
+      margin-bottom: 33px;
+    }
+
+    &__name {
+      font-size: 14px;
+      font-weight: normal;
+      line-height: 1.57;
+      color: var(--greyish-brown);
+      cursor: pointer;
+      margin-bottom: 18px;
+
+      &--active {
+        font-weight: 500;
+        color: var(--bright-orange);
+      }
+    }
+  }
+
+  .spinner {
+    width: 800px;
+  }
+
+  .tab-content {
+    width: 430px;
+    .information {
+      &__title {
+        height: 22px;
+        margin-bottom: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        & > p {
+          font-size: 14px;
+          font-weight: bold;
+          line-height: 1.57;
+          color: var(--dark-grey);
+        }
+
+        & > button {
+          height: 22px;
+          background-color: var(--white);
+          border: none;
+          font-size: 12px;
+          font-weight: 500;
+          line-height: 1.33;
+          color: var(--greyish-brown);
+        }
+      }
+
+      &__info {
+        background-color: #f9f9f9;
+        height: 191px;
+        margin-bottom: 230px;
+        padding: 26px 0 0 50px;
+
+        .info__name {
+          .label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+          .name {
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color: var(--greyish-brown);
+            margin-top: 5px;
+            margin-bottom: 31px;
+          }
+        }
+
+        .info__email {
+          .label {
+            font-size: 14px;
+            font-weight: 500;
+            line-height: 1.57;
+            color: var(--dark-grey);
+          }
+          .email {
+            font-size: 14px;
+            font-weight: normal;
+            line-height: 1.57;
+            color: var(--greyish-brown);
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+  }
+}
