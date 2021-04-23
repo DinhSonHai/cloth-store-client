@@ -8,4 +8,5 @@ export { default as Cart } from './Cart';
 export { default as Profile } from './Profile';
 export { default as OrderList } from './OrderList';
 export { default as ResetPasswordPage } from './ResetPasswordPage';
+export { default as AdminLoginPage } from './AdminLoginPage';
 

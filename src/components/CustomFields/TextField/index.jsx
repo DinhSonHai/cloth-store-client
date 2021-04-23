@@ -3,13 +3,13 @@ import { ErrorMessage, useField } from 'formik';
 
 import './styles.scss';
 
-function TextField({ label, width, height, backgroundColor, ...props }) {
+function TextField({ label, width, height, labelColor, backgroundColor, ...props }) {
   const [field, meta] = useField(props);
   return (
     <div className="text-field">
       { label && (
         <Fragment>
-          <label className="text-field__label" htmlFor={field.name}>{label}</label><br />
+          <label style={{ color: labelColor }} className="text-field__label" htmlFor={field.name}>{label}</label><br />
         </Fragment>)}
       < input
         className={`text-field__input ${meta.touched && meta.error && 'text-field__invalid'}`}

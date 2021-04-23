@@ -5,7 +5,6 @@ import { Provider } from 'react-redux';
 import store from './app/store.js';
 
 import Routes from './routes';
-import { NavBar, Footer } from './pages';
 import setAuthToken from './utils/setAuthToken.js';
 import { loadUser } from './redux/actions/auth.js';
 import { UPDATE_CART } from './redux/types';
@@ -45,9 +44,7 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="app">
-          <NavBar />
           <Routes />
-          <Footer />
         </div>
       </Router>
     </Provider>

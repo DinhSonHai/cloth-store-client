@@ -15,7 +15,7 @@ Profile.propTypes = {
 
 function Profile({ auth, changeInfo, changePassword }) {
   const [loading, setLoading] = useState(false);
-  const [tab, setTab] = useState(0);
+  const [sidebar, setsidebar] = useState(0);
   const [isEdit, setEdit] = useState(false);
 
   const validateProfile = Yup.object({
@@ -38,11 +38,11 @@ function Profile({ auth, changeInfo, changePassword }) {
       .required('Please enter a valid password!')
   })
 
-  const handleTab = (index) => {
+  const handleSidebar = (index) => {
     if (index === 0) {
       setEdit(false);
     }
-    setTab(index);
+    setsidebar(index);
   }
 
   const handleEdit = () => {
@@ -55,19 +55,19 @@ function Profile({ auth, changeInfo, changePassword }) {
 
   return (
     <div className="profile">
-      <div className="tab">
-        <p className="tab__title">My Account</p>
-        <p onClick={() => handleTab(0)} className={tab === 0 ? "tab__name tab__name--active" : "tab__name"}>Account seting</p>
-        <p onClick={() => handleTab(1)} className={tab === 1 ? "tab__name tab__name--active" : "tab__name"}>Change password</p>
+      <div className="sidebar">
+        <p className="sidebar__title">My Account</p>
+        <p onClick={() => handleSidebar(0)} className={sidebar === 0 ? "sidebar__name sidebar__name--active" : "sidebar__name"}>Account setting</p>
+        <p onClick={() => handleSidebar(1)} className={sidebar === 1 ? "sidebar__name sidebar__name--active" : "sidebar__name"}>Change password</p>
       </div>
       {auth.loading ? (
         <div className="spinner-page">
           <Spinner width="200px" />
         </div>
       ) : (
-        <div className="tab-content">
+        <div className="sidebar-content">
           {/* Update info */}
-          {tab === 0 && (
+          {sidebar === 0 && (
             <div className="infomation">
               <div className="information__title">
                 <p>Information</p>
@@ -123,7 +123,7 @@ function Profile({ auth, changeInfo, changePassword }) {
           )}
 
           {/* Change password */}
-          {tab === 1 && (
+          {sidebar === 1 && (
             <div className="password">
               <div className="password__title">
                 <p>Change password</p>
