@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import { Formik, Form } from 'formik';
 import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 
+import { loginAsAdmin } from '../../redux/actions/auth';
 import TextField from '../../components/CustomFields/TextField';
-
 import { AdminLogo } from '../../assets/icons/index';
 import './styles.scss';
 import Spinner from '../../components/Spinner';
@@ -14,7 +15,9 @@ AdminLoginPage.propTypes = {
 
 };
 
-function AdminLoginPage(props) {
+function AdminLoginPage({ auth, loginAsAdmin }) {
+  const history = useHistory();
+
   const [loading, setLoading] = useState(false);
 
   const validate = Yup.object({
@@ -33,7 +36,7 @@ function AdminLoginPage(props) {
       </div>
       <div className="form-login">
         <h1 className="form__title">Log In</h1>
-        {/* {auth?.error?.type === 'login' && (<p className="content__error">{auth.error.message}</p>)} */}
+        {auth?.error?.type === 'loginAsAdmin' && (<p className="content__error">{auth.error.message}</p>)}
         <Formik
           initialValues={{
             email: '',
@@ -41,9 +44,15 @@ function AdminLoginPage(props) {
           }}
           validationSchema={validate}
           onSubmit={values => {
-            // setLoading(true);
-            // login(values, hideLogin);
-            // setLoading(false);
+            async function handleLogin() {
+              setLoading(true);
+              const isSuccess = await loginAsAdmin(values);
+              setLoading(false);
+              if (isSuccess) {
+                history.push("/admin");
+              }
+            }
+            handleLogin();
           }}
           validateOnMount
         >
@@ -65,4 +74,8 @@ function AdminLoginPage(props) {
   );
 }
 
-export default AdminLoginPage;
+const mapStateToProps = (state) => ({
+  auth: state.auth
+})
+
+export default connect(mapStateToProps, { loginAsAdmin })(AdminLoginPage);

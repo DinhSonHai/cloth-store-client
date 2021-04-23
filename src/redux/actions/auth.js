@@ -44,6 +44,33 @@ export const login = ({ email, password }, hideLogin) => async (dispatch) => {
   }
 }
 
+// Admin Login
+export const loginAsAdmin = ({ email, password }) => async (dispatch) => {
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  const body = JSON.stringify({ email, password });
+  try {
+    const res = await axios.post('/api/auth/admin/login', body, config);
+    dispatch({
+      type: LOGIN_SUCCESS,
+      payload: res.data,
+    });
+    // dispatch(loadAdmin());
+    return true;
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      dispatch({
+        type: AUTH_ERRORS,
+        payload: { type: 'loginAsAdmin', message: error.message }
+      });
+    }
+  }
+}
+
 // Register
 export const register = (formData, hideRegister, showLogin) => async (dispatch) => {
   try {

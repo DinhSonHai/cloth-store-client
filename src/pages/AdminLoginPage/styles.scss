@@ -21,6 +21,7 @@
     // backdrop-filter: blur(10px);
     box-shadow: 0 10px 24px 0 var(--black-8);
     background-color: rgba(61, 61, 63, 0.8);
+    position: relative;
 
     .form__title {
       width: 100%;
@@ -31,6 +32,20 @@
       font-weight: bold;
       line-height: 1.29;
       color: #ffa15f;
+    }
+
+    .content__error {
+      position: absolute;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0;
+      right: 0;
+      top: 67px;
+      text-align: center;
+      font-size: 12px;
+      font-weight: 500;
+      line-height: 1.83;
+      color: var(--strawberry);
     }
 
     .content__form {
