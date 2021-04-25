@@ -120,13 +120,6 @@ function ProductList({ match, products, type, categories, getProductsByType, get
           products?.length > 0 ? (
             <div className="main__content">
               <div className="content__top">
-                {/* <div className="top__sort">
-                <select>
-                  <option>Sort By: Popularity</option>
-                  <option>Sort By: Price Asc</option>
-                  <option>Sort By: Price Desc</option>
-                </select>
-              </div> */}
                 <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
                 <div className="top__pagination">
                   <button className="pagination__previous"><Arrow /></button>

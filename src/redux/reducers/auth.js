@@ -1,6 +1,6 @@
 import {
   LOGIN_SUCCESS,
-  AUTH_ERRORS,
+  AUTH_ERROR,
   LOG_OUT,
   USER_LOADED,
   UPDATE_PROFILE_ERRORS,
@@ -12,10 +12,10 @@ import {
 
 const initialState = {
   token: localStorage.getItem('token'),
-  isAuthenticated: null,
+  isAuthenticated: false,
   loading: true,
   user: null,
-  error: {}
+  error: null
 }
 
 export default function auth(state = initialState, action) {
@@ -35,7 +35,7 @@ export default function auth(state = initialState, action) {
         ...payload,
         isAuthenticated: true,
         loading: false,
-        error: {}
+        error: null
       }
     case USER_LOADED:
       return {
@@ -43,13 +43,13 @@ export default function auth(state = initialState, action) {
         isAuthenticated: true,
         loading: false,
         user: payload,
-        error: {}
+        error: null
       }
     case SEND_FORGOT_MAIL_SUCCESS:
     case RESET_PASSWORD_SUCCESS:
       return {
         ...state,
-        error: {}
+        error: null
       }
     case UPDATE_PROFILE_ERRORS:
     case FORGOT_PASSWORD_ERROR:
@@ -58,7 +58,7 @@ export default function auth(state = initialState, action) {
         ...state,
         error: payload
       }
-    case AUTH_ERRORS:
+    case AUTH_ERROR:
     case LOG_OUT:
       return {
         ...state,

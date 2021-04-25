@@ -11,8 +11,6 @@ SelectBox.propTypes = {
 };
 
 function SelectBox({ handleSort, sortState, setSortState }) {
-  const history = useHistory();
-
   const [isOpen, setOpen] = useState(false);
   const wrapperRef = useRef();
 

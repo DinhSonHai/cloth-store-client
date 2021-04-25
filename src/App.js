@@ -9,6 +9,7 @@ import setAuthToken from './utils/setAuthToken.js';
 import { loadUser } from './redux/actions/auth.js';
 import { UPDATE_CART } from './redux/types';
 import { getAllProductsCart } from './redux/actions/products.js';
+import { Footer, NavBar } from './pages/index.js';
 
 function App() {
   useEffect(() => {
@@ -44,7 +45,9 @@ function App() {
     <Provider store={store}>
       <Router>
         <div className="app">
+          <NavBar />
           <Routes />
+          <Footer />
         </div>
       </Router>
     </Provider>

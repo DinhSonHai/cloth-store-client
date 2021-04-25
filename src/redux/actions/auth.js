@@ -1,5 +1,15 @@
 import axios from 'axios';
-import { LOGIN_SUCCESS, USER_LOADED, AUTH_ERRORS, UPDATE_PROFILE_ERRORS, LOG_OUT, FORGOT_PASSWORD_ERROR, SEND_FORGOT_MAIL_SUCCESS, RESET_PASSWORD_SUCCESS, RESET_PASSWORD_ERROR } from '../types';
+import {
+  LOGIN_SUCCESS,
+  USER_LOADED,
+  AUTH_ERROR,
+  UPDATE_PROFILE_ERRORS,
+  LOG_OUT,
+  FORGOT_PASSWORD_ERROR,
+  SEND_FORGOT_MAIL_SUCCESS,
+  RESET_PASSWORD_SUCCESS,
+  RESET_PASSWORD_ERROR
+} from '../types';
 import { toast } from 'react-toastify';
 
 // Load User
@@ -12,7 +22,7 @@ export const loadUser = () => async (dispatch) => {
     });
   } catch (err) {
     dispatch({
-      type: AUTH_ERRORS
+      type: AUTH_ERROR
     });
   }
 };
@@ -37,35 +47,8 @@ export const login = ({ email, password }, hideLogin) => async (dispatch) => {
     const error = err.response.data;
     if (error) {
       dispatch({
-        type: AUTH_ERRORS,
+        type: AUTH_ERROR,
         payload: { type: 'login', message: error.message }
-      });
-    }
-  }
-}
-
-// Admin Login
-export const loginAsAdmin = ({ email, password }) => async (dispatch) => {
-  const config = {
-    headers: {
-      'Content-Type': 'application/json',
-    },
-  };
-  const body = JSON.stringify({ email, password });
-  try {
-    const res = await axios.post('/api/auth/admin/login', body, config);
-    dispatch({
-      type: LOGIN_SUCCESS,
-      payload: res.data,
-    });
-    // dispatch(loadAdmin());
-    return true;
-  } catch (err) {
-    const error = err.response.data;
-    if (error) {
-      dispatch({
-        type: AUTH_ERRORS,
-        payload: { type: 'loginAsAdmin', message: error.message }
       });
     }
   }
@@ -87,7 +70,7 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
     const error = err.response.data;
     if (error) {
       dispatch({
-        type: AUTH_ERRORS,
+        type: AUTH_ERROR,
         payload: { type: 'register', message: error.message }
       });
     }
