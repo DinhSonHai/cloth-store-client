@@ -8,16 +8,17 @@ ProductCard.propTypes = {
 };
 
 function ProductCard({ productId, image, name, price, stock }) {
+  // const handleClick
   return (
-    <div className="product-card">
+    <Link to={`/products/${productId}`} className="product-card">
       <div className="product-card__img">
         <img src={image} alt="Product"></img>
-        <Link to={`/products/${productId}`} className="img__link">+ Quick shop</Link>
+        <div className="img__link">+ Quick shop</div>
         {stock === 0 && (<p className="img__tag">Sold out</p>)}
       </div>
       <p className="product-card__name">{name}</p>
       <p className="product-card__price">{price}</p>
-    </div>
+    </Link>
   );
 }
 

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import { confirmAlert } from 'react-confirm-alert';
 // import PropTypes from 'prop-types';
 import { getAllUsersOrders, cancelOrder } from '../../redux/actions/orders';
-import Select from 'react-select';
 
+import { DropDown } from '../../assets/icons';
+import cancel from '../../assets/images/cancel.png';
 import config from '../../config/default.json';
 import './styles.scss';
 import { Link } from 'react-router-dom';
@@ -29,45 +30,29 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
     setTab(index);
   }
 
-  const handleChange = (option, orderId) => {
-    if (option.value === config.CANCELED_ORDER) {
-      confirmAlert({
-        title: 'Confirm to cancel order',
-        message: 'Are you sure to do this.',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => cancelOrder(orderId)
-          },
-          {
-            label: 'No',
-            onClick: () => { }
+  const handleCancelOrder = (orderId) => {
+    confirmAlert({
+      title: 'Confirm to cancel order',
+      message: 'Are you sure to do this.',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => {
+            async function cancel() {
+              setLoading(true);
+              await cancelOrder(orderId);
+              setLoading(false);
+            }
+            cancel();
           }
-        ]
-      });
-    }
+        },
+        {
+          label: 'No',
+          onClick: () => { }
+        }
+      ]
+    });
   }
-
-  const options = [
-    { value: 0, label: 'Cancle order' }
-  ];
-
-  const customStyles = {
-    control: () => ({
-      // none of react-select's styles are passed to <Control />
-      border: 'none',
-      display: 'flex',
-      justifyContent: 'flex-end'
-    }),
-  }
-
-  const indicatorSeparatorStyle = {
-    width: 0,
-  };
-
-  const IndicatorSeparator = ({ innerProps }) => {
-    return <span style={indicatorSeparatorStyle} {...innerProps} />;
-  };
 
   return (
     <div className="order-list">
@@ -75,18 +60,18 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
         <p className="tab__title">My Orders ({orders.length})</p>
         <p onClick={() => handleClick(0)} className={tab === 0 ? "tab__name tab__name--active" : "tab__name"}>Pending orders ({orders.filter(order => order.status === config.PENDING_ORDER).length})</p>
       </div>
-      { orders && orders.length <= 0 ? (<div className="no-order"><p>You don't have any order <Link className="link" to="/products">Back to shop</Link></p></div>) : (
+      { orders && orders.length <= 0 ? (<div className="no-order"><p>You don't have any order <Link className="link" to="/">Back to shop</Link></p></div>) : (
         <div className="tab__content">
-          { orders.filter(order => order.status === config.PENDING_ORDER).length <= 0 ? (<div className="no-order"><p>No pending order <Link className="link" to="/products">Back to shop</Link></p></div>) : (
+          { orders.filter(order => order.status === config.PENDING_ORDER).length <= 0 ? (<div className="no-order"><p>No pending order <Link className="link" to="/">Back to shop</Link></p></div>) : (
             <table>
               <thead>
                 <tr>
                   <th style={{ width: "12%" }}>ORDERED ID</th>
-                  <th style={{ width: "15%" }}>ORDERED DATE</th>
+                  <th style={{ width: "16%" }}>ORDERED DATE</th>
                   <th style={{ width: "35%" }}>DETAIL</th>
-                  <th style={{ width: "8%" }}>TOTAL ($)</th>
-                  <th style={{ width: "12%" }}>STATUS</th>
-                  <th style={{ width: "20%" }}></th>
+                  <th style={{ width: "10%" }}>TOTAL ($)</th>
+                  <th style={{ width: "11%" }}>STATUS</th>
+                  <th style={{ width: "12%" }}></th>
                 </tr>
               </thead>
               <tbody>
@@ -102,7 +87,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                       <td>{order.total}.00</td>
                       <td><span className="status">Pending</span></td>
                       <td>
-                        <Select
+                        {/* <Select
                           className="select"
                           value={{ value: -1, label: "Actions" }}
                           components={{ IndicatorSeparator }}
@@ -110,7 +95,17 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                           onChange={(option) => handleChange(option, order._id)}
                           options={options}
                           isSearchable={false}
-                        />
+                        /> */}
+                        <div className="action">
+                          <p>Actions</p>
+                          <DropDown />
+                          <div className="dropdown" onClick={() => handleCancelOrder(order._id)}>
+                            <div>
+                              <img className="cancel__image" src={cancel} />
+                              <p>Remove</p>
+                            </div>
+                          </div>
+                        </div>
                       </td>
                     </tr>
                   ))

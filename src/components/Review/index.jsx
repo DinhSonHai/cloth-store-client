@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from 'react';
 import { confirmAlert } from 'react-confirm-alert';
-import 'react-confirm-alert/src/react-confirm-alert.css';
 // import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';

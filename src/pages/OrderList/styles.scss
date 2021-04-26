@@ -73,6 +73,65 @@
       font-weight: 500;
       line-height: 1.43;
       color: var(--charcoal-grey);
+
+      & > td {
+        .action {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+
+          & > p {
+            font-size: 14px;
+            font-weight: 600;
+            line-height: 1;
+            color: var(--charcoal-grey);
+          }
+
+          &:hover .dropdown {
+            display: block;
+          }
+
+          .dropdown {
+            cursor: pointer;
+            display: none;
+            z-index: 1;
+            width: 127px;
+            height: 44px;
+            position: absolute;
+            top: 27px;
+            right: 0;
+            background-color: #ffffff;
+            border-radius: 2px;
+            box-shadow: 0 10px 10px 0 var(--black-8);
+
+            &::before {
+              content: "";
+              position: absolute;
+              border-width: 20px 64px;
+              border-style: solid;
+              border-color: transparent;
+              top: -25px;
+              right: 0;
+            }
+
+            & > div {
+              display: flex;
+              height: 46px;
+              align-items: center;
+              font-size: 14px;
+              font-weight: 500;
+              line-height: 1.43;
+              color: var(--charcoal-grey);
+              padding: 16px;
+
+              & > p {
+                margin-left: 12px;
+              }
+            }
+          }
+        }
+      }
     }
 
     .status {
