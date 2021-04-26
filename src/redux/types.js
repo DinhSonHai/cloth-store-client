@@ -22,3 +22,6 @@ export const GET_SEARCH_CATEGORIES = 'GET_SEARCH_CATEGORIES';
 export const UPDATE_CART = 'UPDATE_CART';
 export const REMOVE_FROM_CART = 'REMOVE_FROM_CART';
 export const GET_CART = 'GET_CART';
+export const GET_ALL_SIZES = 'GET_ALL_SIZES';
+export const GET_ALL_COLORS = 'GET_ALL_COLORS';
+export const GET_ALL_BRANDS = 'GET_ALL_BRANDS';

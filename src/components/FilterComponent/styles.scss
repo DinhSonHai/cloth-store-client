@@ -34,12 +34,12 @@
 
     .size__content {
       margin-top: 15px;
-      padding-bottom: 20px;
+      padding-bottom: 25px;
       border-bottom: 0.5px solid var(--pinkish-grey);
       display: flex;
       cursor: default;
 
-      .content__s {
+      .content {
         display: flex;
         justify-content: center;
         align-items: center;
@@ -47,139 +47,151 @@
         margin-right: 16px;
         width: 40px;
         height: 40px;
-        color: var(--white);
-        font-weight: bold;
-        background-color: #ffa15f;
+        color: var(--dark-grey);
+        background-color: #ffffff;
+        border: solid 1px #808080;
+        .content--active {
+          font-weight: bold;
+          color: var(--white);
+          border: none;
+          background-color: #ffa15f;
+        }
       }
+    }
 
-      .content__m {
+    .color__content {
+      margin-top: 15px;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid var(--pinkish-grey);
+      display: flex;
+      flex-wrap: wrap;
+      cursor: default;
+
+      .content {
         display: flex;
         justify-content: center;
         align-items: center;
+        // border: 1px solid transparent;
+        border-radius: 50%;
         text-decoration: none;
-        margin-right: 16px;
-        width: 40px;
-        height: 40px;
-        color: var(--white);
-        font-weight: bold;
-        background-color: #ffa15f;
-      }
+        margin-right: 20px;
+        margin-bottom: 17px;
+        width: 30px;
+        height: 30px;
+        color: var(--dark-grey);
+        background-color: #ffffff;
+        border: solid 2px #808080;
 
-      .content__l {
+        &:nth-child(4n) {
+          margin-right: 0;
+        }
+
+        .select-color-icon {
+          position: absolute;
+          top: -2px;
+        }
+      }
+    }
+
+    .brand__content {
+      margin-top: 15px;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid var(--pinkish-grey);
+      display: flex;
+      flex-wrap: wrap;
+      cursor: default;
+
+      .content {
         display: flex;
         justify-content: center;
         align-items: center;
+        // border: 1px solid transparent;
         text-decoration: none;
-        margin-right: 16px;
-        width: 40px;
-        height: 40px;
-        color: var(--white);
-        font-weight: bold;
-        background-color: #ffa15f;
-      }
-    }
-  }
-
-  .filter__color {
-    cursor: pointer;
-    margin-top: 10px;
-
-    .color__border {
-      padding-bottom: 8px;
-      .color__title {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 24px;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.57;
+        margin-right: 20px;
+        margin-bottom: 17px;
+        width: 30px;
+        height: 30px;
         color: var(--dark-grey);
-        & > span {
-          margin-right: -5px;
+        background-color: #ffffff;
+        border: solid 2px #808080;
+
+        &:nth-child(4n) {
+          margin-right: 0;
         }
-        .rotate {
-          transform: rotate(180deg);
+
+        .select-color-icon {
+          position: absolute;
+          top: -2px;
         }
       }
     }
-  }
 
-  .filter__price {
-    cursor: pointer;
-    margin-top: 10px;
+    .price__content {
+      display: flex;
+      justify-content: center;
+      margin-top: 15px;
+      padding-bottom: 44px;
+      border-bottom: 0.5px solid var(--pinkish-grey);
+      cursor: default;
 
-    .price__border {
-      padding-bottom: 8px;
+      .slider {
+        width: 160px;
+      }
 
-      .price__title {
+      .content {
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 24px;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.57;
+        justify-content: center;
+        align-items: center;
+        // border: 1px solid transparent;
+        text-decoration: none;
+        margin-right: 20px;
+        margin-bottom: 17px;
+        width: 30px;
+        height: 30px;
         color: var(--dark-grey);
+        background-color: #ffffff;
+        border: solid 2px #808080;
 
-        & > span {
-          margin-right: -5px;
+        &:nth-child(4n) {
+          margin-right: 0;
         }
 
-        .rotate {
-          transform: rotate(180deg);
+        .select-color-icon {
+          position: absolute;
+          top: -2px;
         }
       }
     }
-  }
 
-  .filter__brand {
-    cursor: pointer;
-    margin-top: 10px;
+    .available__content {
+      margin-top: 15px;
+      padding-bottom: 10px;
+      border-bottom: 0.5px solid var(--pinkish-grey);
+      display: flex;
+      flex-wrap: wrap;
+      cursor: default;
 
-    .brand__border {
-      padding-bottom: 8px;
-
-      .brand__title {
+      .content {
         display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 24px;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.57;
+        justify-content: center;
+        align-items: center;
+        // border: 1px solid transparent;
+        text-decoration: none;
+        margin-right: 20px;
+        margin-bottom: 17px;
+        width: 30px;
+        height: 30px;
         color: var(--dark-grey);
-        & > span {
-          margin-right: -5px;
-        }
-        .rotate {
-          transform: rotate(180deg);
-        }
-      }
-    }
-  }
+        background-color: #ffffff;
+        border: solid 2px #808080;
 
-  .filter__available {
-    cursor: pointer;
-    margin-top: 10px;
-
-    .available__border {
-      padding-bottom: 8px;
-
-      .available__title {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        height: 24px;
-        font-size: 14px;
-        font-weight: 500;
-        line-height: 1.57;
-        color: var(--dark-grey);
-        & > span {
-          margin-right: -5px;
+        &:nth-child(4n) {
+          margin-right: 0;
         }
-        .rotate {
-          transform: rotate(180deg);
+
+        .select-color-icon {
+          position: absolute;
+          top: -2px;
         }
       }
     }

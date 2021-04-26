@@ -8,8 +8,11 @@ import { Arrow } from '../../assets/icons';
 import ProductCard from '../../components/ProductCard';
 import Spinner from '../../components/Spinner';
 import { getProductsByType, getTypeById, getCategoriesByType, getSearchProducts } from '../../redux/actions/products';
+import { getAllSizes } from '../../redux/actions/sizes';
+import { getAllColors } from '../../redux/actions/colors';
+import { getAllBrands } from '../../redux/actions/brands';
 import SortBox from '../../components/CustomFields/SortBox';
-// import FilterComponent from '../../components/FilterComponent';
+import FilterComponent from '../../components/FilterComponent';
 
 ProductList.propTypes = {
 };
@@ -20,7 +23,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function ProductList({ match, products, type, categories, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts }) {
+function ProductList({ match, products, type, categories, brands, sizes, colors, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts, getAllBrands, getAllSizes, getAllColors }) {
   const query = useQuery();
   const history = useHistory();
 
@@ -32,6 +35,7 @@ function ProductList({ match, products, type, categories, getProductsByType, get
   const categoryId = query.get("categoryId");
   const sort = query.get("sort");
   const q = query.get("q");
+  const size = query.get("size");
 
   useEffect(() => {
     setLoading(true);
@@ -43,8 +47,11 @@ function ProductList({ match, products, type, categories, getProductsByType, get
     else {
       getSearchProducts(q, categoryId, sort);
     }
+    getAllBrands();
+    getAllSizes();
+    getAllColors();
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, typeId, q, categoryId, sort]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort]);
 
   const handleCategoryClick = (option, categoryId) => {
     setSelected(option);
@@ -112,7 +119,7 @@ function ProductList({ match, products, type, categories, getProductsByType, get
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {/* <FilterComponent /> */}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} />}
 
         </div>
 
@@ -152,7 +159,10 @@ const mapStateToProps = (state) => ({
   collections: state.collections.collections,
   products: state.products.products,
   type: state.products.type,
-  categories: state.products.categories
+  categories: state.products.categories,
+  brands: state.brands.brands,
+  sizes: state.sizes.sizes,
+  colors: state.colors.colors
 })
 
-export default connect(mapStateToProps, { getProductsByType, getTypeById, getCategoriesByType, getSearchProducts })(ProductList);
+export default connect(mapStateToProps, { getProductsByType, getTypeById, getCategoriesByType, getSearchProducts, getAllBrands, getAllSizes, getAllColors })(ProductList);

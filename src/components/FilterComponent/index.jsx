@@ -1,15 +1,26 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Arrow } from '../../assets/icons';
+import { Link, useLocation, useHistory } from 'react-router-dom';
+import { Arrow, SelectColorIcon } from '../../assets/icons';
+import Slider from 'rc-slider';
+import './styles.scss';
+
+const { createSliderWithTooltip } = Slider;
+const Range = createSliderWithTooltip(Slider.Range);
 // import PropTypes from 'prop-types';
 
-import './styles.scss';
 
 FilterComponent.propTypes = {
 
 };
 
-function FilterComponent(props) {
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function FilterComponent({ brands, sizes, colors }) {
+
   const [isOpenSize, setOpenSize] = useState(false);
   const [isOpenColor, setOpenColor] = useState(false);
   const [isOpenBrand, setOpenBrand] = useState(false);
@@ -42,7 +53,7 @@ function FilterComponent(props) {
 
       {/* Size */}
       <div className="filter">
-        <div className="border" onClick={handleOpenSize} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+        <div className="border" onClick={handleOpenSize} style={{ borderBottom: isOpenSize ? "2px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
           <div className="title">
             <p>Size</p>
             <span className={isOpenSize ? "rotate" : ""}>
@@ -51,57 +62,97 @@ function FilterComponent(props) {
           </div>
         </div>
         {isOpenSize && (
-
           <div className="size__content">
-            <Link to="/" className="content__s">S</Link>
-            <Link to="/" className="content__m">M</Link>
-            <Link to="/" className="content__l">L</Link>
+            { sizes.map(size => (
+              <Link to="/" className="content">{size.sizeName}</Link>
+            ))}
           </div>
         )}
       </div>
 
       {/* Color */}
       <div className="filter">
-        <div className="border" onClick={handleOpenColor} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+        <div className="border" onClick={handleOpenColor} style={{ borderBottom: isOpenColor ? "2px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
           <div className="title">
             <p>Color</p>
-            <span>
+            <span className={isOpenColor ? "rotate" : ""}>
               <Arrow />
             </span>
           </div>
         </div>
+        {isOpenColor && (
+          <div className="color__content">
+            { colors.map(color => (
+              <Link to="/" className="content" style={{ backgroundColor: color.colorName }}>
+
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Brand */}
       <div className="filter">
-        <div className="border" onClick={handleOpenBrand} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+        <div className="border" onClick={handleOpenBrand} style={{ borderBottom: isOpenBrand ? "2px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
           <div className="title">
             <p>Brand</p>
-            <span>
+            <span className={isOpenBrand ? "rotate" : ""}>
               <Arrow />
             </span>
           </div>
         </div>
+        {isOpenBrand && (
+          <div className="brand__content">
+            { brands.map(brand => (
+              <Link to="/" className="content">
+                {brand.brand}
+              </Link>
+            ))}
+          </div>
+        )}
       </div>
 
       {/* Price */}
       <div className="filter">
-        <div className="border" onClick={handleOpenPrice} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+        <div className="border" onClick={handleOpenPrice} style={{ borderBottom: isOpenPrice ? "2px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
           <div className="title">
             <p>Price</p>
-            <span>
+            <span className={isOpenPrice ? "rotate" : ""}>
               <Arrow />
             </span>
           </div>
         </div>
+        {isOpenPrice && (
+          <div className="price__content">
+            <div className="slider">
+              <Range
+                marks={{
+                  0: `$0`,
+                  300: `$300`
+                }}
+                min={0}
+                max={300}
+                defaultValue={[0, 300]}
+                tipFormatter={value => `$${value}`}
+                tipProps={{
+                  placement: "bottom",
+                  visible: true
+                }}
+                railStyle={{ backgroundColor: "#808080" }}
+                trackStyle={[{ backgroundColor: "#ffa15f" }]}
+                handleStyle={{ backgroundColor: "#ffa15f", border: "none" }}
+              />
+            </div>
+          </div>
+        )}
       </div>
 
       {/* Available */}
       <div className="filter">
-        <div className="border" onClick={handleOpenAvailable} style={{ borderBottom: isOpenSize ? "0.5px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
+        <div className="border" onClick={handleOpenAvailable} style={{ borderBottom: isOpenAvailable ? "2px dashed var(--pinkish-grey)" : "0.5px solid var(--pinkish-grey)" }}>
           <div className="title">
             <p>Available</p>
-            <span>
+            <span className={isOpenAvailable ? "rotate" : ""}>
               <Arrow />
             </span>
           </div>

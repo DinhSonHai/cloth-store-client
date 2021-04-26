@@ -3,6 +3,8 @@ import React, { Fragment, useEffect, useState } from 'react';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
+
+import { SelectColorIcon } from '../../assets/icons';
 import './styles.scss';
 import { getProductById, getProductsByBrand, getAllProducts } from '../../redux/actions/products';
 import Spinner from '../../components/Spinner';
@@ -119,7 +121,23 @@ function ProductInfo({ match, products, product, brandProducts, getProductById, 
               <div className="product__color">
                 <p className="color__title">Color</p>
                 {product && product?.colors && product?.colors.map((color, index) => (
-                  <button key={color._id} className={!colorState && index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
+                  // <button key={color._id} className={!colorState && index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
+                  <button key={color._id} className="color" style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}>
+                    { !colorState && index === 0 ? (
+                      <span className="select-color-icon">
+                        <SelectColorIcon />
+                      </span>
+                    ) : (
+                      colorState === color._id ? (
+                        <span className="select-color-icon">
+                          <SelectColorIcon />
+                        </span>
+                      ) : (
+                        <span className="select-color-icon">
+                        </span>
+                      )
+                    )}
+                  </button>
                 ))}
               </div>
               <div className="product__quantity">
