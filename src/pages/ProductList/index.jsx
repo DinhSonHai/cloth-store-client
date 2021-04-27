@@ -23,39 +23,40 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function ProductList({ match, products, type, categories, brands, sizes, colors, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts, getAllBrands, getAllSizes, getAllColors }) {
+function ProductList({ match, products: { products, total }, type, categories, brands, sizes, colors, getProductsByType, getTypeById, getCategoriesByType, getSearchProducts, getAllBrands, getAllSizes, getAllColors }) {
   const query = useQuery();
   const history = useHistory();
 
   const [isSelected, setSelected] = useState(0);
   const [loading, setLoading] = useState(true);
-  const [sortState, setSortState] = useState('Price: Asc');
+  const [sortState, setSortState] = useState('Low to High');
 
   const typeId = match.params.typeId;
   const categoryId = query.get("categoryId");
   const sort = query.get("sort");
   const q = query.get("q");
   const size = query.get("size");
+  const page = parseInt(query.get("page"));
 
   useEffect(() => {
     setLoading(true);
     if (typeId) {
-      getProductsByType(typeId, categoryId, sort);
+      getProductsByType(typeId, categoryId, sort, page);
       getTypeById(typeId);
       getCategoriesByType(typeId);
     }
     else {
-      getSearchProducts(q, categoryId, sort);
+      getSearchProducts(q, categoryId, sort, page);
     }
     getAllBrands();
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, page]);
 
   const handleCategoryClick = (option, categoryId) => {
     setSelected(option);
-    setSortState('Price: Asc');
+    setSortState('Low to High');
 
     if (!typeId) {
       if (categoryId) {
@@ -90,6 +91,81 @@ function ProductList({ match, products, type, categories, brands, sizes, colors,
     return history.push(`/products/types/${typeId}?sort=${type}`);
   }
 
+  const handlePrevPage = () => {
+    let _page = 1;
+    if (page) {
+      _page = page - 1;
+    }
+    if (_page >= 1) {
+      if (!typeId) {
+        if (categoryId) {
+          if (sort) {
+            return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${sort}&page=${_page}`);
+          }
+          return history.push(`/products?q=${q}&categoryId=${categoryId}&page=${_page}`);
+        }
+        else {
+          if (sort) {
+            return history.push(`/products?q=${q}&sort=${sort}&page=${_page}`);
+          }
+          return history.push(`/products?q=${q}&page=${_page}`);
+        }
+      }
+
+      if (categoryId) {
+        if (sort) {
+          return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}&page=${_page}`);
+        }
+        return history.push(`/products/types/${typeId}?categoryId=${categoryId}&page=${_page}`);
+      }
+
+      if (sort) {
+        return history.push(`/products/types/${typeId}?&sort=${sort}&page=${_page}`);
+      }
+
+      return history.push(`/products/types/${typeId}?page=${_page}`);
+    }
+  }
+
+  const handleNextPage = () => {
+    let _page = 1;
+    if (page) {
+      _page = page + 1;
+    }
+    else {
+      _page = _page + 1;
+    }
+    if (_page <= Math.ceil(total / 10)) {
+      if (!typeId) {
+        if (categoryId) {
+          if (sort) {
+            return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${sort}&page=${_page}`);
+          }
+          return history.push(`/products?q=${q}&categoryId=${categoryId}&page=${_page}`);
+        }
+        else {
+          if (sort) {
+            return history.push(`/products?q=${q}&sort=${sort}&page=${_page}`);
+          }
+          return history.push(`/products?q=${q}&page=${_page}`);
+        }
+      }
+
+      if (categoryId) {
+        if (sort) {
+          return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}&page=${_page}`);
+        }
+        return history.push(`/products/types/${typeId}?categoryId=${categoryId}&page=${_page}`);
+      }
+
+      if (sort) {
+        return history.push(`/products/types/${typeId}?&sort=${sort}&page=${_page}`);
+      }
+
+      return history.push(`/products/types/${typeId}?page=${_page}`);
+    }
+  }
+
   return (
     <div className="product-list">
       <div className="product-list__breadcrumb">
@@ -105,14 +181,14 @@ function ProductList({ match, products, type, categories, brands, sizes, colors,
           <div className="option__category">
             <p className="category__title">Category</p>
             {typeId ? (
-              <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>{type && type.typeName}</p>
+              <p onClick={() => handleCategoryClick(0)} className={categoryId ? ("category__type") : (isSelected === 0 ? "category__type category--active" : "category__type")}>{type && type.typeName}</p>
             ) : (
-              <p onClick={() => handleCategoryClick(0)} className={isSelected === 0 ? "category__type category--active" : "category__type"}>All results</p>
+              <p onClick={() => handleCategoryClick(0)} className={categoryId ? ("category__type") : (isSelected === 0 ? "category__type category--active" : "category__type")}>All results</p>
             )}
             <div className="category__divider"></div>
             <div className="category__detail">
               {categories && categories.map((category, index) => (
-                <p key={index} onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 ? "category--active" : ""}>{category.categoryName}</p>
+                <p key={index} onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 || categoryId === category._id ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>
@@ -128,20 +204,20 @@ function ProductList({ match, products, type, categories, brands, sizes, colors,
             <div className="main__content">
               <div className="content__top">
                 <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
-                <div className="top__pagination">
-                  <button className="pagination__previous"><Arrow /></button>
-                  <p className="pagination__page">1/100</p>
-                  <button className="pagination__next"><Arrow /></button>
+                <div className="pagination">
+                  <button className="pagination__previous" disabled={!page || page === 1} onClick={handlePrevPage}><Arrow /></button>
+                  {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
+                  <button className="pagination__next" disabled={page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
                 </div>
               </div>
               <div className="content__card">
                 {products.map(product => (<ProductCard key={product._id} productId={product._id} image={product.photos[0]} name={product.name} price={`$${product.price}.00`} stock={product.quantity} />))}
               </div>
               <div className="content__bottom">
-                <div className="bottom__pagination">
-                  <button className="pagination__previous"><Arrow /></button>
-                  <p className="pagination__page">1/100</p>
-                  <button className="pagination__next"><Arrow /></button>
+                <div className="pagination">
+                  <button className="pagination__previous" disabled={!page || page === 1}><Arrow /></button>
+                  {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
+                  <button className="pagination__next" disabled={page === Math.ceil(total / 10)}><Arrow /></button>
                 </div>
               </div>
             </div>
@@ -151,13 +227,13 @@ function ProductList({ match, products, type, categories, brands, sizes, colors,
 
         )}
       </div>
-    </div>
+    </div >
   );
 }
 
 const mapStateToProps = (state) => ({
   collections: state.collections.collections,
-  products: state.products.products,
+  products: state.products,
   type: state.products.type,
   categories: state.products.categories,
   brands: state.brands.brands,

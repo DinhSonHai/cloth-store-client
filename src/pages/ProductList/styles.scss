@@ -86,41 +86,47 @@
     }
 
     .main__content {
+      .pagination {
+        width: 112px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        button:disabled {
+          opacity: 0.5;
+          cursor: default;
+        }
+
+        .pagination__page {
+          font-size: 14px;
+          font-weight: 500;
+          line-height: 1.57;
+          text-align: center;
+          color: var(--dark-grey);
+        }
+
+        .pagination__previous {
+          width: 24px;
+          height: 24px;
+          background-color: var(--white);
+          border: none;
+          transform: rotate(90deg);
+        }
+
+        .pagination__next {
+          width: 24px;
+          height: 24px;
+          background-color: var(--white);
+          border: none;
+          transform: rotate(-90deg);
+        }
+      }
+
       .content__top {
         display: flex;
         align-items: center;
         justify-content: space-between;
         margin-bottom: 13px;
-
-        .top__pagination {
-          width: 112px;
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          .pagination__page {
-            font-size: 14px;
-            font-weight: 500;
-            line-height: 1.57;
-            text-align: center;
-            color: var(--dark-grey);
-          }
-
-          .pagination__previous {
-            width: 24px;
-            height: 24px;
-            background-color: var(--white);
-            border: none;
-            transform: rotate(90deg);
-          }
-
-          .pagination__next {
-            width: 24px;
-            height: 24px;
-            background-color: var(--white);
-            border: none;
-            transform: rotate(-90deg);
-          }
-        }
       }
 
       .content__card {
@@ -133,13 +139,13 @@
       .content__bottom {
         display: flex;
         justify-content: flex-end;
+        margin-bottom: 36px;
 
         .bottom__pagination {
           width: 112px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          margin-bottom: 36px;
 
           .pagination__page {
             font-size: 14px;

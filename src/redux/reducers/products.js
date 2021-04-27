@@ -22,12 +22,17 @@ export default function products(state = initialState, action) {
   const { type, payload } = action;
   switch (type) {
     case GET_ALL_PRODUCTS:
-    case GET_PRODUCTS_BY_TYPE:
-    case GET_SEARCH_PRODUCTS:
       return {
         ...state,
         products: payload,
         total: payload.length
+      }
+    case GET_PRODUCTS_BY_TYPE:
+    case GET_SEARCH_PRODUCTS:
+      return {
+        ...state,
+        products: payload.products,
+        total: payload.total
       }
     case GET_PRODUCTS_BY_BRAND:
       return {

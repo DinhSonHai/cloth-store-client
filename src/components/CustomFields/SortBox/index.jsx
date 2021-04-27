@@ -20,13 +20,13 @@ function SelectBox({ handleSort, sortState, setSortState }) {
 
   const handleSelect = (type) => {
     if (type === 'name') {
-      setSortState('Name: A-Z');
+      setSortState('Name');
     }
     else if (type === 'asc') {
-      setSortState('Price: Asc');
+      setSortState('Low to High');
     }
     else if (type === 'desc') {
-      setSortState('Price: Desc');
+      setSortState('High to Low');
     }
     handleSort(type);
     setOpen(false);

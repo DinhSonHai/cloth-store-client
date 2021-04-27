@@ -28,8 +28,8 @@ function TableRow({ cartItem, productCart }) {
           <div className="table-row__product">
             <Link to={`/products/${productCart?._id}`} className="product__name">{productCart?.name}</Link>
             <div className="product__action">
-              <button onClick={handleChange}>Change</button>
-              <div className="action__divider"></div>
+              {/* <button onClick={handleChange}>Change</button>
+              <div className="action__divider"></div> */}
               <button onClick={handleRemove}>Remove</button>
             </div>
           </div>
