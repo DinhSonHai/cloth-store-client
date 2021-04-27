@@ -27,9 +27,11 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const query = useQuery();
   const history = useHistory();
 
-  const [isSelected, setSelected] = useState(0);
+  const [isSelected, setSelected] = useState(null);
   const [loading, setLoading] = useState(true);
   const [sortState, setSortState] = useState('Low to High');
+  const [sizeState, setSizeState] = useState('');
+  const [colorState, setColorState] = useState('');
 
   const typeId = match.params.typeId;
   const categoryId = query.get("categoryId");
@@ -54,8 +56,8 @@ function ProductList({ match, products: { products, total }, type, categories, b
     setLoading(false);
   }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, page]);
 
-  const handleCategoryClick = (option, categoryId) => {
-    setSelected(option);
+  const handleCategoryClick = (categoryId) => {
+    setSelected(categoryId);
     setSortState('Low to High');
 
     if (!typeId) {
@@ -181,21 +183,21 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__category">
             <p className="category__title">Category</p>
             {typeId ? (
-              <p onClick={() => handleCategoryClick(0)} className={categoryId ? ("category__type") : (isSelected === 0 ? "category__type category--active" : "category__type")}>{type && type.typeName}</p>
+              <p onClick={() => handleCategoryClick(null)} className={categoryId ? ("category__type") : (!isSelected ? "category__type category--active" : "category__type")}>{type && type.typeName}</p>
             ) : (
-              <p onClick={() => handleCategoryClick(0)} className={categoryId ? ("category__type") : (isSelected === 0 ? "category__type category--active" : "category__type")}>All results</p>
+              <p onClick={() => handleCategoryClick(null)} className={categoryId ? ("category__type") : (!isSelected ? "category__type category--active" : "category__type")}>All results</p>
             )}
             <div className="category__divider"></div>
             <div className="category__detail">
               {categories && categories.map((category, index) => (
-                <p key={index} onClick={() => handleCategoryClick(index + 1, category._id)} className={isSelected === index + 1 || categoryId === category._id ? "category--active" : ""}>{category.categoryName}</p>
+                <p key={index} onClick={() => handleCategoryClick(category._id)} className={isSelected === category._id ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} />}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} setSizeState={setSizeState} colorState={colorState} setColorState={setColorState} />}
 
         </div>
 
@@ -207,7 +209,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
                 <div className="pagination">
                   <button className="pagination__previous" disabled={!page || page === 1} onClick={handlePrevPage}><Arrow /></button>
                   {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
-                  <button className="pagination__next" disabled={page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
+                  <button className="pagination__next" disabled={Math.ceil(total / 10) === 1 || page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
                 </div>
               </div>
               <div className="content__card">
@@ -215,9 +217,9 @@ function ProductList({ match, products: { products, total }, type, categories, b
               </div>
               <div className="content__bottom">
                 <div className="pagination">
-                  <button className="pagination__previous" disabled={!page || page === 1}><Arrow /></button>
+                  <button className="pagination__previous" disabled={!page || page === 1} onClick={handlePrevPage}><Arrow /></button>
                   {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
-                  <button className="pagination__next" disabled={page === Math.ceil(total / 10)}><Arrow /></button>
+                  <button className="pagination__next" disabled={Math.ceil(total / 10) === 1 || page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
                 </div>
               </div>
             </div>

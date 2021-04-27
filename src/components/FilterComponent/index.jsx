@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
 import { Arrow, SelectColorIcon } from '../../assets/icons';
 import Slider from 'rc-slider';
@@ -19,7 +19,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function FilterComponent({ brands, sizes, colors }) {
+function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, colorState, setColorState }) {
 
   const [isOpenSize, setOpenSize] = useState(false);
   const [isOpenColor, setOpenColor] = useState(false);
@@ -47,6 +47,14 @@ function FilterComponent({ brands, sizes, colors }) {
     setOpenAvailable(!isOpenAvailable)
   }
 
+  const handleSizeChange = (sizeId) => {
+    setSizeState(sizeId);
+  }
+
+  const handleColorChange = (colorId) => {
+    setColorState(colorId);
+  }
+
   return (
     <div className="filter-component">
       <p className="filter__title">Filter</p>
@@ -64,7 +72,7 @@ function FilterComponent({ brands, sizes, colors }) {
         {isOpenSize && (
           <div className="size__content">
             { sizes.map(size => (
-              <Link to="/" className="content">{size.sizeName}</Link>
+              <Link className={sizeState === size._id ? ("content content--active") : ("content")} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</Link>
             ))}
           </div>
         )}
@@ -83,8 +91,17 @@ function FilterComponent({ brands, sizes, colors }) {
         {isOpenColor && (
           <div className="color__content">
             { colors.map(color => (
-              <Link to="/" className="content" style={{ backgroundColor: color.colorName }}>
-
+              <Link className="content" style={{ backgroundColor: color.colorName }} onClick={() => handleColorChange(color._id)}>
+                {
+                  colorState === color._id ? (
+                    <span className="select-color-icon">
+                      <SelectColorIcon />
+                    </span>
+                  ) : (
+                    <span className="select-color-icon">
+                    </span>
+                  )
+                }
               </Link>
             ))}
           </div>
@@ -103,10 +120,14 @@ function FilterComponent({ brands, sizes, colors }) {
         </div>
         {isOpenBrand && (
           <div className="brand__content">
-            { brands.map(brand => (
-              <Link to="/" className="content">
-                {brand.brand}
-              </Link>
+            { brands.map((brand, index) => (
+              // <Link to="/" className="content">
+              //   {brand.brand}
+              // </Link>
+              <div className="content">
+                <label for={`checkBox${index}`} className="checkbox__label">{brand.brand}</label>
+                <input id={`checkBox${index}`} type="checkbox" />
+              </div>
             ))}
           </div>
         )}
@@ -157,6 +178,18 @@ function FilterComponent({ brands, sizes, colors }) {
             </span>
           </div>
         </div>
+        {isOpenAvailable && (
+          <div className="available__content">
+            <div className="content">
+              <label for="radio1" className="radio__label">In-store</label>
+              <input id="radio1" type="radio" name="available" />
+            </div>
+            <div className="content">
+              <label for="radio1" className="radio__label">Out of stock</label>
+              <input id="radio1" type="radio" name="available" />
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

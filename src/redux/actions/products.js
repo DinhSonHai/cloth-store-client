@@ -18,20 +18,38 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getSearchProducts = (q, categoryId, sort) => async (dispatch) => {
+export const getSearchProducts = (q, categoryId, sort, page) => async (dispatch) => {
   try {
     let queryParams = '';
     if (categoryId) {
       if (sort) {
-        queryParams = `&categoryId=${categoryId}&sort=${sort}`;
+        if (page) {
+          queryParams = `&categoryId=${categoryId}&sort=${sort}&page=${page}`;
+        }
+        else {
+          queryParams = `&categoryId=${categoryId}&sort=${sort}`;
+        }
       }
       else {
-        queryParams = `&categoryId=${categoryId}`;
+        if (page) {
+          queryParams = `&categoryId=${categoryId}&page=${page}`;
+        }
+        else {
+          queryParams = `&categoryId=${categoryId}`;
+        }
       }
     }
     else {
       if (sort) {
-        queryParams = `&sort=${sort}`;
+        if (page) {
+          queryParams = `&sort=${sort}&page=${page}`;
+        }
+        else {
+          queryParams = `&sort=${sort}`;
+        }
+      }
+      else {
+        queryParams = `&page=${page}`;
       }
     }
     let res = await axios.get(`/api/products/search?q=${q}${queryParams}`);
@@ -59,7 +77,9 @@ export const getProductsByType = (typeId, categoryId, sort, page) => async (disp
         if (page) {
           queryParams = `?categoryId=${categoryId}&sort=${sort}&page=${page}`;
         }
-        queryParams = `?categoryId=${categoryId}&sort=${sort}`;
+        else {
+          queryParams = `?categoryId=${categoryId}&sort=${sort}`;
+        }
       }
       else {
         if (page) {
@@ -75,7 +95,9 @@ export const getProductsByType = (typeId, categoryId, sort, page) => async (disp
         if (page) {
           queryParams = `?sort=${sort}&page=${page}`;
         }
-        queryParams = `?sort=${sort}`;
+        else {
+          queryParams = `?sort=${sort}`;
+        }
       }
       else {
         queryParams = `?page=${page}`;
