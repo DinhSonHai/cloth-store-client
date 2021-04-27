@@ -111,25 +111,35 @@
         padding: 7px 0 6px 10px;
         width: 180px;
         height: 35px;
-        font-family: Montserrat;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.57;
-        letter-spacing: normal;
-        color: var(--greyish-brown);
-        text-decoration: none;
         background-color: #fafafa;
         margin-bottom: 3px;
+
+        .checkbox__label {
+          font-family: Montserrat;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.57;
+          letter-spacing: normal;
+          color: var(--greyish-brown);
+          text-decoration: none;
+        }
+
+        .checkbox__label--checked {
+          font-weight: 600;
+          color: #ffa15f;
+        }
 
         &:nth-child(4n) {
           margin-right: 0;
         }
 
-        input[type="checkbox"] {
-          transform: scale(1.5);
-          // filter: hue-rotate(18deg) brightness(1.7);
+        .checkbox--uncheck {
+          margin-right: 4px;
+          width: 16px;
+          height: 16px;
+          border: 1px solid var(--white-four);
         }
       }
     }
@@ -160,10 +170,6 @@
         background-color: #ffffff;
         border: solid 2px #808080;
 
-        &:nth-child(4n) {
-          margin-right: 0;
-        }
-
         .select-color-icon {
           position: absolute;
           top: -2px;
@@ -187,25 +193,31 @@
         padding: 7px 0 6px 10px;
         width: 180px;
         height: 35px;
-        font-family: Montserrat;
-        font-size: 14px;
-        font-weight: normal;
-        font-stretch: normal;
-        font-style: normal;
-        line-height: 1.57;
-        letter-spacing: normal;
-        color: var(--greyish-brown);
-        text-decoration: none;
         background-color: #fafafa;
         margin-bottom: 3px;
 
-        &:nth-child(4n) {
-          margin-right: 0;
+        .checkbox__label {
+          font-family: Montserrat;
+          font-size: 14px;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.57;
+          letter-spacing: normal;
+          color: var(--greyish-brown);
+          text-decoration: none;
         }
 
-        input[type="checkbox"] {
-          transform: scale(1.5);
-          // filter: hue-rotate(18deg) brightness(1.7);
+        .checkbox__label--checked {
+          font-weight: 600;
+          color: #ffa15f;
+        }
+
+        .checkbox--uncheck {
+          margin-right: 4px;
+          width: 16px;
+          height: 16px;
+          border: 1px solid var(--white-four);
         }
       }
     }

@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
 import { Link, useLocation, useHistory } from 'react-router-dom';
-import { Arrow, SelectColorIcon } from '../../assets/icons';
+import { Arrow, SelectColorIcon, CheckBoxChecked } from '../../assets/icons';
 import Slider from 'rc-slider';
 import './styles.scss';
 
@@ -19,7 +19,7 @@ function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, colorState, setColorState }) {
+function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, setSizeState, colorState, setColorState, brandState, setBrandState, availableState, setAvailableState }) {
 
   const [isOpenSize, setOpenSize] = useState(false);
   const [isOpenColor, setOpenColor] = useState(false);
@@ -49,10 +49,27 @@ function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, color
 
   const handleSizeChange = (sizeId) => {
     setSizeState(sizeId);
+    handleColorChange('');
+    handleBrandChange('');
+    handleColorChange('');
+    handleAvailableChange(0);
+    handleSizeFilter(sizeId);
   }
 
   const handleColorChange = (colorId) => {
     setColorState(colorId);
+  }
+
+  const handleBrandChange = (brandId) => {
+    setBrandState(brandId);
+  }
+
+  const handleAvailableChange = (option) => {
+    setAvailableState(option);
+  }
+
+  const handlePriceChange = (rangeValues) => {
+    console.log(rangeValues)
   }
 
   return (
@@ -72,7 +89,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, color
         {isOpenSize && (
           <div className="size__content">
             { sizes.map(size => (
-              <Link className={sizeState === size._id ? ("content content--active") : ("content")} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</Link>
+              <button className={sizeState === size._id ? ("content content--active") : ("content")} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
             ))}
           </div>
         )}
@@ -124,9 +141,18 @@ function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, color
               // <Link to="/" className="content">
               //   {brand.brand}
               // </Link>
-              <div className="content">
-                <label for={`checkBox${index}`} className="checkbox__label">{brand.brand}</label>
-                <input id={`checkBox${index}`} type="checkbox" />
+              <div className="content" onClick={() => handleBrandChange(brand._id)}>
+                {/* <input id={`checkBox${index}`} type="checkbox" /> */}
+                {/* <CheckBoxChecked /> */}
+                {brandState === brand._id ? (<Fragment>
+                  <label for={`checkBox${index}`} className="checkbox__label checkbox__label--checked">{brand.brand}</label>
+                  <CheckBoxChecked />
+                </Fragment>
+                ) : (<Fragment>
+                  <label for={`checkBox${index}`} className="checkbox__label">{brand.brand}</label>
+                  <div className="checkbox--uncheck"></div>
+                </Fragment>
+                )}
               </div>
             ))}
           </div>
@@ -159,6 +185,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, color
                   placement: "bottom",
                   visible: true
                 }}
+                onAfterChange={handlePriceChange}
                 railStyle={{ backgroundColor: "#808080" }}
                 trackStyle={[{ backgroundColor: "#ffa15f" }]}
                 handleStyle={{ backgroundColor: "#ffa15f", border: "none" }}
@@ -180,13 +207,27 @@ function FilterComponent({ brands, sizes, colors, sizeState, setSizeState, color
         </div>
         {isOpenAvailable && (
           <div className="available__content">
-            <div className="content">
-              <label for="radio1" className="radio__label">In-store</label>
-              <input id="radio1" type="radio" name="available" />
+            <div className="content" onClick={() => handleAvailableChange(1)}>
+              {availableState === 1 ? (<Fragment>
+                <div className="checkbox__label checkbox__label--checked">In-store</div>
+                <CheckBoxChecked />
+              </Fragment>) : (
+                <Fragment>
+                  <div className="checkbox__label">In-store</div>
+                  <div className="checkbox--uncheck"></div>
+                </Fragment>
+              )}
             </div>
-            <div className="content">
-              <label for="radio1" className="radio__label">Out of stock</label>
-              <input id="radio1" type="radio" name="available" />
+            <div className="content" onClick={() => handleAvailableChange(2)}>
+              {availableState === 2 ? (<Fragment>
+                <div className="checkbox__label checkbox__label--checked">Out of stock</div>
+                <CheckBoxChecked />
+              </Fragment>) : (
+                <Fragment>
+                  <div className="checkbox__label">Out of stock</div>
+                  <div className="checkbox--uncheck"></div>
+                </Fragment>
+              )}
             </div>
           </div>
         )}

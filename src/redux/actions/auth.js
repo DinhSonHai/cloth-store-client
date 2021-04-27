@@ -79,13 +79,13 @@ export const register = (formData, hideRegister, showLogin) => async (dispatch) 
 }
 
 // Change info
-export const changeInfo = ({ name, email }, setEdit) => async (dispatch) => {
+export const changeInfo = ({ name }, setEdit) => async (dispatch) => {
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
-  const body = JSON.stringify({ name, email });
+  const body = JSON.stringify({ name });
   try {
     const res = await axios.put('/api/auth/info', body, config);
     dispatch(loadUser());

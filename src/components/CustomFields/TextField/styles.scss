@@ -26,6 +26,10 @@
     &::placeholder {
       color: rgba(77, 77, 77, 0.5);
     }
+
+    &:read-only {
+      cursor: default;
+    }
   }
 
   &__invalid {

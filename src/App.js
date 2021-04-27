@@ -31,14 +31,26 @@ function App() {
         store.dispatch(getAllProductsCart(list));
       }
     }
-    // window.addEventListener('storage', () => {
-    //   if (
-    //     !localStorage.token ||
-    //     axios.defaults.headers.common['x-auth-token'] !== localStorage.token
-    //   ) {
-    //     store.dispatch({ type: LOG_OUT });
-    //   }
-    // });
+    window.addEventListener('storage', () => {
+      if (localStorage.token) {
+        setAuthToken(localStorage.token);
+      }
+      store.dispatch(loadUser());
+
+      if (JSON.parse(localStorage.cart).length > 0) {
+        store.dispatch({
+          type: UPDATE_CART,
+          payload: { isHaveCart: true, cart: JSON.parse(localStorage.cart) },
+        });
+
+        let cartCopy = JSON.parse(localStorage.cart);
+
+        if (cartCopy.length > 0) {
+          let list = cartCopy.map(item => item.productId);
+          store.dispatch(getAllProductsCart(list));
+        }
+      }
+    });
   }, []);
 
   return (

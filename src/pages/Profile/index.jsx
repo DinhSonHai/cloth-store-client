@@ -20,10 +20,7 @@ function Profile({ auth, changeInfo, changePassword }) {
 
   const validateProfile = Yup.object({
     name: Yup.string()
-      .required('Please enter a valid name!'),
-    email: Yup.string()
-      .email('Please enter a valid email!')
-      .required('Please enter a valid email!')
+      .required('Please enter a valid name!')
   })
 
   const validatePassword = Yup.object({
@@ -76,8 +73,7 @@ function Profile({ auth, changeInfo, changePassword }) {
               {isEdit ? (<div className="information__edit">
                 <Formik
                   initialValues={{
-                    name: auth.user.name || '',
-                    email: auth.user.email || ''
+                    name: auth.user.name || ''
                   }}
                   validationSchema={validateProfile}
                   onSubmit={values => {
@@ -94,7 +90,6 @@ function Profile({ auth, changeInfo, changePassword }) {
                     <Form className="content__form">
                       {auth?.error?.type === 'changeInfo' && (<p className="content__error">{auth.error.message}</p>)}
                       <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
-                      <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
 
                       <div className="button">
                         <button onClick={handleCancel} className="cancel-button" >Cancel</button>

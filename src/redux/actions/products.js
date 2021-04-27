@@ -18,16 +18,27 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getSearchProducts = (q, categoryId, sort, page) => async (dispatch) => {
+export const getSearchProducts = (q, categoryId, filter, page, type) => async (dispatch) => {
+  let paramName = '';
+  switch (type) {
+    case 'sort':
+      paramName = 'sort';
+      break;
+    case 'size':
+      paramName = 'size';
+      break;
+    default:
+      paramName = '';
+  }
   try {
     let queryParams = '';
     if (categoryId) {
-      if (sort) {
+      if (filter) {
         if (page) {
-          queryParams = `&categoryId=${categoryId}&sort=${sort}&page=${page}`;
+          queryParams = `&categoryId=${categoryId}&${paramName}=${filter}&page=${page}`;
         }
         else {
-          queryParams = `&categoryId=${categoryId}&sort=${sort}`;
+          queryParams = `&categoryId=${categoryId}&${paramName}=${filter}`;
         }
       }
       else {
@@ -40,12 +51,13 @@ export const getSearchProducts = (q, categoryId, sort, page) => async (dispatch)
       }
     }
     else {
-      if (sort) {
+      console.log(filter)
+      if (filter) {
         if (page) {
-          queryParams = `&sort=${sort}&page=${page}`;
+          queryParams = `&${paramName}=${filter}&page=${page}`;
         }
         else {
-          queryParams = `&sort=${sort}`;
+          queryParams = `&${paramName}=${filter}`;
         }
       }
       else {
@@ -69,16 +81,27 @@ export const getSearchProducts = (q, categoryId, sort, page) => async (dispatch)
   }
 }
 
-export const getProductsByType = (typeId, categoryId, sort, page) => async (dispatch) => {
+export const getProductsByType = (typeId, categoryId, filter, page, type) => async (dispatch) => {
+  let paramName = '';
+  switch (type) {
+    case 'sort':
+      paramName = 'sort';
+      break;
+    case 'size':
+      paramName = 'size';
+      break;
+    default:
+      paramName = '';
+  }
   try {
     let queryParams = '';
     if (categoryId) {
-      if (sort) {
+      if (filter) {
         if (page) {
-          queryParams = `?categoryId=${categoryId}&sort=${sort}&page=${page}`;
+          queryParams = `?categoryId=${categoryId}&${paramName}=${filter}&page=${page}`;
         }
         else {
-          queryParams = `?categoryId=${categoryId}&sort=${sort}`;
+          queryParams = `?categoryId=${categoryId}&${paramName}=${filter}`;
         }
       }
       else {
@@ -91,12 +114,13 @@ export const getProductsByType = (typeId, categoryId, sort, page) => async (disp
       }
     }
     else {
-      if (sort) {
+      console.log(filter)
+      if (filter) {
         if (page) {
-          queryParams = `?sort=${sort}&page=${page}`;
+          queryParams = `?${paramName}=${filter}&page=${page}`;
         }
         else {
-          queryParams = `?sort=${sort}`;
+          queryParams = `?${paramName}=${filter}`;
         }
       }
       else {

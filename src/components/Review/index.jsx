@@ -137,15 +137,15 @@ function Review({ auth, product, removeReview }) {
                   : (
                     <Fragment>
                       {
-                        // Get user reviewe
+                        // Get user review
                         product.reviews.filter(review => review.userId._id === auth?.user?._id).map(review => (
                           <div key={review._id} className="review">
                             <div className="review__info">
                               <p className="info__name">You</p>
                               <div className="review__action">
-                                <button onClick={handleShowEdit}>{isEdit ? "Cancle" : "Edit"}</button>
-                                <div className="action__divider"></div>
-                                <button onClick={() => handleRemoveComment(product._id, review._id)}>Delete</button>
+                                {/* <button onClick={handleShowEdit}>{isEdit ? "Cancle" : "Edit"}</button> */}
+                                {/* <div className="action__divider"></div> */}
+                                {/* <button onClick={() => handleRemoveComment(product._id, review._id)}>Delete</button> */}
                               </div>
                             </div>
                             <div className="review__content">

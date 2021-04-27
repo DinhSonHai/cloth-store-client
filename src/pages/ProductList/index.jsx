@@ -32,29 +32,52 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const [sortState, setSortState] = useState('Low to High');
   const [sizeState, setSizeState] = useState('');
   const [colorState, setColorState] = useState('');
+  const [brandState, setBrandState] = useState('');
+  const [availableState, setAvailableState] = useState(0);
 
   const typeId = match.params.typeId;
   const categoryId = query.get("categoryId");
   const sort = query.get("sort");
   const q = query.get("q");
   const size = query.get("size");
+  const color = query.get("color");
+  const brand = query.get("brand");
+  const from = query.get("from");
+  const to = query.get("to");
+  const available = query.get("available");
   const page = parseInt(query.get("page"));
 
   useEffect(() => {
     setLoading(true);
     if (typeId) {
-      getProductsByType(typeId, categoryId, sort, page);
+      if (sort) {
+        getProductsByType(typeId, categoryId, sort, page, 'sort');
+      }
+      else if (size) {
+        getProductsByType(typeId, categoryId, size, page, 'size');
+      }
+      else {
+        getProductsByType(typeId, categoryId, null, page);
+      }
       getTypeById(typeId);
       getCategoriesByType(typeId);
     }
     else {
-      getSearchProducts(q, categoryId, sort, page);
+      if (sort) {
+        getSearchProducts(q, categoryId, sort, page, 'sort');
+      }
+      else if (size) {
+        getSearchProducts(q, categoryId, size, page, 'size');
+      }
+      else {
+        getSearchProducts(q, categoryId, null, page);
+      }
     }
     getAllBrands();
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, page]);
+  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, size, page]);
 
   const handleCategoryClick = (categoryId) => {
     setSelected(categoryId);
@@ -91,6 +114,23 @@ function ProductList({ match, products: { products, total }, type, categories, b
     }
 
     return history.push(`/products/types/${typeId}?sort=${type}`);
+  }
+
+  const handleSizeFilter = (sizeId) => {
+    if (!typeId) {
+      if (categoryId) {
+        return history.push(`/products?q=${q}&categoryId=${categoryId}&size=${sizeId}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&size=${sizeId}`);
+      }
+    }
+
+    if (categoryId) {
+      return history.push(`/products/types/${typeId}?categoryId=${categoryId}&size=${sizeId}`);
+    }
+
+    return history.push(`/products/types/${typeId}?size=${sizeId}`);
   }
 
   const handlePrevPage = () => {
@@ -197,7 +237,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} setSizeState={setSizeState} colorState={colorState} setColorState={setColorState} />}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} setSizeState={setSizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} setColorState={setColorState} brandState={brandState} setBrandState={setBrandState} availableState={availableState} setAvailableState={setAvailableState} />}
 
         </div>
 
