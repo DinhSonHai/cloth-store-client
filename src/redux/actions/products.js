@@ -51,7 +51,6 @@ export const getSearchProducts = (q, categoryId, filter, page, type) => async (d
       }
     }
     else {
-      console.log(filter)
       if (filter) {
         if (page) {
           queryParams = `&${paramName}=${filter}&page=${page}`;
@@ -114,7 +113,6 @@ export const getProductsByType = (typeId, categoryId, filter, page, type) => asy
       }
     }
     else {
-      console.log(filter)
       if (filter) {
         if (page) {
           queryParams = `?${paramName}=${filter}&page=${page}`;

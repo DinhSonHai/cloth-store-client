@@ -87,15 +87,6 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                       <td>{order.total}.00</td>
                       <td><span className="status">Pending</span></td>
                       <td>
-                        {/* <Select
-                          className="select"
-                          value={{ value: -1, label: "Actions" }}
-                          components={{ IndicatorSeparator }}
-                          styles={customStyles}
-                          onChange={(option) => handleChange(option, order._id)}
-                          options={options}
-                          isSearchable={false}
-                        /> */}
                         <div className="action">
                           <p>Actions</p>
                           <DropDown />
