@@ -72,16 +72,12 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
 
   const handleKeyPress = (e) => {
     if (e.key === 'Enter') {
-      if (keyWord) {
-        history.push(`/products?q=${keyWord}`);
-      }
+      history.push(`/products?q=${keyWord}`);
     }
   }
 
   const handleSearchClick = (e) => {
-    if (keyWord) {
-      history.push(`/products?q=${keyWord}`);
-    }
+    history.push(`/products?q=${keyWord}`);
   }
 
   return (
