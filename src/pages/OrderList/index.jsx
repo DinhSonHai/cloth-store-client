@@ -24,7 +24,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
       getAllUsersOrders();
       setLoading(false);
     }
-  }, [auth, getAllUsersOrders]);
+  }, [auth, getAllUsersOrders, loading]);
 
   const handleClick = (index) => {
     setTab(index);
@@ -92,7 +92,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                           <DropDown />
                           <div className="dropdown" onClick={() => handleCancelOrder(order._id)}>
                             <div>
-                              <img className="cancel__image" src={cancel} />
+                              <img className="cancel__image" src={cancel} alt="Cancel" />
                               <p>Remove</p>
                             </div>
                           </div>

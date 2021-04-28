@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { connect } from 'react-redux';
 import { Formik, Form } from 'formik';
 // import PropTypes from 'prop-types';
@@ -15,7 +15,7 @@ Profile.propTypes = {
 
 function Profile({ auth, changeInfo, changePassword }) {
   const [loading, setLoading] = useState(false);
-  const [sidebar, setsidebar] = useState(0);
+  const [sidebar, setSidebar] = useState(0);
   const [isEdit, setEdit] = useState(false);
 
   const validateProfile = Yup.object({
@@ -39,7 +39,7 @@ function Profile({ auth, changeInfo, changePassword }) {
     if (index === 0) {
       setEdit(false);
     }
-    setsidebar(index);
+    setSidebar(index);
   }
 
   const handleEdit = () => {
@@ -137,7 +137,7 @@ function Profile({ auth, changeInfo, changePassword }) {
                       const isSuccess = await changePassword(values);
                       setLoading(false);
                       if (isSuccess) {
-                        resetForm();
+                        setSidebar(0);
                       }
                     }
                     change();

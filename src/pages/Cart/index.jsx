@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { getAllProductsCart, checkOut } from '../../redux/actions/products';
 import TableRow from '../../components/CustomFields/TableRow';
 import EmptyCart from '../../assets/images/empty-cart.png';
-import { Redirect, useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
 
 Cart.propTypes = {
@@ -39,6 +39,7 @@ function Cart({ cart: { cart, isHaveCart, productsCart }, getAllProductsCart, ch
             quantity: item.quantity
           };
         }
+        return false;
       })
       setLoading(true);
       const isSuccess = await checkOut(detail);

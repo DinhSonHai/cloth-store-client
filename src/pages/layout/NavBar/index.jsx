@@ -64,7 +64,7 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
     setLoading(true);
     getAllCollections();
     setLoading(false);
-  }, [loading]);
+  }, [getAllCollections, loading]);
 
   const handleChange = (e) => {
     setKeyWord(e.target.value);

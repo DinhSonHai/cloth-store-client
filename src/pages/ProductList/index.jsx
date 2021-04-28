@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -40,11 +40,11 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const sort = query.get("sort");
   const q = query.get("q");
   const size = query.get("size");
-  const color = query.get("color");
-  const brand = query.get("brand");
-  const from = query.get("from");
-  const to = query.get("to");
-  const available = query.get("available");
+  // const color = query.get("color");
+  // const brand = query.get("brand");
+  // const from = query.get("from");
+  // const to = query.get("to");
+  // const available = query.get("available");
   const page = parseInt(query.get("page"));
 
   useEffect(() => {
@@ -77,7 +77,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, size, page]);
+  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, size, page]);
 
   const handleCategoryClick = (categoryId) => {
     setSelected(categoryId);
