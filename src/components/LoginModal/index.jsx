@@ -62,10 +62,6 @@ function LoginModal({ auth, hideLogin, showRegister, showForgotPassword, login }
               <TextField type="password" label="PASSWORD" name="password" placeholder="Enter your password..." width={"395px"} height={"46px"} backgroundColor={"var(--white-two)"} />
 
               <div className="form__option">
-                <div className="option__remember">
-                  <input type="checkbox" id="rememeber-box" checked={Boolean(isCheck)} onChange={onChangeCheckBox} />
-                  <label htmlFor="remember-box">Keep me login</label>
-                </div>
                 <p onClick={() => { hideLogin(); showForgotPassword(); }} className="option__forgot">Forgot your password?</p>
               </div>
 
