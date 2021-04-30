@@ -27,186 +27,160 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const query = useQuery();
   const history = useHistory();
 
-  const [isSelected, setSelected] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [sortState, setSortState] = useState('Low to High');
-  const [sizeState, setSizeState] = useState('');
-  const [colorState, setColorState] = useState('');
-  const [brandState, setBrandState] = useState('');
-  const [availableState, setAvailableState] = useState(0);
-
   const typeId = match.params.typeId;
   const categoryId = query.get("categoryId");
-  const sort = query.get("sort");
   const q = query.get("q");
-  const size = query.get("size");
+  const sort = query.get("sort");
+  const page = parseInt(query.get("page"));
+  // const size = query.get("size");
   // const color = query.get("color");
   // const brand = query.get("brand");
   // const from = query.get("from");
   // const to = query.get("to");
   // const available = query.get("available");
-  const page = parseInt(query.get("page"));
+
+  const [categorySelected, setCategorySelected] = useState(categoryId || '');
+  const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(page || 1);
+  const [sortState, setSortState] = useState(sort || 'asc');
+  const [keyWord, setKeyWord] = useState(q || '');
+  const [sizeState, setSizeState] = useState('');
+  const [colorState, setColorState] = useState('');
+  const [brandState, setBrandState] = useState('');
+  const [availableState, setAvailableState] = useState(0);
+
+  const handleCategoryClick = (_categoryId) => {
+    setCategorySelected(_categoryId);
+    setCurrentPage(1);
+
+    if (typeId) {
+      if (_categoryId) {
+        return history.push(`/products/types/${typeId}?categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}`);
+      }
+    }
+    else {
+      if (_categoryId) {
+        return history.push(`/products?q=${keyWord}&categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
+      }
+      else {
+        return history.push(`/products?q=${keyWord}sort=${sortState}&page=${1}`);
+      }
+    }
+  }
+
+  const handleSort = (type) => {
+    let defaultSort = 'asc';
+
+    if (type === 'name') {
+      setSortState('name');
+      defaultSort = type;
+    }
+    else if (type === 'asc') {
+      setSortState('asc');
+      defaultSort = type;
+    }
+    else if (type === 'desc') {
+      setSortState('desc');
+      defaultSort = type;
+    }
+
+    setCurrentPage(1);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?&sort=${defaultSort}&page=${1}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
+      }
+      else {
+        return history.push(`/products?q=${keyWord}&sort=${defaultSort}&page=${1}`);
+      }
+    }
+  }
+
+  const handleSizeFilter = (sizeId) => {
+    // if (!typeId) {
+    //   if (categoryId) {
+    //     return history.push(`/products?q=${q}&categoryId=${categoryId}&size=${sizeId}`);
+    //   }
+    //   else {
+    //     return history.push(`/products?q=${q}&size=${sizeId}`);
+    //   }
+    // }
+
+    // if (categoryId) {
+    //   return history.push(`/products/types/${typeId}?categoryId=${categoryId}&size=${sizeId}`);
+    // }
+
+    // return history.push(`/products/types/${typeId}?size=${sizeId}`);
+  }
+
+  const handlePrevPage = () => {
+    let _page = currentPage - 1;
+    setCurrentPage(_page);
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+      }
+      else {
+        return history.push(`/products?q=${keyWord}&sort=${sortState}&page=${_page}`);
+      }
+    }
+  }
+
+  const handleNextPage = () => {
+    let _page = currentPage + 1;
+    setCurrentPage(_page);
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+      }
+      else {
+        return history.push(`/products?q=${keyWord}&sort=${sortState}&page=${_page}`);
+      }
+    }
+  }
 
   useEffect(() => {
     setLoading(true);
     if (typeId) {
-      if (sort) {
-        getProductsByType(typeId, categoryId, sort, page, 'sort');
-      }
-      else if (size) {
-        getProductsByType(typeId, categoryId, size, page, 'size');
-      }
-      else {
-        getProductsByType(typeId, categoryId, null, page);
-      }
+      getProductsByType(typeId, categorySelected, sortState, currentPage);
       getTypeById(typeId);
       getCategoriesByType(typeId);
     }
     else {
-      if (sort) {
-        getSearchProducts(q, categoryId, sort, page, 'sort');
-      }
-      else if (size) {
-        getSearchProducts(q, categoryId, size, page, 'size');
-      }
-      else {
-        getSearchProducts(q, categoryId, null, page);
-      }
+      getSearchProducts(keyWord, categorySelected, sortState, currentPage);
     }
     getAllBrands();
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, q, categoryId, sort, size, page]);
-
-  const handleCategoryClick = (categoryId) => {
-    setSelected(categoryId);
-    setSortState('Low to High');
-
-    if (!typeId) {
-      if (categoryId) {
-        return history.push(`/products?q=${q}&categoryId=${categoryId}`);
-      }
-      else {
-        return history.push(`/products?q=${q}`);
-      }
-    }
-
-    if (categoryId) {
-      return history.push(`/products/types/${typeId}?categoryId=${categoryId}`);
-    }
-
-    return history.push(`/products/types/${typeId}`);
-  }
-
-  const handleSort = (type) => {
-    if (!typeId) {
-      if (categoryId) {
-        return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${type}`);
-      }
-      else {
-        return history.push(`/products?q=${q}&sort=${type}`);
-      }
-    }
-
-    if (categoryId) {
-      return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${type}`);
-    }
-
-    return history.push(`/products/types/${typeId}?sort=${type}`);
-  }
-
-  const handleSizeFilter = (sizeId) => {
-    if (!typeId) {
-      if (categoryId) {
-        return history.push(`/products?q=${q}&categoryId=${categoryId}&size=${sizeId}`);
-      }
-      else {
-        return history.push(`/products?q=${q}&size=${sizeId}`);
-      }
-    }
-
-    if (categoryId) {
-      return history.push(`/products/types/${typeId}?categoryId=${categoryId}&size=${sizeId}`);
-    }
-
-    return history.push(`/products/types/${typeId}?size=${sizeId}`);
-  }
-
-  const handlePrevPage = () => {
-    let _page = 1;
-    if (page) {
-      _page = page - 1;
-    }
-    if (_page >= 1) {
-      if (!typeId) {
-        if (categoryId) {
-          if (sort) {
-            return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${sort}&page=${_page}`);
-          }
-          return history.push(`/products?q=${q}&categoryId=${categoryId}&page=${_page}`);
-        }
-        else {
-          if (sort) {
-            return history.push(`/products?q=${q}&sort=${sort}&page=${_page}`);
-          }
-          return history.push(`/products?q=${q}&page=${_page}`);
-        }
-      }
-
-      if (categoryId) {
-        if (sort) {
-          return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}&page=${_page}`);
-        }
-        return history.push(`/products/types/${typeId}?categoryId=${categoryId}&page=${_page}`);
-      }
-
-      if (sort) {
-        return history.push(`/products/types/${typeId}?&sort=${sort}&page=${_page}`);
-      }
-
-      return history.push(`/products/types/${typeId}?page=${_page}`);
-    }
-  }
-
-  const handleNextPage = () => {
-    let _page = 1;
-    if (page) {
-      _page = page + 1;
-    }
-    else {
-      _page = _page + 1;
-    }
-    if (_page <= Math.ceil(total / 10)) {
-      if (!typeId) {
-        if (categoryId) {
-          if (sort) {
-            return history.push(`/products?q=${q}&categoryId=${categoryId}&sort=${sort}&page=${_page}`);
-          }
-          return history.push(`/products?q=${q}&categoryId=${categoryId}&page=${_page}`);
-        }
-        else {
-          if (sort) {
-            return history.push(`/products?q=${q}&sort=${sort}&page=${_page}`);
-          }
-          return history.push(`/products?q=${q}&page=${_page}`);
-        }
-      }
-
-      if (categoryId) {
-        if (sort) {
-          return history.push(`/products/types/${typeId}?categoryId=${categoryId}&sort=${sort}&page=${_page}`);
-        }
-        return history.push(`/products/types/${typeId}?categoryId=${categoryId}&page=${_page}`);
-      }
-
-      if (sort) {
-        return history.push(`/products/types/${typeId}?&sort=${sort}&page=${_page}`);
-      }
-
-      return history.push(`/products/types/${typeId}?page=${_page}`);
-    }
-  }
+  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, categoryId, categorySelected, q, sort, page, sortState, currentPage]);
 
   return (
     <div className="product-list">
@@ -223,14 +197,14 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__category">
             <p className="category__title">Category</p>
             {typeId ? (
-              <p onClick={() => handleCategoryClick(null)} className={categoryId ? ("category__type") : (!isSelected ? "category__type category--active" : "category__type")}>{type && type.typeName}</p>
+              <p onClick={() => handleCategoryClick('')} className={categoryId ? ("category__type") : (!categorySelected ? "category__type category--active" : "category__type")}>{type && type.typeName}</p>
             ) : (
-              <p onClick={() => handleCategoryClick(null)} className={categoryId ? ("category__type") : (!isSelected ? "category__type category--active" : "category__type")}>All results</p>
+              <p onClick={() => handleCategoryClick('')} className={categoryId ? ("category__type") : (!categorySelected ? "category__type category--active" : "category__type")}>All results</p>
             )}
             <div className="category__divider"></div>
             <div className="category__detail">
               {categories && categories.map((category, index) => (
-                <p key={index} onClick={() => handleCategoryClick(category._id)} className={isSelected === category._id ? "category--active" : ""}>{category.categoryName}</p>
+                <p key={index} onClick={() => handleCategoryClick(category._id)} className={categorySelected === category._id ? "category--active" : ""}>{category.categoryName}</p>
               ))}
             </div>
           </div>
@@ -247,9 +221,9 @@ function ProductList({ match, products: { products, total }, type, categories, b
               <div className="content__top">
                 <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />
                 <div className="pagination">
-                  <button className="pagination__previous" disabled={!page || page === 1} onClick={handlePrevPage}><Arrow /></button>
-                  {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
-                  <button className="pagination__next" disabled={Math.ceil(total / 10) === 1 || page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
+                  <button className="pagination__previous" disabled={currentPage <= 1} onClick={handlePrevPage}><Arrow /></button>
+                  {total && <p className="pagination__page">{currentPage}/{Math.ceil(total / 10)}</p>}
+                  <button className="pagination__next" disabled={currentPage === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
                 </div>
               </div>
               <div className="content__card">
@@ -257,16 +231,15 @@ function ProductList({ match, products: { products, total }, type, categories, b
               </div>
               <div className="content__bottom">
                 <div className="pagination">
-                  <button className="pagination__previous" disabled={!page || page === 1} onClick={handlePrevPage}><Arrow /></button>
-                  {total && <p className="pagination__page">{page ? page : 1}/{Math.ceil(total / 10)}</p>}
-                  <button className="pagination__next" disabled={Math.ceil(total / 10) === 1 || page === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
+                  <button className="pagination__previous" disabled={currentPage <= 1} onClick={handlePrevPage}><Arrow /></button>
+                  {total && <p className="pagination__page">{currentPage}/{Math.ceil(total / 10)}</p>}
+                  <button className="pagination__next" disabled={currentPage === Math.ceil(total / 10)} onClick={handleNextPage}><Arrow /></button>
                 </div>
               </div>
             </div>
           ) : (
             <p className="no-result">No result found</p>
           )
-
         )}
       </div>
     </div >

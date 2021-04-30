@@ -19,15 +19,6 @@ function SelectBox({ handleSort, sortState, setSortState }) {
   }
 
   const handleSelect = (type) => {
-    if (type === 'name') {
-      setSortState('Name');
-    }
-    else if (type === 'asc') {
-      setSortState('Low to High');
-    }
-    else if (type === 'desc') {
-      setSortState('High to Low');
-    }
     handleSort(type);
     setOpen(false);
   }
@@ -50,7 +41,7 @@ function SelectBox({ handleSort, sortState, setSortState }) {
     <div className="select-box" ref={wrapperRef}>
       <div className="select" onClick={handleOpen}>
         <p className="sort-by">Sort By:</p>
-        <p className="type">{sortState}</p>
+        <p className="type">{sortState === 'name' && "Name"}{sortState === 'asc' && "Low to High"}{sortState === 'desc' && "High to Low"}</p>
         <span className={isOpen ? "rotate" : ""}>
           <Arrow />
         </span>
