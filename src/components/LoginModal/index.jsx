@@ -19,7 +19,7 @@ LoginModal.propTypes = {
 
 function LoginModal({ auth, hideLogin, showRegister, showForgotPassword, login }) {
   const [loading, setLoading] = useState(false);
-  const [isCheck, setChecked] = useState(localStorage.getItem('isCheck') || false);
+
   const validate = Yup.object({
     email: Yup.string()
       .email('Please enter a valid email!')
@@ -28,10 +28,6 @@ function LoginModal({ auth, hideLogin, showRegister, showForgotPassword, login }
       .min(6, 'Your passwords must be more than 6 characters!')
       .required('Please enter a valid password!')
   })
-
-  const onChangeCheckBox = (e) => {
-    setChecked(!isCheck);
-  }
 
   return (
     <div className="login-modal" id="login-modal">

@@ -1,5 +1,5 @@
-import React, { Fragment, useEffect, useState } from 'react';
-import { Link, useLocation, useHistory } from 'react-router-dom';
+import React, { Fragment, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Arrow, SelectColorIcon, CheckBoxChecked } from '../../assets/icons';
 import Slider from 'rc-slider';
 import './styles.scss';
@@ -13,11 +13,11 @@ FilterComponent.propTypes = {
 
 };
 
-// A custom hook that builds on useLocation to parse
-// the query string for you.
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+// // A custom hook that builds on useLocation to parse
+// // the query string for you.
+// function useQuery() {
+//   return new URLSearchParams(useLocation().search);
+// }
 
 function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, setSizeState, colorState, setColorState, brandState, setBrandState, availableState, setAvailableState }) {
 

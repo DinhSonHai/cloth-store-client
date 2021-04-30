@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { confirmAlert } from 'react-confirm-alert';
+// import { confirmAlert } from 'react-confirm-alert';
 // import StarRatingComponent from 'react-star-rating-component';
 // import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -15,28 +15,28 @@ Review.propTypes = {
 function Review({ auth, product, removeReview }) {
   const [isEdit, setEdit] = useState(false);
 
-  const handleRemoveComment = (productId, reviewId) => {
-    if (productId && reviewId) {
-      confirmAlert({
-        title: 'Confirm to remove review',
-        message: 'Are you sure to do this.',
-        buttons: [
-          {
-            label: 'Yes',
-            onClick: () => removeReview(productId, reviewId)
-          },
-          {
-            label: 'No',
-            onClick: () => { }
-          }
-        ]
-      });
-    }
-  }
+  // const handleRemoveComment = (productId, reviewId) => {
+  //   if (productId && reviewId) {
+  //     confirmAlert({
+  //       title: 'Confirm to remove review',
+  //       message: 'Are you sure to do this.',
+  //       buttons: [
+  //         {
+  //           label: 'Yes',
+  //           onClick: () => removeReview(productId, reviewId)
+  //         },
+  //         {
+  //           label: 'No',
+  //           onClick: () => { }
+  //         }
+  //       ]
+  //     });
+  //   }
+  // }
 
-  const handleShowEdit = () => {
-    setEdit(!isEdit);
-  }
+  // const handleShowEdit = () => {
+  //   setEdit(!isEdit);
+  // }
 
   return (
     <div className="review-section">

@@ -53,7 +53,6 @@ function ProductInfo({ match, products, product, brandProducts, getProductById, 
   }
 
   const handleAddToCart = () => {
-    // console.log(product.sizes[0]._id)
     let sizeId = '';
     let colorId = '';
     if (!data.sizeId) {

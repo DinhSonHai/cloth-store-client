@@ -43,7 +43,6 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(page || 1);
   const [sortState, setSortState] = useState(sort || 'asc');
-  const [keyWord, setKeyWord] = useState(q || '');
   const [sizeState, setSizeState] = useState('');
   const [colorState, setColorState] = useState('');
   const [brandState, setBrandState] = useState('');
@@ -63,10 +62,10 @@ function ProductList({ match, products: { products, total }, type, categories, b
     }
     else {
       if (_categoryId) {
-        return history.push(`/products?q=${keyWord}&categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
+        return history.push(`/products?q=${q}&categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
       }
       else {
-        return history.push(`/products?q=${keyWord}sort=${sortState}&page=${1}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}`);
       }
     }
   }
@@ -99,10 +98,10 @@ function ProductList({ match, products: { products, total }, type, categories, b
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
       }
       else {
-        return history.push(`/products?q=${keyWord}&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products?q=${q}&sort=${defaultSort}&page=${1}`);
       }
     }
   }
@@ -137,10 +136,10 @@ function ProductList({ match, products: { products, total }, type, categories, b
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
       }
       else {
-        return history.push(`/products?q=${keyWord}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}`);
       }
     }
   }
@@ -158,10 +157,10 @@ function ProductList({ match, products: { products, total }, type, categories, b
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${keyWord}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
       }
       else {
-        return history.push(`/products?q=${keyWord}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}`);
       }
     }
   }
@@ -169,12 +168,30 @@ function ProductList({ match, products: { products, total }, type, categories, b
   useEffect(() => {
     setLoading(true);
     if (typeId) {
+      if (!categoryId) {
+        setCategorySelected('');
+      }
+      if (!sort) {
+        setSortState('asc');
+      }
+      if (!page) {
+        setCurrentPage(1);
+      }
       getProductsByType(typeId, categorySelected, sortState, currentPage);
       getTypeById(typeId);
       getCategoriesByType(typeId);
     }
     else {
-      getSearchProducts(keyWord, categorySelected, sortState, currentPage);
+      if (!categoryId) {
+        setCategorySelected('');
+      }
+      if (!sort) {
+        setSortState('asc');
+      }
+      if (!page) {
+        setCurrentPage(1);
+      }
+      getSearchProducts(q, categorySelected, sortState, currentPage);
     }
     getAllBrands();
     getAllSizes();
@@ -188,7 +205,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
         {typeId ? (
           <p>{type && type.collectionId.collectionName} / <span onClick={() => handleCategoryClick(0)} className="link">{type && type.typeName}</span></p>
         ) : (
-          <p>Search results</p>
+          <p>{`Search results found with keyword: ${q}`}</p>
         )}
 
       </div>

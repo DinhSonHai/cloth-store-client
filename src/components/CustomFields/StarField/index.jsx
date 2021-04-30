@@ -1,5 +1,5 @@
 import React from 'react';
-import { Field, useField } from 'formik';
+import { Field } from 'formik';
 
 import './styles.scss';
 import Star from '../../Star';

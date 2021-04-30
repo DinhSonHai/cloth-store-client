@@ -1,7 +1,5 @@
-import React, { Fragment, useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Arrow } from '../../../assets/icons';
-import { useHistory } from 'react-router-dom';
-import config from '../../../config/default.json';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
@@ -10,7 +8,7 @@ SelectBox.propTypes = {
 
 };
 
-function SelectBox({ handleSort, sortState, setSortState }) {
+function SelectBox({ handleSort, sortState }) {
   const [isOpen, setOpen] = useState(false);
   const wrapperRef = useRef();
 
