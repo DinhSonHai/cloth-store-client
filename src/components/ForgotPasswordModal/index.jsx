@@ -53,7 +53,7 @@ function ResetPasswordModal({ auth, hideForgotPassword, showLogin, forgotPasswor
             <Form className="content__form">
               <TextField type="text" label="E-MAIL" id="email" name="email" placeholder="Enter your email..." width={"395px"} height={"46px"} backgroundColor={"var(--white-two)"} />
 
-              <button type="submit" className="form__button" disabled={!formik.isValid} >
+              <button type="submit" className="form__button" disabled={!formik.isValid || loading} >
                 {loading && <span className="spinner"><Spinner width="49px" /></span>}
                 Submit
               </button>

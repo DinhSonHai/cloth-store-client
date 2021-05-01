@@ -1,25 +1,33 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
+import { useLocation, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-import TextField from '../../components/CustomFields/TextField';
 // import PropTypes from 'prop-types';
 
 import './styles.scss';
+import TextField from '../../components/CustomFields/TextField';
 import Spinner from '../../components/Spinner';
-import { resetPassword } from '../../redux/actions/auth';
-import { connect } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { resetPassword, checkResetPasswordToken } from '../../redux/actions/auth';
 
 ResetPasswordPage.propTypes = {
 
 };
 
-function ResetPasswordPage({ match, auth, resetPassword }) {
+// A custom hook that builds on useLocation to parse
+// the query string for you.
+function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
+
+function ResetPasswordPage({ auth, resetPassword }) {
+  const query = useQuery();
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
-  const token = match.params.token;
+
+  const token = query.get("token");
 
   const validatePassword = Yup.object({
     newPassword: Yup.string()
@@ -29,6 +37,16 @@ function ResetPasswordPage({ match, auth, resetPassword }) {
       .oneOf([Yup.ref("newPassword")], "Password do not match")
       .required('Please enter a valid password!')
   })
+
+  useEffect(() => {
+    async function checkToken() {
+      const result = await checkResetPasswordToken(token);
+      if (!result) {
+        return history.push("/");
+      }
+    }
+    checkToken();
+  }, [token]);
 
   return (
     <div className="reset-password">
@@ -41,7 +59,7 @@ function ResetPasswordPage({ match, auth, resetPassword }) {
             reEnterPassword: ''
           }}
           validationSchema={validatePassword}
-          onSubmit={(values, { resetForm }) => {
+          onSubmit={(values) => {
             async function reset() {
               setLoading(true);
               const isSuccess = await resetPassword({ password: values.newPassword, resetPasswordLink: token });

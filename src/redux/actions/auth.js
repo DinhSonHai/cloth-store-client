@@ -153,6 +153,21 @@ export const forgotPassword = ({ email }) => async (dispatch) => {
 }
 
 // Reset password
+export const checkResetPasswordToken = async (token) => {
+  try {
+    const res = await axios.get(`/api/auth/resetpassword?token=${token}`);
+    toast.success(res.data.message, { position: toast.POSITION.TOP_CENTER });
+    return true;
+  } catch (err) {
+    const error = err.response.data;
+    if (error) {
+      toast.error(error.message, { position: toast.POSITION.TOP_CENTER });
+      return false;
+    }
+  }
+}
+
+// Reset password
 export const resetPassword = ({ password, resetPasswordLink }) => async (dispatch) => {
   const config = {
     headers: {
