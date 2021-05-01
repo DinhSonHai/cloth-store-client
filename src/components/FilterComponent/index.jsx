@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { Arrow, SelectColorIcon, CheckBoxChecked } from '../../assets/icons';
 import Slider from 'rc-slider';
 import './styles.scss';
@@ -19,7 +19,7 @@ FilterComponent.propTypes = {
 //   return new URLSearchParams(useLocation().search);
 // }
 
-function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, setSizeState, colorState, setColorState, brandState, setBrandState, priceState, setPriceState, availableState, setAvailableState }) {
+function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, colorState, handleColorFilter, brandState, handleBrandFilter, priceState, handlePriceFilter, availableState, handleAvailableFilter }) {
 
   const [isOpenSize, setOpenSize] = useState(false);
   const [isOpenColor, setOpenColor] = useState(false);
@@ -48,28 +48,25 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, s
   }
 
   const handleSizeChange = (sizeId) => {
-    // handleColorChange('');
-    // handleBrandChange('');
-    // handleColorChange('');
-    // handleAvailableChange(0);
+
     handleSizeFilter(sizeId);
   }
 
   const handleColorChange = (colorId) => {
-    setColorState(colorId);
+    handleColorFilter(colorId);
   }
 
   const handleBrandChange = (brandId) => {
-    setBrandState(brandId);
+    handleBrandFilter(brandId);
   }
 
   const handleAvailableChange = (option) => {
-    setAvailableState(option);
+    handleAvailableFilter(option);
   }
 
   const handlePriceChange = (rangeValues) => {
-    setPriceState(rangeValues);
-    console.log(rangeValues)
+    handlePriceFilter(rangeValues);
+    // console.log(rangeValues)
   }
 
   return (
@@ -149,7 +146,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, s
                   <CheckBoxChecked />
                 </Fragment>
                 ) : (<Fragment>
-                  <label for={`checkBox${index}`} className="checkbox__label">{brand.brand}</label>
+                  <label htmlFor={`checkBox${index}`} className="checkbox__label">{brand.brand}</label>
                   <div className="checkbox--uncheck"></div>
                 </Fragment>
                 )}
@@ -207,8 +204,8 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, s
         </div>
         {isOpenAvailable && (
           <div className="available__content">
-            <div className="content" onClick={() => handleAvailableChange('true')}>
-              {availableState ? (<Fragment>
+            <div className="content" onClick={() => handleAvailableChange('instore')}>
+              {availableState === 'instore' ? (<Fragment>
                 <div className="checkbox__label checkbox__label--checked">In-store</div>
                 <CheckBoxChecked />
               </Fragment>) : (
@@ -218,8 +215,8 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, s
                 </Fragment>
               )}
             </div>
-            <div className="content" onClick={() => handleAvailableChange('')}>
-              {!availableState ? (<Fragment>
+            <div className="content" onClick={() => handleAvailableChange('outofstock')}>
+              {availableState === 'outofstock' ? (<Fragment>
                 <div className="checkbox__label checkbox__label--checked">Out of stock</div>
                 <CheckBoxChecked />
               </Fragment>) : (

@@ -47,32 +47,42 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const [colorState, setColorState] = useState(color || '');
   const [brandState, setBrandState] = useState(brand || '');
   const [priceState, setPriceState] = useState(from && to ? [from, to] : [0, 300]);
-  const [availableState, setAvailableState] = useState(available || 'true');
+  const [availableState, setAvailableState] = useState(available || '');
   const [filter, setFilter] = useState(null);
 
   const handleCategoryClick = (_categoryId) => {
     setCategorySelected(_categoryId);
     setCurrentPage(1);
 
+    let filterParams = '';
+    for (let key in filter) {
+      filterParams = filterParams.concat(`&${key}=${filter[key]}`);
+    }
+
     if (typeId) {
       if (_categoryId) {
-        return history.push(`/products/types/${typeId}?categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
+        return history.push(`/products/types/${typeId}?categoryId=${_categoryId}&sort=${sortState}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}`);
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
       }
     }
     else {
       if (_categoryId) {
-        return history.push(`/products?q=${q}&categoryId=${_categoryId}&sort=${sortState}&page=${1}`);
+        return history.push(`/products?q=${q}&categoryId=${_categoryId}&sort=${sortState}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
       }
     }
   }
 
   const handleSort = (type) => {
+    let filterParams = '';
+    for (let key in filter) {
+      filterParams = filterParams.concat(`&${key}=${filter[key]}`);
+    }
+
     let defaultSort = 'asc';
 
     if (type === 'name') {
@@ -92,18 +102,18 @@ function ProductList({ match, products: { products, total }, type, categories, b
 
     if (typeId) {
       if (categorySelected) {
-        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${defaultSort}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products/types/${typeId}?&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products/types/${typeId}?&sort=${defaultSort}&page=${1}${filterParams}`);
       }
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${defaultSort}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products?q=${q}&sort=${defaultSort}&page=${1}`);
+        return history.push(`/products?q=${q}&sort=${defaultSort}&page=${1}${filterParams}`);
       }
     }
   }
@@ -112,20 +122,40 @@ function ProductList({ match, products: { products, total }, type, categories, b
     setSizeState(sizeId);
     setCurrentPage(1);
 
-    let filterQuery = { size: sizeId, available: 'true' };
-    if (colorState) {
-      filterQuery = { ...filterQuery, color: colorState };
-    }
-    if (brandState) {
-      filterQuery = { ...filterQuery, brand: brandState };
-    }
-    if (priceState) {
-      filterQuery = { ...filterQuery, from: priceState[0], to: priceState[1] };
-    }
-    if (!availableState) {
-      delete filterQuery['available'];
+    let filterQuery = { ...filter, size: sizeId };
+    setFilter(filterQuery);
+
+    let filterParams = '';
+    for (let key in filterQuery) {
+      filterParams = filterParams.concat(`&${key}=${filterQuery[key]}`);
     }
 
+    console.log(filterParams);
+    // console.log(filterQuery);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+  }
+
+  const handleColorFilter = (colorId) => {
+    setColorState(colorId);
+    setCurrentPage(1);
+
+    let filterQuery = { ...filter, color: colorId };
     setFilter(filterQuery);
 
     let filterParams = '';
@@ -138,60 +168,171 @@ function ProductList({ match, products: { products, total }, type, categories, b
 
     if (typeId) {
       if (categorySelected) {
-        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
       }
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
       }
       else {
-        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+  }
+
+  const handleBrandFilter = (brandId) => {
+    setBrandState(brandId);
+    setCurrentPage(1);
+
+    let filterQuery = { ...filter, brand: brandId };
+    setFilter(filterQuery);
+
+    let filterParams = '';
+    for (let key in filterQuery) {
+      filterParams = filterParams.concat(`&${key}=${filterQuery[key]}`);
+    }
+
+    // console.log(filterParams);
+    // console.log(filterQuery);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+  }
+
+  const handlePriceFilter = (rangeValues) => {
+    setPriceState(rangeValues);
+    setCurrentPage(1);
+
+    let filterQuery = { ...filter, from: rangeValues[0], to: rangeValues[1] };
+    setFilter(filterQuery);
+
+    let filterParams = '';
+    for (let key in filterQuery) {
+      filterParams = filterParams.concat(`&${key}=${filterQuery[key]}`);
+    }
+
+    // console.log(filterParams);
+    // console.log(filterQuery);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+  }
+
+  const handleAvailableFilter = (option) => {
+    setAvailableState(option);
+    setCurrentPage(1);
+
+    let filterQuery = { ...filter, available: option };
+    setFilter(filterQuery);
+
+    let filterParams = '';
+    for (let key in filterQuery) {
+      filterParams = filterParams.concat(`&${key}=${filterQuery[key]}`);
+    }
+
+    // console.log(filterParams);
+    // console.log(filterQuery);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}${filterParams}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}${filterParams}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}${filterParams}`);
       }
     }
   }
 
   const handlePrevPage = () => {
+    let filterParams = '';
+    for (let key in filter) {
+      filterParams = filterParams.concat(`&${key}=${filter[key]}`);
+    }
+
     let _page = currentPage - 1;
     setCurrentPage(_page);
+
     if (typeId) {
       if (categorySelected) {
-        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}${filterParams}`);
       }
       else {
-        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}`);
+        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}${filterParams}`);
       }
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}${filterParams}`);
       }
       else {
-        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}${filterParams}`);
       }
     }
   }
 
   const handleNextPage = () => {
+    let filterParams = '';
+    for (let key in filter) {
+      filterParams = filterParams.concat(`&${key}=${filter[key]}`);
+    }
+
     let _page = currentPage + 1;
     setCurrentPage(_page);
+
     if (typeId) {
       if (categorySelected) {
-        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${_page}${filterParams}`);
       }
       else {
-        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}`);
+        return history.push(`/products/types/${typeId}?&sort=${sortState}&page=${_page}${filterParams}`);
       }
     }
     else {
       if (categorySelected) {
-        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${_page}${filterParams}`);
       }
       else {
-        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}`);
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${_page}${filterParams}`);
       }
     }
   }
@@ -259,7 +400,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} setColorState={setColorState} brandState={brandState} setBrandState={setBrandState} priceState={priceState} setPriceState={setPriceState} availableState={availableState} setAvailableState={setAvailableState} />}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} handleColorFilter={handleColorFilter} brandState={brandState} handleBrandFilter={handleBrandFilter} priceState={priceState} handlePriceFilter={handlePriceFilter} availableState={availableState} handleAvailableFilter={handleAvailableFilter} />}
 
         </div>
 
