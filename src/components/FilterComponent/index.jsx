@@ -19,7 +19,7 @@ FilterComponent.propTypes = {
 //   return new URLSearchParams(useLocation().search);
 // }
 
-function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, colorState, handleColorFilter, brandState, handleBrandFilter, priceState, handlePriceFilter, availableState, handleAvailableFilter }) {
+function FilterComponent({ brands, sizes, colors, filter, handleSizeFilter, handleColorFilter, handleBrandFilter, handlePriceFilter, handleAvailableFilter }) {
 
   const [isOpenSize, setOpenSize] = useState(false);
   const [isOpenColor, setOpenColor] = useState(false);
@@ -86,7 +86,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
         {isOpenSize && (
           <div className="size__content">
             { sizes.map(size => (
-              <button key={size._id} className={sizeState === size._id ? ("content content--active") : ("content")} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
+              <button key={size._id} className={filter.size === size._id ? ("content content--active") : ("content")} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
             ))}
           </div>
         )}
@@ -107,7 +107,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
             { colors.map(color => (
               <button key={color._id} className="content" style={{ backgroundColor: color.colorName }} onClick={() => handleColorChange(color._id)}>
                 {
-                  colorState === color._id ? (
+                  filter.color === color._id ? (
                     <span className="select-color-icon">
                       <SelectColorIcon />
                     </span>
@@ -141,7 +141,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
               <div key={brand._id} className="content" onClick={() => handleBrandChange(brand._id)}>
                 {/* <input id={`checkBox${index}`} type="checkbox" /> */}
                 {/* <CheckBoxChecked /> */}
-                {brandState === brand._id ? (<Fragment>
+                {filter.brand === brand._id ? (<Fragment>
                   <label htmlFor={`checkBox${index}`} className="checkbox__label checkbox__label--checked">{brand.brand}</label>
                   <CheckBoxChecked />
                 </Fragment>
@@ -176,7 +176,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
                 }}
                 min={0}
                 max={300}
-                defaultValue={priceState}
+                defaultValue={[filter.from, filter.to]}
                 tipFormatter={value => `$${value}`}
                 tipProps={{
                   placement: "bottom",
@@ -205,7 +205,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
         {isOpenAvailable && (
           <div className="available__content">
             <div className="content" onClick={() => handleAvailableChange('instore')}>
-              {availableState === 'instore' ? (<Fragment>
+              {filter.available === 'instore' ? (<Fragment>
                 <div className="checkbox__label checkbox__label--checked">In-store</div>
                 <CheckBoxChecked />
               </Fragment>) : (
@@ -216,7 +216,7 @@ function FilterComponent({ brands, sizes, colors, sizeState, handleSizeFilter, c
               )}
             </div>
             <div className="content" onClick={() => handleAvailableChange('outofstock')}>
-              {availableState === 'outofstock' ? (<Fragment>
+              {filter.available === 'outofstock' ? (<Fragment>
                 <div className="checkbox__label checkbox__label--checked">Out of stock</div>
                 <CheckBoxChecked />
               </Fragment>) : (

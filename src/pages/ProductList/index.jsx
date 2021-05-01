@@ -43,12 +43,19 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(page || 1);
   const [sortState, setSortState] = useState(sort || 'asc');
-  const [sizeState, setSizeState] = useState(size || '');
-  const [colorState, setColorState] = useState(color || '');
-  const [brandState, setBrandState] = useState(brand || '');
-  const [priceState, setPriceState] = useState(from && to ? [from, to] : [0, 300]);
-  const [availableState, setAvailableState] = useState(available || '');
-  const [filter, setFilter] = useState(null);
+  // const [sizeState, setSizeState] = useState(size || '');
+  // const [colorState, setColorState] = useState(color || '');
+  // const [brandState, setBrandState] = useState(brand || '');
+  // const [priceState, setPriceState] = useState(from && to ? [from, to] : [1, 300]);
+  // const [availableState, setAvailableState] = useState(available || '');
+  const [filter, setFilter] = useState({
+    size: size || '',
+    color: color || '',
+    brand: brand || '',
+    from: parseInt(from) || 1,
+    to: parseInt(to) || 300,
+    available: available || ''
+  });
 
   const handleCategoryClick = (_categoryId) => {
     setCategorySelected(_categoryId);
@@ -119,7 +126,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handleSizeFilter = (sizeId) => {
-    setSizeState(sizeId);
+    // setFilter({...filter, size: sizeId});
     setCurrentPage(1);
 
     let filterQuery = { ...filter, size: sizeId };
@@ -152,7 +159,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handleColorFilter = (colorId) => {
-    setColorState(colorId);
+    // setColorState(colorId);
     setCurrentPage(1);
 
     let filterQuery = { ...filter, color: colorId };
@@ -185,7 +192,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handleBrandFilter = (brandId) => {
-    setBrandState(brandId);
+    // setBrandState(brandId);
     setCurrentPage(1);
 
     let filterQuery = { ...filter, brand: brandId };
@@ -218,7 +225,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handlePriceFilter = (rangeValues) => {
-    setPriceState(rangeValues);
+    // setPriceState(rangeValues);
     setCurrentPage(1);
 
     let filterQuery = { ...filter, from: rangeValues[0], to: rangeValues[1] };
@@ -251,7 +258,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handleAvailableFilter = (option) => {
-    setAvailableState(option);
+    // setAvailableState(option);
     setCurrentPage(1);
 
     let filterQuery = { ...filter, available: option };
@@ -338,6 +345,23 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   useEffect(() => {
+    if (!size) {
+      delete filter['size'];
+    }
+    if (!color) {
+      delete filter['color'];
+    }
+    if (!brand) {
+      delete filter['brand'];
+    }
+    if (!available) {
+      delete filter['available'];
+    }
+    for (let key in filter) {
+      if (!filter[key]) {
+        delete (filter[key])
+      }
+    }
     setLoading(true);
     if (typeId) {
       if (!categoryId) {
@@ -363,7 +387,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
       if (!page) {
         setCurrentPage(1);
       }
-      getSearchProducts(q, categorySelected, sortState, currentPage);
+      getSearchProducts(q, categorySelected, sortState, currentPage, filter);
     }
     getAllBrands();
     getAllSizes();
@@ -400,7 +424,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} handleColorFilter={handleColorFilter} brandState={brandState} handleBrandFilter={handleBrandFilter} priceState={priceState} handlePriceFilter={handlePriceFilter} availableState={availableState} handleAvailableFilter={handleAvailableFilter} />}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} filter={filter} handleSizeFilter={handleSizeFilter} handleColorFilter={handleColorFilter} handleBrandFilter={handleBrandFilter} handlePriceFilter={handlePriceFilter} handleAvailableFilter={handleAvailableFilter} />}
 
         </div>
 

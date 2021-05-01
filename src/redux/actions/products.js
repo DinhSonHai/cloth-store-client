@@ -18,13 +18,19 @@ export const getAllProducts = () => async (dispatch) => {
   }
 }
 
-export const getSearchProducts = (q, categoryId, sort, page) => async (dispatch) => {
+export const getSearchProducts = (q, categoryId, sort, page, filter) => async (dispatch) => {
+  let filterParams = '';
+  for (let key in filter) {
+    filterParams = filterParams.concat(`&${key}=${filter[key]}`);
+  }
+  console.log(filterParams);
+
   let queryParams = '';
   if (categoryId) {
-    queryParams = `&categoryId=${categoryId}&sort=${sort}&page=${page}`;
+    queryParams = `&categoryId=${categoryId}&sort=${sort}&page=${page}${filterParams}`;
   }
   else {
-    queryParams = `&sort=${sort}&page=${page}`;
+    queryParams = `&sort=${sort}&page=${page}${filterParams}`;
   }
 
   try {
