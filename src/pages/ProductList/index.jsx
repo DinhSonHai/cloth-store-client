@@ -32,21 +32,23 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const q = query.get("q");
   const sort = query.get("sort");
   const page = parseInt(query.get("page"));
-  // const size = query.get("size");
-  // const color = query.get("color");
-  // const brand = query.get("brand");
-  // const from = query.get("from");
-  // const to = query.get("to");
-  // const available = query.get("available");
+  const size = query.get("size");
+  const color = query.get("color");
+  const brand = query.get("brand");
+  const from = query.get("from");
+  const to = query.get("to");
+  const available = query.get("available");
 
   const [categorySelected, setCategorySelected] = useState(categoryId || '');
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(page || 1);
   const [sortState, setSortState] = useState(sort || 'asc');
-  const [sizeState, setSizeState] = useState('');
-  const [colorState, setColorState] = useState('');
-  const [brandState, setBrandState] = useState('');
-  const [availableState, setAvailableState] = useState(0);
+  const [sizeState, setSizeState] = useState(size || '');
+  const [colorState, setColorState] = useState(color || '');
+  const [brandState, setBrandState] = useState(brand || '');
+  const [priceState, setPriceState] = useState(from && to ? [from, to] : [0, 300]);
+  const [availableState, setAvailableState] = useState(available || 'true');
+  const [filter, setFilter] = useState(null);
 
   const handleCategoryClick = (_categoryId) => {
     setCategorySelected(_categoryId);
@@ -107,20 +109,49 @@ function ProductList({ match, products: { products, total }, type, categories, b
   }
 
   const handleSizeFilter = (sizeId) => {
-    // if (!typeId) {
-    //   if (categoryId) {
-    //     return history.push(`/products?q=${q}&categoryId=${categoryId}&size=${sizeId}`);
-    //   }
-    //   else {
-    //     return history.push(`/products?q=${q}&size=${sizeId}`);
-    //   }
-    // }
+    setSizeState(sizeId);
+    setCurrentPage(1);
 
-    // if (categoryId) {
-    //   return history.push(`/products/types/${typeId}?categoryId=${categoryId}&size=${sizeId}`);
-    // }
+    let filterQuery = { size: sizeId, available: 'true' };
+    if (colorState) {
+      filterQuery = { ...filterQuery, color: colorState };
+    }
+    if (brandState) {
+      filterQuery = { ...filterQuery, brand: brandState };
+    }
+    if (priceState) {
+      filterQuery = { ...filterQuery, from: priceState[0], to: priceState[1] };
+    }
+    if (!availableState) {
+      delete filterQuery['available'];
+    }
 
-    // return history.push(`/products/types/${typeId}?size=${sizeId}`);
+    setFilter(filterQuery);
+
+    let filterParams = '';
+    for (let key in filterQuery) {
+      filterParams = filterParams.concat(`&${key}=${filterQuery[key]}`);
+    }
+
+    // console.log(filterParams);
+    // console.log(filterQuery);
+
+    if (typeId) {
+      if (categorySelected) {
+        return history.push(`/products/types/${typeId}?categoryId=${categorySelected}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+      }
+      else {
+        return history.push(`/products/types/${typeId}?sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+      }
+    }
+    else {
+      if (categorySelected) {
+        return history.push(`/products?q=${q}&categoryId=${categorySelected}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+      }
+      else {
+        return history.push(`/products?q=${q}&sort=${sortState}&page=${1}&size=${sizeId}${filterParams}`);
+      }
+    }
   }
 
   const handlePrevPage = () => {
@@ -177,7 +208,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
       if (!page) {
         setCurrentPage(1);
       }
-      getProductsByType(typeId, categorySelected, sortState, currentPage);
+      getProductsByType(typeId, categorySelected, sortState, currentPage, filter);
       getTypeById(typeId);
       getCategoriesByType(typeId);
     }
@@ -197,7 +228,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, categoryId, categorySelected, q, sort, page, sortState, currentPage]);
+  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, categoryId, categorySelected, q, sort, page, sortState, currentPage, filter]);
 
   return (
     <div className="product-list">
@@ -228,7 +259,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
           <div className="option__divider"></div>
 
           {/* Filter */}
-          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} setSizeState={setSizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} setColorState={setColorState} brandState={brandState} setBrandState={setBrandState} availableState={availableState} setAvailableState={setAvailableState} />}
+          {brands && sizes && colors && <FilterComponent brands={brands} sizes={sizes} colors={colors} sizeState={sizeState} handleSizeFilter={handleSizeFilter} colorState={colorState} setColorState={setColorState} brandState={brandState} setBrandState={setBrandState} priceState={priceState} setPriceState={setPriceState} availableState={availableState} setAvailableState={setAvailableState} />}
 
         </div>
 
