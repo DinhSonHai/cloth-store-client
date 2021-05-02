@@ -88,7 +88,7 @@ function Profile({ auth, changeInfo, changePassword }) {
                 >
                   {formik => (
                     <Form className="content__form">
-                      {auth?.error?.type === 'changeInfo' && (<p className="content__error">{auth.error.message}</p>)}
+                      {auth.error && auth.error.type === 'changeInfo' && (<p className="content__error">{auth.error.message}</p>)}
                       <TextField type="text" label="NAME" id="name" name="name" placeholder="Enter your name..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
 
                       <div className="button">
@@ -146,7 +146,7 @@ function Profile({ auth, changeInfo, changePassword }) {
                 >
                   {formik => (
                     <Form className="content__form">
-                      {auth?.error?.type === 'changePassword' && (<p className="content__error">{auth.error.message}</p>)}
+                      {auth.error && auth.error.type === 'changePassword' && (<p className="content__error">{auth.error.message}</p>)}
                       <TextField type="password" label="CURRENT PASSWORD" id="currentPassword" name="currentPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
                       <TextField type="password" label="NEW PASSWORD" id="newPassword" name="newPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />
                       <TextField type="password" label="RE-ENTER NEW PASSWORD" id="reEnterPassword" name="reEnterPassword" placeholder="Enter your password..." width={"380px"} height={"46px"} backgroundColor={"var(--white)"} />

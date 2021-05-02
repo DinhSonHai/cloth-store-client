@@ -85,88 +85,92 @@ function ProductInfo({ match, products, product, brandProducts, getProductById, 
     <div className="product-info">
       { loading ? (<Spinner width="200px" />) : (
         <Fragment>
-          <div className="product-info__breadcrumb">
-            <p>Ladies / Dresses / {product?.name}</p>
-          </div>
-          <div className="product-info__main">
-            <div className="product-info__thumbnail">
-              {product?.photos.map((photo, index) => (
-                <div key={index} className="product-info__element">
-                  <img src={photo} alt="Product thumbnail" onClick={handleThumbailCLick} />
+          {product && (
+            <Fragment>
+              <div className="product-info__breadcrumb">
+                <p>Ladies / Dresses / {product.name}</p>
+              </div>
+              <div className="product-info__main">
+                <div className="product-info__thumbnail">
+                  {product.photos.map((photo, index) => (
+                    <div key={index} className="product-info__element">
+                      <img src={photo} alt="Product thumbnail" onClick={handleThumbailCLick} />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            <div className="product-info__img">
-              <img id="main-img" src={mainPhoto || product?.photos[0]} alt="Product main" />
-            </div>
+                <div className="product-info__img">
+                  <img id="main-img" src={mainPhoto || product.photos[0]} alt="Product main" />
+                </div>
 
-            <div className="product-info__product">
-              <p className="product__title">{product?.name}</p>
-              <p className="product__price">{`$${product?.price || 0}.00`}</p>
-              <div className="product__rating">
-                {product && (
-                  <Star rating={product.starRatings} changeRating={null} starDimension={"15px"} />
-                )}
-                <div className="rating__divider"></div>
-                <p className="rating__count">{product?.reviewsCount} Review</p>
-              </div>
-              <div className="product__size">
-                <p className="size__title">Size</p>
-                {product && product?.sizes && product?.sizes.map((size, index) => (
-                  <button key={size._id} className={!sizeState && index === 0 ? "size size--active" : sizeState === size._id ? "size size--active" : "size"} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
-                ))}
-              </div>
-              <div className="product__color">
-                <p className="color__title">Color</p>
-                {product && product?.colors && product?.colors.map((color, index) => (
-                  // <button key={color._id} className={!colorState && index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
-                  <button key={color._id} className="color" style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}>
-                    { !colorState && index === 0 ? (
-                      <span className="select-color-icon">
-                        <SelectColorIcon />
-                      </span>
-                    ) : (
-                      colorState === color._id ? (
-                        <span className="select-color-icon">
-                          <SelectColorIcon />
-                        </span>
-                      ) : (
-                        <span className="select-color-icon">
-                        </span>
-                      )
+                <div className="product-info__product">
+                  <p className="product__title">{product.name}</p>
+                  <p className="product__price">{`$${product.price || 0}.00`}</p>
+                  <div className="product__rating">
+                    {product && (
+                      <Star rating={product.starRatings} changeRating={null} starDimension={"15px"} />
                     )}
-                  </button>
+                    <div className="rating__divider"></div>
+                    <p className="rating__count">{product.reviewsCount} Review</p>
+                  </div>
+                  <div className="product__size">
+                    <p className="size__title">Size</p>
+                    {product && product.sizes && product.sizes.map((size, index) => (
+                      <button key={size._id} className={!sizeState && index === 0 ? "size size--active" : sizeState === size._id ? "size size--active" : "size"} onClick={() => handleSizeChange(size._id)}>{size.sizeName}</button>
+                    ))}
+                  </div>
+                  <div className="product__color">
+                    <p className="color__title">Color</p>
+                    {product && product.colors && product.colors.map((color, index) => (
+                      // <button key={color._id} className={!colorState && index === 0 ? "color color--active" : colorState === color._id ? "color color--active" : "color"} style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}></button>
+                      <button key={color._id} className="color" style={{ backgroundColor: `${color.colorName}` }} onClick={() => handleColorChange(color._id)}>
+                        { !colorState && index === 0 ? (
+                          <span className="select-color-icon">
+                            <SelectColorIcon />
+                          </span>
+                        ) : (
+                          colorState === color._id ? (
+                            <span className="select-color-icon">
+                              <SelectColorIcon />
+                            </span>
+                          ) : (
+                            <span className="select-color-icon">
+                            </span>
+                          )
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                  <div className="product__quantity">
+                    <p className="quantity__title">Quantity</p>
+                    <QuantityField data={data} setData={setData} />
+                  </div>
+                  <button className="product__add-cart" onClick={handleAddToCart}>Add to cart</button>
+                  <div className="product__divider"></div>
+                  <p className="product__description">{product.description}</p>
+                </div>
+
+                <div className="same-brand">
+                  <p>More from</p>
+                  <p className="brand-name">{product && product.brandId.brand}</p>
+                  {brandProducts && brandProducts.map((item, index) => (
+                    <ProductSameBrandItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} />
+                  ))}
+                </div>
+              </div>
+              <Review product={product} />
+              <div className="suggest-section__divider">
+                <div className="divider__start"></div>
+                <p className="divider__title">You may also like</p>
+                <div className="divider__end"></div>
+              </div>
+              <div className="suggest-products">
+                {products && products.filter(item => item._id !== product._id).slice(0, 8).map((item, index) => (
+                  <ProductSuggestItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} name={item.name} />
                 ))}
               </div>
-              <div className="product__quantity">
-                <p className="quantity__title">Quantity</p>
-                <QuantityField data={data} setData={setData} />
-              </div>
-              <button className="product__add-cart" onClick={handleAddToCart}>Add to cart</button>
-              <div className="product__divider"></div>
-              <p className="product__description">{product?.description}</p>
-            </div>
-
-            <div className="same-brand">
-              <p>More from</p>
-              <p className="brand-name">{product && product.brandId.brand}</p>
-              {brandProducts && brandProducts.map((item, index) => (
-                <ProductSameBrandItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} />
-              ))}
-            </div>
-          </div>
-          <Review product={product} />
-          <div className="suggest-section__divider">
-            <div className="divider__start"></div>
-            <p className="divider__title">You may also like</p>
-            <div className="divider__end"></div>
-          </div>
-          <div className="suggest-products">
-            {products && products.filter(item => item._id !== product?._id).slice(0, 8).map((item, index) => (
-              <ProductSuggestItem key={index} to={`/products/${item._id}`} photo={item.photos[0]} name={item.name} />
-            ))}
-          </div>
+            </Fragment>
+          )}
         </Fragment>
       )}
     </div>

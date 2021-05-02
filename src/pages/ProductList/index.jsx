@@ -424,7 +424,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
         </div>
 
         {loading ? <div className="spinner-container"><Spinner width="200px" /></div> : (
-          products?.length > 0 ? (
+          products && products.length > 0 ? (
             <div className="main__content">
               <div className="content__top">
                 <SortBox handleSort={handleSort} sortState={sortState} setSortState={setSortState} />

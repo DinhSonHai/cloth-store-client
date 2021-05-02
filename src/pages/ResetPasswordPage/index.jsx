@@ -52,7 +52,7 @@ function ResetPasswordPage({ auth, resetPassword }) {
     <div className="reset-password">
       <div className="reset-password__content">
         <h1 className="content__title">Reset password</h1>
-        {auth?.error?.type === 'resetPassword' && (<p className="content__error">{auth.error.message}</p>)}
+        {auth.error && auth.error.type === 'resetPassword' && (<p className="content__error">{auth.error.message}</p>)}
         <Formik
           initialValues={{
             newPassword: '',

@@ -72,7 +72,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                 </tr>
                 {tab === 0 &&
                   orders.filter(order => order.status === config.PENDING_ORDER).map(order => (
-                    <tr>
+                    <tr key={order._id}>
                       <td>{order.orderId}</td>
                       <td>{new Date(order.orderedDate).toDateString()}</td>
                       <td>{order.detail[0].name} ({order.detail[0].sizeId.sizeName}) x {order.detail[0].quantity}</td>
