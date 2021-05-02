@@ -14,6 +14,7 @@ import { toast } from 'react-toastify';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
+  console.log(456)
   try {
     const res = await axios.get('/api/auth');
     dispatch({

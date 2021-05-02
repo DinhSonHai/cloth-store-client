@@ -46,7 +46,7 @@ function ResetPasswordPage({ auth, resetPassword }) {
       }
     }
     checkToken();
-  }, [token]);
+  }, [token, history]);
 
   return (
     <div className="reset-password">

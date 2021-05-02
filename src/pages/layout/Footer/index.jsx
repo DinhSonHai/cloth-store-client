@@ -17,12 +17,12 @@ function Footer(props) {
           <Logo />
         </Link>
         <div className="top__nav">
-          <Link to="#" className="nav__link">Home</Link>
-          <Link to="/products" className="nav__link">Products</Link>
-          <Link to="#" className="nav__link">Services</Link>
-          <Link to="#" className="nav__link">About Us</Link>
-          <Link to="#" className="nav__link">Help</Link>
-          <Link to="#" className="nav__link">Contacts</Link>
+          <Link to="/" className="nav__link">Home</Link>
+          <Link to="/products/types/606e9edc9d2925f6dc88d785" className="nav__link">Products</Link>
+          <Link to="/" className="nav__link">Services</Link>
+          <Link to="/" className="nav__link">About Us</Link>
+          <Link to="/" className="nav__link">Help</Link>
+          <Link to="/" className="nav__link">Contacts</Link>
         </div>
         <div className="top__contact">
           <TwitterIcon />
@@ -32,16 +32,16 @@ function Footer(props) {
       </div>
       <div className="footer__bottom">
         <div className="bottom__nav">
-          <Link className="nav__link" to="#">Home</Link>
-          <Link className="nav__link" to="/products">Products</Link>
-          <Link className="nav__link" to="#">Services</Link>
-          <Link className="nav__link" to="#">About Us</Link>
-          <Link className="nav__link" to="#">Help</Link>
-          <Link className="nav__link" to="#">Contacts</Link>
+          <Link className="nav__link" to="/">Home</Link>
+          <Link className="nav__link" to="/products/types/606e9edc9d2925f6dc88d785">Products</Link>
+          <Link className="nav__link" to="/">Services</Link>
+          <Link className="nav__link" to="/">About Us</Link>
+          <Link className="nav__link" to="/">Help</Link>
+          <Link className="nav__link" to="">Contacts</Link>
         </div>
         <div className="bottom__policy">
-          <Link className="policy__link" to="#">Privacy Policy</Link>
-          <Link className="policy__link" to="#">Terms & Conditions</Link>
+          <Link className="policy__link" to="/">Privacy Policy</Link>
+          <Link className="policy__link" to="/">Terms & Conditions</Link>
         </div>
       </div>
     </div>

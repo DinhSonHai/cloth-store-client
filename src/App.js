@@ -7,7 +7,7 @@ import store from './app/store.js';
 import Routes from './routes';
 import setAuthToken from './utils/setAuthToken.js';
 import { loadUser } from './redux/actions/auth.js';
-import { UPDATE_CART } from './redux/types';
+import { LOG_OUT, REMOVE_FROM_CART, UPDATE_CART } from './redux/types';
 import { getAllProductsCart } from './redux/actions/products.js';
 import { Footer, NavBar } from './pages/index.js';
 
@@ -15,8 +15,8 @@ function App() {
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
+      store.dispatch(loadUser());
     }
-    store.dispatch(loadUser());
 
     if (JSON.parse(localStorage.cart).length > 0) {
       store.dispatch({
@@ -34,8 +34,11 @@ function App() {
     window.addEventListener('storage', () => {
       if (localStorage.token) {
         setAuthToken(localStorage.token);
+        store.dispatch(loadUser());
       }
-      store.dispatch(loadUser());
+      else {
+        store.dispatch({ type: LOG_OUT });
+      }
 
       if (JSON.parse(localStorage.cart).length > 0) {
         store.dispatch({
@@ -49,6 +52,9 @@ function App() {
           let list = cartCopy.map(item => item.productId);
           store.dispatch(getAllProductsCart(list));
         }
+      }
+      else {
+        store.dispatch({ type: REMOVE_FROM_CART });
       }
     });
   }, []);

@@ -7,7 +7,7 @@ import { Logo, SearchIcon, Arrow } from '../../../assets/icons';
 import './styles.scss';
 import RegisterModal from '../../../components/RegisterModal';
 import LoginModal from '../../../components/LoginModal';
-import CartAction from '../../../components/CartAction';
+import CartLogoNavBar from '../../../components/CartLogoNavBar';
 
 import { logout } from '../../../redux/actions/auth';
 import { getAllCollections } from '../../../redux/actions/collections';
@@ -119,7 +119,7 @@ function NavBar({ auth, cart, collections, logout, getAllCollections }) {
             </Fragment>
           )}
 
-          <CartAction cart={cart} />
+          <CartLogoNavBar cart={cart} />
 
         </div>
       </div>

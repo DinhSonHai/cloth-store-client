@@ -43,11 +43,6 @@ function ProductList({ match, products: { products, total }, type, categories, b
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(page || 1);
   const [sortState, setSortState] = useState(sort || 'asc');
-  // const [sizeState, setSizeState] = useState(size || '');
-  // const [colorState, setColorState] = useState(color || '');
-  // const [brandState, setBrandState] = useState(brand || '');
-  // const [priceState, setPriceState] = useState(from && to ? [from, to] : [1, 300]);
-  // const [availableState, setAvailableState] = useState(available || '');
   const [filter, setFilter] = useState({
     size: size || '',
     color: color || '',
@@ -393,7 +388,7 @@ function ProductList({ match, products: { products, total }, type, categories, b
     getAllSizes();
     getAllColors();
     setLoading(false);
-  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, categoryId, categorySelected, q, sort, page, sortState, currentPage, filter]);
+  }, [getProductsByType, getSearchProducts, getTypeById, getCategoriesByType, getAllBrands, getAllSizes, getAllColors, typeId, categoryId, categorySelected, q, sort, page, sortState, currentPage, filter, size, brand, color, available]);
 
   return (
     <div className="product-list">

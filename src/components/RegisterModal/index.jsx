@@ -39,7 +39,7 @@ function RegisterModal({ auth, hideRegister, showLogin, register }) {
           </div>
         </div>
         <h1 className="content__title">Register</h1>
-        {auth?.error?.type === 'register' && <p className="content__error">{auth.error.message}</p>}
+        {auth && auth.error && auth.error.type === 'register' && <p className="content__error">{auth.error.message}</p>}
         <Formik
           initialValues={{
             name: '',

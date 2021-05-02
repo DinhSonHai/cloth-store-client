@@ -23,7 +23,7 @@ export const getSearchProducts = (q, categoryId, sort, page, filter) => async (d
   for (let key in filter) {
     filterParams = filterParams.concat(`&${key}=${filter[key]}`);
   }
-  console.log(filterParams);
+  // console.log(filterParams);
 
   let queryParams = '';
   if (categoryId) {
@@ -56,7 +56,7 @@ export const getProductsByType = (typeId, categoryId, sort, page, filter) => asy
   for (let key in filter) {
     filterParams = filterParams.concat(`&${key}=${filter[key]}`);
   }
-  console.log(filterParams);
+  // console.log(filterParams);
   let queryParams = '';
   if (categoryId) {
     queryParams = `?categoryId=${categoryId}&sort=${sort}&page=${page}${filterParams}`;

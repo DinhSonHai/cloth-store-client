@@ -15,16 +15,13 @@ OrderList.propTypes = {
 };
 
 function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
-  const [loading, setLoading] = useState(false);
   const [tab, setTab] = useState(0);
 
   useEffect(() => {
     if (auth.isAuthenticated) {
-      setLoading(true);
       getAllUsersOrders();
-      setLoading(false);
     }
-  }, [auth, getAllUsersOrders, loading]);
+  }, [auth, getAllUsersOrders]);
 
   const handleClick = (index) => {
     setTab(index);
@@ -38,12 +35,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
         {
           label: 'Yes',
           onClick: () => {
-            async function cancel() {
-              setLoading(true);
-              await cancelOrder(orderId);
-              setLoading(false);
-            }
-            cancel();
+            cancelOrder(orderId);
           }
         },
         {
@@ -93,7 +85,7 @@ function OrderList({ auth, orders, getAllUsersOrders, cancelOrder }) {
                           <div className="dropdown" onClick={() => handleCancelOrder(order._id)}>
                             <div>
                               <img className="cancel__image" src={cancel} alt="Cancel" />
-                              <p>Remove</p>
+                              <p>Cancel order</p>
                             </div>
                           </div>
                         </div>

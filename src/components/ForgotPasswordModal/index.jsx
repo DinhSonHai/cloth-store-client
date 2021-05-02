@@ -33,7 +33,7 @@ function ResetPasswordModal({ auth, hideForgotPassword, showLogin, forgotPasswor
         </div>
         <h1 className="content__title">Forgot Password</h1>
         <p className="content__description">Enter your e-mail address below and we’ll get you back on track.</p>
-        {auth?.error?.type === 'forgotPassWord' && (<p className="content__error">{auth.error.message}</p>)}
+        {auth && auth.error && auth.error.type === 'forgotPassWord' && (<p className="content__error">{auth.error.message}</p>)}
         <Formik
           initialValues={{
             email: ''
@@ -44,6 +44,7 @@ function ResetPasswordModal({ auth, hideForgotPassword, showLogin, forgotPasswor
               setLoading(true);
               await forgotPassword(values);
               setLoading(false);
+              hideForgotPassword();
             }
             sendMail();
           }}
