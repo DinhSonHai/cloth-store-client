@@ -43,12 +43,12 @@ function TableRow({ cartItem, productCart }) {
           </td>
           <td style={{ width: '12%' }}>
             <div className="table-row__color">
-              <div className="color__demo" style={{ backgroundColor: `${productCart.colors.find(item => item._id === cartItem.colorId).colorName}` }}></div>
+              <div className="color__demo" style={{ backgroundColor: `${productCart.colors.find(item => item._id === cartItem.colorId)?.colorName}` }}></div>
             </div>
           </td>
           <td style={{ width: '17%' }}>
             <div className="table-row__size">
-              <p className="size__name">{productCart.sizes.find(item => item._id === cartItem.sizeId).sizeName}</p>
+              <p className="size__name">{productCart.sizes.find(item => item._id === cartItem.sizeId)?.sizeName}</p>
             </div>
           </td>
           <td style={{ width: '17%' }}>

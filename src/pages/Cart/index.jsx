@@ -8,6 +8,7 @@ import TableRow from '../../components/CustomFields/TableRow';
 import EmptyCart from '../../assets/images/empty-cart.png';
 import { useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
+import { toast } from 'react-toastify';
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
@@ -37,12 +38,16 @@ function Cart({ cart: { cart, productsCart }, checkOut }) {
           return false;
         })
         setLoading(true);
-        const isSuccess = await checkOut(detail);
-        setLoading(false);
-        if (isSuccess) {
-          // Redirect to profile order page
-          return history.push("/orders/me");
-        }
+        checkOut(detail);
+        setTimeout(() => {
+          setLoading(false);
+          toast.success('Your order is processing', { position: toast.POSITION.TOP_CENTER });
+          return history.goBack();
+        }, 2000);
+        // setLoading(false);
+        // if (isSuccess) {
+        //   // Redirect to profile order page
+        // }
       }
     }
   }

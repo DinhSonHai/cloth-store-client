@@ -15,8 +15,8 @@ function App() {
   useEffect(() => {
     if (localStorage.token) {
       setAuthToken(localStorage.token);
-      store.dispatch(loadUser());
     }
+    store.dispatch(loadUser());
 
     if (JSON.parse(localStorage.cart).length > 0) {
       store.dispatch({

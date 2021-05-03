@@ -19,7 +19,7 @@ function CartDropdownItem({ cartItem, productCart }) {
             <p className="info__name">{productCart.name}</p>
             <div className="second-row">
               <p className="info__price">${productCart.price}</p>
-              <p className="info__detail">{productCart.sizes.find(item => item._id === cartItem.sizeId).sizeName} &#183; {productCart.colors.find(item => item._id === cartItem.colorId).colorName} &#183; {cartItem.quantity}</p>
+              <p className="info__detail">{productCart.sizes.find(item => item._id === cartItem.sizeId)?.sizeName} &#183; {productCart.colors.find(item => item._id === cartItem.colorId)?.colorName} &#183; {cartItem.quantity}</p>
             </div>
           </div>
         </Fragment>
