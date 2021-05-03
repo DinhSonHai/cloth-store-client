@@ -42,9 +42,11 @@ function ResetPasswordModal({ auth, hideForgotPassword, showLogin, forgotPasswor
           onSubmit={values => {
             const sendMail = async () => {
               setLoading(true);
-              await forgotPassword(values);
+              const res = await forgotPassword(values);
               setLoading(false);
-              hideForgotPassword();
+              if (res) {
+                hideForgotPassword();
+              }
             }
             sendMail();
           }}
