@@ -146,7 +146,7 @@ function ProductInfo({ match, products, product, brandProducts, getProductById, 
                   <p className="quantity__title">Quantity</p>
                   <QuantityField data={data} setData={setData} />
                 </div>
-                <button className="product__add-cart" onClick={handleAddToCart}>Add to cart</button>
+                <button className="product__add-cart" onClick={handleAddToCart} disabled={product.quantity <= 0}>Add to cart</button>
                 <div className="product__divider"></div>
                 <p className="product__description">{product.description}</p>
               </div>

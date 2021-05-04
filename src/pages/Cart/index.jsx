@@ -41,7 +41,7 @@ function Cart({ cart: { cart, productsCart }, checkOut }) {
         checkOut(detail);
         setTimeout(() => {
           setLoading(false);
-          toast.success('Your order is processing', { position: toast.POSITION.TOP_CENTER });
+          // toast.success('Your order is processing', { position: toast.POSITION.TOP_CENTER });
           return history.goBack();
         }, 2000);
         // setLoading(false);
