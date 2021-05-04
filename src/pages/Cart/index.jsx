@@ -8,7 +8,7 @@ import TableRow from '../../components/CustomFields/TableRow';
 import EmptyCart from '../../assets/images/empty-cart.png';
 import { useHistory } from 'react-router-dom';
 import Spinner from '../../components/Spinner';
-import { toast } from 'react-toastify';
+// import { toast } from 'react-toastify';
 
 Cart.propTypes = {
   cart: PropTypes.object.isRequired,
